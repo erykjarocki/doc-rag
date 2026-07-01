@@ -1,4 +1,5 @@
 import os
+import re
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -13,8 +14,14 @@ EMBED_DIM = 384
 
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
-QDRANT_COLLECTION = "books"
 
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 TOP_K = 8
+
+_COLLECTION_SAFE = re.compile(r"[^a-zA-Z0-9_-]")
+
+
+def collection_name(book_name: str) -> str:
+    safe = _COLLECTION_SAFE.sub("_", book_name).strip("_").lower()
+    return safe or "book"

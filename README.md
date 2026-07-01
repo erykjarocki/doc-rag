@@ -63,6 +63,29 @@ Add to your OpenCode config (`~/.config/opencode/opencode.json`):
 
 Then OpenCode automatically uses `search_book_tool` when you ask about your PDFs.
 
+## Usage
+
+### Index books
+```bash
+# Index all PDFs (each becomes its own collection)
+python src/ingest.py
+
+# Re-index a specific book
+python src/ingest.py --reindex tom1
+
+# Delete a book from the knowledge base
+python src/ingest.py --delete tom1
+
+# List indexed books
+python src/ingest.py --list
+```
+
+### MCP tools
+
+- `search_book_tool(question, book=None)` — search all books or filter by name
+- `search_book_raw(question, book=None)` — returns JSON with scores
+- `list_books_tool()` — list available books
+
 ## Project structure
 
 ```

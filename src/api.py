@@ -1,17 +1,19 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from retriever import search_book, format_fragments_for_prompt
+from src.retriever import search_book, format_fragments_for_prompt
+from src.qdrant_store import list_collections, delete_collection, get_qdrant_client
 
-app = FastAPI(title="Book RAG API", version="1.0.0")
+app = FastAPI(title="PDF-RAG API", version="1.1.0")
 
 
 class QueryRequest(BaseModel):
     question: str
+    book: str | None = None
 
 
 class Fragment(BaseModel):
@@ -29,7 +31,7 @@ class QueryResponse(BaseModel):
 
 @app.post("/query")
 def query(req: QueryRequest):
-    fragments = search_book(req.question)
+    fragments = search_book(req.question, book=req.book)
     return QueryResponse(
         context=[
             Fragment(
@@ -43,6 +45,21 @@ def query(req: QueryRequest):
         ],
         formatted=format_fragments_for_prompt(fragments),
     )
+
+
+@app.get("/books")
+def list_books():
+    return {"books": list_collections()}
+
+
+@app.delete("/books/{name}")
+def remove_book(name: str):
+    client = get_qdrant_client()
+    collections = list_collections(client)
+    if name not in collections:
+        raise HTTPException(status_code=404, detail=f"Book '{name}' not found")
+    delete_collection(name, client)
+    return {"status": "deleted", "book": name}
 
 
 @app.get("/health")
