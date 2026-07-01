@@ -116,6 +116,31 @@ pdf-rag/
 - RAM: min 4 GB
 - Disk: ~1.5 GB
 
+## Changing the embedding model
+
+The default model is `intfloat/multilingual-e5-small` (384 dim) — fast, local, handles Polish well.
+
+To upgrade or switch:
+
+```bash
+# 1. Edit src/config.py:
+#    EMBED_MODEL = "intfloat/multilingual-e5-large"
+#    EMBED_DIM = 1024   # must match the model's dimension
+
+# 2. Re-index (old collections are replaced automatically)
+python src/ingest.py --reindex investor-tom1
+```
+
+**Model options** (full list on [huggingface.co/intfloat](https://huggingface.co/intfloat)):
+
+| Model | Dimensions | Quality | Speed |
+|---|---|---|---|
+| `multilingual-e5-small` | 384 | good | fast |
+| `multilingual-e5-base` | 768 | better | medium |
+| `multilingual-e5-large` | 1024 | best | slow |
+
+After changing the model you **must reindex** — old embeddings use a different dimension.
+
 ## Adding more documents
 
 ```bash
