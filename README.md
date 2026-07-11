@@ -21,6 +21,14 @@ LLM answers based on found fragments
 
 ## Quick start
 
+### Prerequisites
+
+- Python 3.10+
+- Docker (for Qdrant)
+- Git
+
+### Setup
+
 ```bash
 # 1. Clone
 git clone git@github.com:erykjarocki/pdf-rag.git
@@ -31,7 +39,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# 3. Start Qdrant (Docker)
+# 3. Start Qdrant (Docker) — first time
 docker run -d --name qdrant -p 6333:6333 \
   -v $(pwd)/vector_db/qdrant:/qdrant/storage \
   qdrant/qdrant
@@ -44,6 +52,26 @@ python src/ingest.py
 
 # 6. Run MCP server (standalone test)
 python src/mcp_server.py
+```
+
+### Day-to-day usage
+
+Each time you want to use or update the knowledge base:
+
+```bash
+cd /path/to/pdf-rag
+
+# Activate environment
+source venv/bin/activate
+
+# Start Qdrant (if stopped)
+docker start qdrant
+
+# Index new PDFs or re-index
+python src/ingest.py
+
+# The MCP server connects to Qdrant automatically
+# (configured in opencode.json, see below)
 ```
 
 ## OpenCode integration
