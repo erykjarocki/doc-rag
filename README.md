@@ -34,44 +34,63 @@ LLM answers based on found fragments
 git clone git@github.com:erykjarocki/pdf-rag.git
 cd pdf-rag
 
-# 2. Virtual environment
-python3 -m venv venv
+# 2. Setup (creates venv + installs everything)
+make setup
 source venv/bin/activate
-pip install -r requirements.txt
 
 # 3. Start Qdrant (Docker) — first time
-docker run -d --name qdrant -p 6333:6333 \
-  -v $(pwd)/vector_db/qdrant:/qdrant/storage \
-  qdrant/qdrant
+make qdrant
 
 # 4. Copy your PDFs
 cp /path/to/your/files/*.pdf books/
 
 # 5. Index everything
-python src/ingest.py
+make ingest
 
 # 6. Run MCP server (standalone test)
-python src/mcp_server.py
+make mcp
 ```
 
 ### Day-to-day usage
 
-Each time you want to use or update the knowledge base:
-
 ```bash
-cd /path/to/pdf-rag
-
-# Activate environment
-source venv/bin/activate
-
 # Start Qdrant (if stopped)
-docker start qdrant
+make start
 
 # Index new PDFs or re-index
-python src/ingest.py
+make ingest
 
-# The MCP server connects to Qdrant automatically
-# (configured in opencode.json, see below)
+# Re-index a specific book
+make ingest ARGS="--reindex tom1"
+
+# List indexed books
+make ingest ARGS="--list"
+
+# Run API server
+make serve
+
+# Run MCP server
+make mcp
+
+# Lint & format
+make lint
+make fmt
+```
+
+### All commands
+
+```
+make setup      # First-time setup (venv + install)
+make install    # Reinstall package
+make qdrant     # Start Qdrant (first time)
+make start      # Start Qdrant (stopped container)
+make stop       # Stop Qdrant
+make ingest     # Index PDFs
+make serve      # Run REST API
+make mcp        # Run MCP server
+make lint       # Lint with ruff
+make fmt        # Format with ruff
+make clean      # Remove __pycache__
 ```
 
 ## OpenCode integration
@@ -96,16 +115,16 @@ Then OpenCode automatically uses `search_book_tool` when you ask about your PDFs
 ### Index books
 ```bash
 # Index all PDFs (each becomes its own collection)
-python src/ingest.py
+make ingest
 
 # Re-index a specific book
-python src/ingest.py --reindex tom1
+make ingest ARGS="--reindex tom1"
 
 # Delete a book from the knowledge base
-python src/ingest.py --delete tom1
+make ingest ARGS="--delete tom1"
 
 # List indexed books
-python src/ingest.py --list
+make ingest ARGS="--list"
 ```
 
 ### MCP tools
@@ -133,7 +152,8 @@ pdf-rag/
 │   ├── api.py          # REST API (optional)
 │   └── qdrant_store.py # Qdrant client helpers
 ├── venv/
-├── requirements.txt
+├── pyproject.toml      # Project config & dependencies
+├── Makefile            # Quick commands
 └── README.md
 ```
 
@@ -156,7 +176,7 @@ To upgrade or switch:
 #    EMBED_DIM = 1024   # must match the model's dimension
 
 # 2. Re-index (old collections are replaced automatically)
-python src/ingest.py --reindex investor-tom1
+make ingest ARGS="--reindex investor-tom1"
 ```
 
 **Model options** (full list on [huggingface.co/intfloat](https://huggingface.co/intfloat)):
@@ -174,15 +194,15 @@ After changing the model you **must reindex** — old embeddings use a different
 ```bash
 # Add a new PDF — just copy and index
 cp ~/Downloads/new-book.pdf books/
-python src/ingest.py
+make ingest
 # → new collection created, existing ones untouched
 
 # Re-index a specific book
-python src/ingest.py --reindex tom1
+make ingest ARGS="--reindex tom1"
 
 # Remove a book
-python src/ingest.py --delete tom3
+make ingest ARGS="--delete tom3"
 
 # See what's indexed
-python src/ingest.py --list
+make ingest ARGS="--list"
 ```

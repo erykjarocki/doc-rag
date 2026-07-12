@@ -285,13 +285,15 @@ def index_book(pdf_path: str, reindex: bool = False):
     return result
 
 
-def ingest_all(reindex: str | None = None):
-    """Index all PDFs in the books/ directory.
+def ingest_all(reindex: str | None = None, book: str | None = None):
+    """Index PDFs in the books/ directory.
 
     Skips already-indexed books unless reindex is specified.
+    Can target a specific book with the book parameter.
 
     Args:
         reindex: If provided, only re-index this specific book name.
+        book: If provided, only index this specific book name.
     """
     pdf_files = sorted(glob.glob(os.path.join(BOOKS_DIR, "*.pdf")))
     if not pdf_files:
@@ -310,8 +312,30 @@ def ingest_all(reindex: str | None = None):
         index_book(pdf_path, reindex=True)
         return
 
+    if book:
+        pdf_path = os.path.join(BOOKS_DIR, f"{book}.pdf")
+        if not os.path.exists(pdf_path):
+            possible = [os.path.splitext(os.path.basename(p))[0] for p in pdf_files]
+            print(f"Book '{book}' not found. Available: {possible}")
+            return
+        coll = collection_name(book)
+        existing = list_collections(qdrant)
+        if coll in existing:
+            print(f"Book '{book}' is already indexed. Use --reindex to re-index.")
+            return
+        print(f"Indexing: {book}")
+        index_book(pdf_path, reindex=False)
+        return
+
+    existing_collections = set(list_collections(qdrant))
+
     all_results = []
     for pdf_path in pdf_files:
+        book_name = os.path.splitext(os.path.basename(pdf_path))[0]
+        coll = collection_name(book_name)
+        if coll in existing_collections:
+            print(f"\nSkipping: {os.path.basename(pdf_path)} (already indexed)")
+            continue
         print(f"\nIndexing: {os.path.basename(pdf_path)}")
         result = index_book(pdf_path, reindex=False)
         all_results.append(result)
@@ -353,9 +377,10 @@ def list_books():
         print(f"  - {c} ({total} chunks)")
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="PDF-RAG ingestion pipeline")
     parser.add_argument("--reindex", type=str, help="Re-index a specific book by name")
+    parser.add_argument("--book", type=str, help="Index a specific book by name")
     parser.add_argument("--delete", type=str, help="Delete a book from the knowledge base")
     parser.add_argument("--list", action="store_true", help="List all books in the knowledge base")
     args = parser.parse_args()
@@ -365,4 +390,8 @@ if __name__ == "__main__":
     elif args.delete:
         delete_book(args.delete)
     else:
-        ingest_all(reindex=args.reindex)
+        ingest_all(reindex=args.reindex, book=args.book)
+
+
+if __name__ == "__main__":
+    main()

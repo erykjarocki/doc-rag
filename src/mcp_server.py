@@ -53,5 +53,9 @@ def list_books_tool() -> str:
     return "\n".join(lines)
 
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+
+if __name__ == "__main__":
+    main()
