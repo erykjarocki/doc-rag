@@ -38,10 +38,10 @@ mcp:
 
 # Dev tools
 lint:
-	$(RUFF) check src/
+	$(RUFF) check src/ $(ARGS)
 
 fmt:
-	$(RUFF) format src/
+	$(RUFF) format src/ $(ARGS)
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

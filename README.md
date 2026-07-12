@@ -75,6 +75,7 @@ make mcp
 # Lint & format
 make lint
 make fmt
+make lint ARGS="--fix"   # auto-fix issues
 ```
 
 ### All commands
