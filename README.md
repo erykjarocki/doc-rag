@@ -90,6 +90,8 @@ make serve      # Run REST API
 make mcp        # Run MCP server
 make lint       # Lint with ruff
 make fmt        # Format with ruff
+make docs       # Build documentation to site/
+make docs-serve # Serve docs locally at localhost:8000
 make clean      # Remove __pycache__
 ```
 

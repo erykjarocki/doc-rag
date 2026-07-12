@@ -15,6 +15,9 @@ data/metadata/*
 # Qdrant storage
 vector_db/qdrant/*
 
+# MkDocs build output
+site/
+
 # Keep directory structure
 !data/extracted/.gitkeep
 !data/chunks/.gitkeep

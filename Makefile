@@ -1,4 +1,4 @@
-.PHONY: setup install ingest serve mcp qdrant start stop clean lint fmt
+.PHONY: setup install ingest serve mcp qdrant start stop clean lint fmt docs docs-serve
 
 # Setup (first time)
 setup:
@@ -41,3 +41,10 @@ fmt:
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
 	find . -name "*.pyc" -delete 2>/dev/null || true
+
+# Documentation
+docs:
+	mkdocs build
+
+docs-serve:
+	mkdocs serve
