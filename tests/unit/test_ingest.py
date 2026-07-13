@@ -1,9 +1,9 @@
 import pytest
 
-from src.ingest import (
-    _page_at_position,
+from src.extraction import (
     get_full_text_with_page_info,
     get_page_boundaries,
+    page_at_position,
 )
 
 
@@ -37,15 +37,15 @@ class TestPageAtPosition:
     def test_first_page(self, sample_pages):
         boundaries = get_page_boundaries(sample_pages)
         page_nums = [p["page_num"] for p in sample_pages]
-        assert _page_at_position(boundaries, page_nums, 0) == 1
+        assert page_at_position(boundaries, page_nums, 0) == 1
 
     def test_last_page(self, sample_pages):
         boundaries = get_page_boundaries(sample_pages)
         page_nums = [p["page_num"] for p in sample_pages]
         last_pos = boundaries[-1] - 1
-        assert _page_at_position(boundaries, page_nums, last_pos) == 3
+        assert page_at_position(boundaries, page_nums, last_pos) == 3
 
     def test_beyond_last_page(self, sample_pages):
         boundaries = get_page_boundaries(sample_pages)
         page_nums = [p["page_num"] for p in sample_pages]
-        assert _page_at_position(boundaries, page_nums, 999999) == 3
+        assert page_at_position(boundaries, page_nums, 999999) == 3

@@ -1,3 +1,5 @@
+"""Ingestion pipeline: orchestrate extraction, chunking, and indexing."""
+
 import argparse
 import glob
 import os
@@ -5,156 +7,17 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import fitz
-
 from src.chapter_detection import ChapterDetector
-from src.config import (
-    BOOKS_DIR,
-    CHUNK_OVERLAP,
-    CHUNK_SIZE,
-    EXTRACTED_DIR,
-    collection_name,
-)
-from src.embeddings import embed, get_model, get_tokenizer
+from src.chunking import chunk_text
+from src.config import BOOKS_DIR, EXTRACTED_DIR, collection_name
+from src.embeddings import embed
+from src.extraction import extract_pdf, get_full_text_with_page_info
 from src.qdrant_store import (
     delete_collection,
     ensure_collection,
     get_qdrant_client,
     list_collections,
 )
-
-
-def extract_pdf(pdf_path: str) -> list[dict]:
-    """Extract text from each page of a PDF using PyMuPDF.
-
-    Args:
-        pdf_path: Path to the PDF file.
-
-    Returns:
-        List of dicts with 'page_num' (1-indexed) and 'text' per page.
-    """
-    doc = fitz.open(pdf_path)
-    pages = []
-    for i, page in enumerate(doc):
-        text = page.get_text("text")
-        pages.append({
-            "page_num": i + 1,
-            "text": text.strip(),
-        })
-    doc.close()
-    return pages
-
-
-def get_page_boundaries(pages_data: list[dict]) -> list[int]:
-    """Calculate cumulative character positions marking page boundaries.
-
-    Args:
-        pages_data: List of dicts with 'text' per page.
-
-    Returns:
-        List of cumulative character offsets (one per page).
-    """
-    boundaries = []
-    total = 0
-    for p in pages_data:
-        total += len(p["text"]) + 1
-        boundaries.append(total)
-    return boundaries
-
-
-def get_full_text_with_page_info(pages_data: list[dict]) -> tuple[str, list[int]]:
-    """Join all page texts into one string and compute page boundary offsets.
-
-    Args:
-        pages_data: List of dicts with 'page_num' and 'text' per page.
-
-    Returns:
-        Tuple of (full_text, page_boundaries) where page_boundaries is a
-        list of cumulative character positions marking where each page ends.
-    """
-    segments = []
-    page_nums = []
-    for p in pages_data:
-        segments.append(p["text"])
-        page_nums.append(p["page_num"])
-    full_text = "\n".join(segments)
-    boundaries = get_page_boundaries(pages_data)
-    return full_text, boundaries
-
-
-def _page_at_position(page_boundaries: list[int], page_nums: list[int], pos: int) -> int:
-    """Find which page a character position falls on.
-
-    Args:
-        page_boundaries: Cumulative character offsets per page.
-        page_nums: Corresponding page numbers (1-indexed).
-        pos: Character position in the full text.
-
-    Returns:
-        Page number containing the given position.
-    """
-    for i, boundary in enumerate(page_boundaries):
-        if pos < boundary:
-            return page_nums[i]
-    return page_nums[-1] if page_nums else 1
-
-
-def chunk_text(text: str, page_boundaries: list[int], page_nums: list[int]) -> list[dict]:
-    """Split text into token-aware chunks with page tracking.
-
-    Uses the actual tokenizer to count tokens (not character heuristics).
-    Applies binary-search-style adjustment to hit target_tokens per chunk.
-    Overlaps chunks by CHUNK_OVERLAP tokens to preserve context.
-
-    Args:
-        text: Full concatenated text from all pages.
-        page_boundaries: Cumulative character offsets per page.
-        page_nums: Page numbers corresponding to boundaries.
-
-    Returns:
-        List of dicts with 'text', 'start_page', and 'end_page' per chunk.
-    """
-    tokenizer = get_tokenizer()
-    model = get_model()
-    max_tokens = model.max_seq_length or 512
-    target_tokens = min(CHUNK_SIZE, max_tokens - 10)
-    chunks = []
-
-    init_chars = int(target_tokens * 2.5)
-    overlap_chars = int(CHUNK_OVERLAP * 4)
-    char_pos = 0
-
-    while char_pos < len(text):
-        end_pos = min(char_pos + init_chars, len(text))
-        raw = text[char_pos:end_pos]
-
-        token_count = len(tokenizer.encode(raw))
-        while token_count > target_tokens and end_pos > char_pos + 50:
-            end_pos -= max(1, (token_count - target_tokens) * 2)
-            end_pos = max(end_pos, char_pos + 50)
-            raw = text[char_pos:end_pos]
-            token_count = len(tokenizer.encode(raw))
-
-        raw = raw.strip()
-        if not raw:
-            char_pos = end_pos
-            continue
-
-        start_page = _page_at_position(page_boundaries, page_nums, char_pos)
-        end_page = _page_at_position(page_boundaries, page_nums, end_pos)
-
-        chunks.append({
-            "text": raw,
-            "start_page": start_page,
-            "end_page": end_page,
-        })
-
-        next_pos = end_pos - overlap_chars
-        if next_pos <= char_pos:
-            next_pos = end_pos
-        char_pos = next_pos
-
-    return chunks
 
 
 def process_book(pdf_path: str) -> dict:
