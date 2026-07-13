@@ -1,0 +1,32 @@
+[
+  {
+    "query": "What is the capital of France?",
+    "relevant_pages": [1],
+    "description": "Page 1 mentions Paris as capital of France"
+  },
+  {
+    "query": "Tell me about Berlin",
+    "relevant_pages": [2],
+    "description": "Page 2 mentions Berlin as capital of Germany"
+  },
+  {
+    "query": "famous museums and art",
+    "relevant_pages": [1],
+    "description": "Page 1 mentions the Louvre Museum"
+  },
+  {
+    "query": "the Berlin Wall and Cold War",
+    "relevant_pages": [2],
+    "description": "Page 2 discusses the Berlin Wall"
+  },
+  {
+    "query": "Eiffel Tower history",
+    "relevant_pages": [1],
+    "description": "Page 1 mentions the Eiffel Tower"
+  },
+  {
+    "query": "Brandenburg Gate monument",
+    "relevant_pages": [2],
+    "description": "Page 2 mentions the Brandenburg Gate"
+  }
+]
