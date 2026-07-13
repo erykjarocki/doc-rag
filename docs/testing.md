@@ -108,9 +108,10 @@ pytest tests/eval/test_gutenberg_eval.py -v -m eval
 ```
 
 **What it tests:**
-- Retrieval quality across 22 labeled queries (15 single-chapter + 7 cross-chapter)
+- Retrieval quality across 27 labeled queries across 6 difficulty categories
 - Semantic understanding of a real treatise (not synthetic keyword-separated content)
 - Cross-chapter topic retrieval (e.g., "military organization" → chapters XII, XIII, XIV)
+- Hard queries: negative (irrelevant topics), ambiguous (vague), deep paraphrase (no keyword overlap)
 
 **Thresholds:**
 
@@ -124,7 +125,7 @@ pytest tests/eval/test_gutenberg_eval.py -v -m eval
 1. `gutenberg_corpus.py` fetches the text, strips header/footer, splits by `CHAPTER` markers
 2. `chunk_text()` splits into ~268 chunks (384-token chunks, 50-token overlap)
 3. Chunks are embedded and stored in in-memory Qdrant
-4. 22 queries are run and scored against `labels_gutenberg.json`
+4. 27 queries are run and scored against `labels_gutenberg.json`
 
 #### Why not test with a real book?
 
