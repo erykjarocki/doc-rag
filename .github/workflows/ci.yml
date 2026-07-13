@@ -16,6 +16,10 @@ on:
       - "pyproject.toml"
       - ".github/workflows/ci.yml"
 
+permissions:
+  pages: write
+  id-token: write
+
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -103,11 +107,27 @@ jobs:
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('pyproject.toml') }}
       - run: |
           source .venv/bin/activate
-          pytest tests/eval/ -v -m eval --html=eval-report.html --self-contained-html
+          pytest tests/eval/ -v -m eval
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: eval-report
           path: |
-            eval-report.html
+            tests/eval/eval-report.html
             tests/eval/eval-report.json
+      - uses: actions/upload-pages-artifact@v3
+        if: always()
+        with:
+          path: tests/eval
+          name: github-pages
+
+  deploy-report:
+    needs: [test-eval]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

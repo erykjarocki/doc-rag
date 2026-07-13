@@ -24,3 +24,5 @@ site/
 !data/metadata/.gitkeep
 !vector_db/qdrant/.gitkeep
 tests/eval/eval-report.json
+tests/eval/eval-report.html
+tests/eval/index.html

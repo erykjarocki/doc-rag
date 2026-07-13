@@ -79,6 +79,14 @@ def pytest_sessionfinish(session, exitstatus):
     }
     REPORT_PATH.write_text(json.dumps(report, indent=2, ensure_ascii=False))
 
+    # Generate detailed HTML report
+    try:
+        from tests.eval.generate_report import generate
+
+        generate()
+    except Exception:
+        pass
+
 
 def collect_eval_result(session, query, results, relevant_pages, k=2):
     """Run metrics on a query result and store on session for the summary hook."""
