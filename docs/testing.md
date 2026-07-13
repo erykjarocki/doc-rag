@@ -67,27 +67,34 @@ EVAL RESULTS
 ======================================================================
 
 Query: "What is the capital of France?"
-  [1] score=0.86  page=1  ✓ RELEVANT
+  [1] score=0.85  page=1  ✓ RELEVANT
       Chapter 1: France
       Paris is the capital and most populous city of France...
-  [2] score=0.75  page=2
-      Berlin is the capital and largest city of Germany...
+  [2] score=0.83  page=1  ✓ RELEVANT
+      ...Notre-Dame de Paris is a medieval Catholic cathedral...
+
+Query: "Tell me about Berlin"
+  [1] score=0.81  page=2  ✓ RELEVANT
+      ...The Berlin Wall divided the city from August 13, 1961...
+  [2] score=0.80  page=1
+      ...Chapter 2: Germany...
 
 ----------------------------------------------------------------------
-Recall@2: 1.00 | Precision@2: 0.50 | MRR: 1.00
+Recall@2: 1.00 | Precision@2: 0.83 | MRR: 1.00
 ----------------------------------------------------------------------
 ```
 
 After the run, `tests/eval/eval-report.json` contains the full structured results with per-query fragment text, scores, and relevance flags.
 
-#### Why a 2-page PDF?
+#### Why a 3-topic synthetic PDF?
 
-The test PDF is intentionally minimal — two pages, two topics (France/Germany), ~500 characters total. This is deliberate:
+The test PDF is intentionally minimal — three pages, three topics (France/Germany/Japan), ~4600 characters total. This is deliberate:
 
-- **Deterministic chunking.** A 500-char document produces exactly 2 chunks. A 50-page PDF would produce dozens, making it hard to reason about which chunk *should* match which query. With 2 chunks, relevance is unambiguous.
-- **Fast feedback.** The model loads once (~1s), extraction is instant, embedding is a single batch. Total: ~7s. A real book would take minutes.
-- **Focused assertions.** We're testing the *pipeline wiring*, not the model's knowledge. If "Paris" and "Berlin" are in separate chunks and the model can't distinguish them, something is broken in the pipeline — not the model.
+- **Deterministic chunking.** A ~4600-char document produces ~7 chunks (with 384-token chunk size). This is enough to test retrieval discrimination without being overwhelming.
+- **Fast feedback.** The model loads once (~1s), extraction is instant, embedding is a single batch. Total: ~8s. A real book would take minutes.
+- **Focused assertions.** We're testing the *pipeline wiring*, not the model's knowledge. If "Paris", "Berlin", and "Tokyo" are in separate chunks and the model can't distinguish them, something is broken in the pipeline — not the model.
 - **Easy to debug.** When a metric fails, you know exactly which chunk should have matched. No need to inspect 50 pages of output.
+- **3 topics, not 2.** Two topics can be distinguished by simple keyword matching. Three topics require the model to actually understand semantic similarity — a better test of the embedding model.
 
 This is standard practice for E2E pipeline tests. Real-world PDFs belong in manual evaluation, not automated CI.
 
@@ -103,15 +110,15 @@ The tiny PDF catches the same bugs: broken extraction, wrong chunk boundaries, m
 
 #### Metrics and thresholds
 
-The test uses `tests/eval/labels.json` — 6 labeled queries with expected relevant page numbers. Three metrics are computed:
+The test uses `tests/eval/labels.json` — 9 labeled queries (3 per topic) with expected relevant page numbers. Three metrics are computed:
 
 | Metric | What it measures | Threshold | Why this threshold |
 |--------|-----------------|-----------|-------------------|
-| **Recall@2** | Did the relevant chunk appear in top-2? | >= 0.8 | With 2 chunks and 1 relevant per query, recall=1.0 is achievable. 0.8 allows one query to miss (e.g. ambiguous "museums" query). |
-| **Precision@2** | Are top-2 results mostly relevant? | >= 0.5 | With only 2 chunks total, precision@2 can be at most 1.0 (both relevant) or 0.5 (one relevant). 0.5 is the floor — below means the model is confused. |
-| **MRR** | How high up is the first relevant result? | >= 0.7 | MRR=1.0 means relevant result is always rank-1. 0.7 means average rank ~1.4, which is acceptable for a 2-chunk corpus. |
+| **Recall@2** | Did the relevant chunk appear in top-2? | >= 0.8 | With 7 chunks and 1 relevant per query, recall=1.0 means all relevant pages are found. 0.8 allows one query to miss. |
+| **Precision@2** | Are top-2 results mostly relevant? | >= 0.5 | With 7 chunks, precision@2 can range from 0 (both irrelevant) to 1.0 (both relevant). 0.5 means at least half of top-2 are relevant. |
+| **MRR** | How high up is the first relevant result? | >= 0.7 | MRR=1.0 means relevant result is always rank-1. 0.7 means average rank ~1.4, which is acceptable for a 7-chunk corpus. |
 
-**Why these specific thresholds?** They're calibrated for a 2-chunk corpus where separation should be near-perfect. If the model can't distinguish Paris from Berlin in a tiny PDF, it won't work on real books. The thresholds are intentionally strict — this is a sanity check, not a lenient pass.
+**Why these specific thresholds?** They're calibrated for a 7-chunk corpus where topics should be well-separated. If the model can't distinguish Paris from Berlin from Tokyo in a tiny PDF, it won't work on real books. The thresholds are intentionally strict — this is a sanity check, not a lenient pass.
 
 **How to extend:** Add queries to `tests/eval/labels.json`. Each entry needs:
 ```json
@@ -122,7 +129,7 @@ The test uses `tests/eval/labels.json` — 6 labeled queries with expected relev
 }
 ```
 
-As the corpus grows, tighten thresholds. With 10+ chunks, expect Precision@2 to drop — consider raising k or adding a Recall@5 metric.
+As the corpus grows, tighten thresholds. With 20+ chunks, expect Precision@2 to drop — consider raising k or adding a Recall@5 metric.
 
 #### How scores are calculated
 
@@ -135,6 +142,14 @@ MRR          = 1 / rank of first relevant result              = 1/1 = 1.00
 ```
 
 For a query where the relevant chunk is at rank-2: `MRR = 1/2 = 0.50`.
+
+For a query with `relevant_pages = [3]` where both top-2 results are from page 3:
+
+```
+Recall@2     = 1/1 = 1.00
+Precision@2  = 2/2 = 1.00
+MRR          = 1/1 = 1.00
+```
 
 Each query is evaluated independently, then metrics are averaged across all queries. The `pytest_sessionfinish` hook in `tests/eval/conftest.py` collects per-query results, computes averages, prints a terminal summary, and writes `tests/eval/eval-report.json`.
 

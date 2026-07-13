@@ -20,13 +20,28 @@
     "description": "Page 2 discusses the Berlin Wall"
   },
   {
-    "query": "Eiffel Tower history",
-    "relevant_pages": [1],
-    "description": "Page 1 mentions the Eiffel Tower"
+    "query": "Mount Fuji and cherry blossoms",
+    "relevant_pages": [3],
+    "description": "Page 3 discusses Mount Fuji and sakura"
   },
   {
-    "query": "Brandenburg Gate monument",
+    "query": "bullet train technology",
+    "relevant_pages": [3],
+    "description": "Page 3 discusses the Shinkansen network"
+  },
+  {
+    "query": "Notre-Dame cathedral history",
+    "relevant_pages": [1],
+    "description": "Page 1 discusses Notre-Dame de Paris"
+  },
+  {
+    "query": "Oktoberfest celebration",
     "relevant_pages": [2],
-    "description": "Page 2 mentions the Brandenburg Gate"
+    "description": "Page 2 discusses Oktoberfest in Munich"
+  },
+  {
+    "query": "Shibuya Crossing Tokyo",
+    "relevant_pages": [3],
+    "description": "Page 3 discusses Shibuya Crossing"
   }
 ]

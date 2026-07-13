@@ -62,6 +62,15 @@ class TestRetrievalQuality:
         assert "berlin" in text_lower or "germany" in text_lower
         assert top["score"] > 0.3
 
+    def test_tokyo_query_retrieves_japan_chunks(self, indexed_qdrant):
+        results = search_book("Shibuya Crossing in Tokyo Japan", book="tiny_sample")
+        assert len(results) > 0
+
+        top = results[0]
+        text_lower = top["text"].lower()
+        assert "tokyo" in text_lower or "japan" in text_lower
+        assert top["score"] > 0.3
+
     def test_museum_query_prefers_france(self, indexed_qdrant):
         results = search_book("famous museums and art", book="tiny_sample")
         assert len(results) > 0
@@ -82,6 +91,19 @@ class TestRetrievalQuality:
             "berlin wall" in text_lower
             or "cold war" in text_lower
             or "berlin" in text_lower
+        )
+
+    def test_fuji_query_prefers_japan(self, indexed_qdrant):
+        results = search_book("Mount Fuji and cherry blossoms", book="tiny_sample")
+        assert len(results) > 0
+
+        top = results[0]
+        text_lower = top["text"].lower()
+        assert (
+            "fuji" in text_lower
+            or "cherry" in text_lower
+            or "sakura" in text_lower
+            or "japan" in text_lower
         )
 
 

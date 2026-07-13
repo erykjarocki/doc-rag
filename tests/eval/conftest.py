@@ -137,8 +137,8 @@ def _recall_at_k(results, relevant_pages, k):
     if not relevant_pages:
         return 1.0
     top_k = results[:k]
-    found = sum(1 for r in top_k if r["start_page"] in relevant_pages)
-    return found / len(relevant_pages)
+    found_pages = set(r["start_page"] for r in top_k if r["start_page"] in relevant_pages)
+    return len(found_pages) / len(relevant_pages)
 
 
 def _mrr(results, relevant_pages):
@@ -150,35 +150,108 @@ def _mrr(results, relevant_pages):
 
 @pytest.fixture(scope="module")
 def tiny_pdf(tmp_path_factory):
-    """Generate a 2-page PDF with headings and paragraphs about France and Germany."""
+    """Generate a 3-page PDF about France, Germany, and Japan.
+
+    Each page has ~1500 chars (~350 tokens) of distinct topic content,
+    enough to produce separate chunks with the 384-token chunk size.
+    """
     tmp_dir = tmp_path_factory.mktemp("pdfs")
     pdf_path = str(tmp_dir / "tiny_sample.pdf")
 
+    texts = [
+        (
+            "Chapter 1: France\n\n"
+            "Paris is the capital and most populous city of France, a global "
+            "center for art, fashion, and gastronomy. The Eiffel Tower, "
+            "constructed in 1889 for the World Fair, stands 330 meters tall "
+            "and remains the most-visited paid monument in the world, drawing "
+            "nearly seven million tourists annually. The tower was originally "
+            "intended as a temporary structure and was nearly demolished after "
+            "the exhibition ended.\n\n"
+            "The Louvre Museum, located on the Right Bank of the Seine, is the "
+            "largest art museum on Earth with over 380,000 objects in its "
+            "permanent collection. Its iconic glass pyramid entrance, designed "
+            "by architect I.M. Pei, was completed in 1989 and initially "
+            "sparked controversy for its modern style against the classical "
+            "palace. The museum houses the Mona Lisa by Leonardo da Vinci and "
+            "the ancient Greek Venus de Milo sculpture, attracting more than "
+            "nine million visitors each year.\n\n"
+            "Notre-Dame de Paris is a medieval Catholic cathedral on the Ile "
+            "de la Cite in the fourth arrondissement. Construction began in "
+            "1163 under Bishop Maurice de Sully and was largely completed by "
+            "1260. The cathedral is celebrated for its pioneering use of rib "
+            "vaults and flying buttresses, elements that defined French Gothic "
+            "architecture for centuries. A devastating fire in April 2019 "
+            "destroyed the spire and much of the roof, prompting a massive "
+            "international restoration effort."
+        ),
+        (
+            "Chapter 2: Germany\n\n"
+            "Berlin is the capital and largest city of Germany with "
+            "approximately 3.7 million residents. The city is renowned for "
+            "its vibrant arts scene, world-class museums, and complex history "
+            "spanning from the Prussian empire through two world wars to Cold "
+            "War division and eventual reunification. The Brandenburg Gate, "
+            "constructed between 1788 and 1791 by architect Carl Gotthard "
+            "Langhans, was originally a city gate and later became a symbol of "
+            "both division and unity during the twentieth century.\n\n"
+            "The Berlin Wall divided the city from August 13, 1961, until "
+            "November 9, 1989. During those twenty-eight years, the concrete "
+            "barrier separated families, friends, and an entire nation. "
+            "Historical records indicate that at least 140 people died "
+            "attempting to cross the wall. The fall of the wall was "
+            "precipitated by a botched press conference by East German "
+            "official Guenter Schabowski, who announced immediate border "
+            "openings without consulting his superiors. Thousands gathered at "
+            "the wall that night in celebrations marking the beginning of "
+            "German reunification, officially completed on October 3, 1990.\n\n"
+            "Munich, the capital of Bavaria, hosts Oktoberfest each year, the "
+            "worlds largest folk festival running for sixteen days from "
+            "mid-September. The celebration features traditional Bavarian "
+            "music, food, and beer served in massive decorated tents, "
+            "attracting over six million visitors annually. The festival "
+            "traces its origins to 1810, when Crown Prince Ludwig of Bavaria "
+            "married Princess Therese of Saxe-Hildburghausen."
+        ),
+        (
+            "Chapter 3: Japan\n\n"
+            "Tokyo is the capital and most populous metropolitan area of Japan, "
+            "home to over 37 million people in the greater urban region. The "
+            "city seamlessly blends ultramodern technology with ancient "
+            "traditions, where centuries-old Shinto shrines stand alongside "
+            "gleaming skyscrapers. Shibuya Crossing, the worlds busiest "
+            "pedestrian intersection, handles up to 3,000 people per crossing "
+            "cycle during peak hours and has become an iconic image of "
+            "Japanese urban culture.\n\n"
+            "Mount Fuji, standing at 3,776 meters above sea level, is Japans "
+            "tallest peak and an active stratovolcano that last erupted in "
+            "1707 during the Hoei eruption. The perfectly symmetrical volcanic "
+            "cone is visible from Tokyo on clear winter days and has been a "
+            "subject of Japanese art for centuries, most famously depicted in "
+            "Katsushika Hokusais woodblock print series Thirty-six Views of "
+            "Mount Fuji. UNESCO designated it as a World Heritage Site in "
+            "2013.\n\n"
+            "Japans Shinkansen bullet train network, operational since October "
+            "1, 1964, connects major cities at speeds reaching 320 kilometers "
+            "per hour. The Tokaido Shinkansen line between Tokyo and Osaka is "
+            "the worlds busiest, carrying over 150 million passengers "
+            "annually with an average delay of less than one minute. The "
+            "system maintains a perfect safety record with zero passenger "
+            "fatalities. Cherry blossoms, known as sakura, bloom across Japan "
+            "each spring between late March and early April, drawing millions "
+            "to hanami flower-viewing picnics beneath the blossoming trees."
+        ),
+    ]
+
     doc = fitz.open()
-
-    page = doc.new_page()
-    text = (
-        "Chapter 1: France\n\n"
-        "Paris is the capital and most populous city of France. The city is "
-        "known for its iconic Eiffel Tower, which was built in 1889 for the "
-        "World's Fair. Paris attracts millions of tourists every year.\n\n"
-        "The Louvre Museum in Paris is the world's largest art museum. It "
-        "houses the Mona Lisa painting by Leonardo da Vinci. The museum "
-        "receives over nine million visitors annually."
-    )
-    page.insert_text((72, 72), text, fontsize=11)
-
-    page = doc.new_page()
-    text = (
-        "Chapter 2: Germany\n\n"
-        "Berlin is the capital and largest city of Germany. The city is known "
-        "for the Brandenburg Gate, a neoclassical monument built in the 18th "
-        "century. Berlin has a rich and complex history.\n\n"
-        "The Berlin Wall divided the city from 1961 to 1989. Its fall "
-        "symbolized the end of the Cold War. Today Berlin is a major European "
-        "cultural center."
-    )
-    page.insert_text((72, 72), text, fontsize=11)
+    for text in texts:
+        page = doc.new_page()
+        rect = page.rect
+        page.insert_textbox(
+            fitz.Rect(72, 72, rect.width - 72, rect.height - 72),
+            text,
+            fontsize=10,
+        )
 
     doc.save(pdf_path)
     doc.close()
