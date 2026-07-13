@@ -80,7 +80,7 @@ Query: "Tell me about Berlin"
       ...Oktoberfest, the world's largest folk festival...
 
 ----------------------------------------------------------------------
-Recall@2: 1.00 | Precision@2: 1.00 | MRR: 1.00
+Recall@2: 0.94 | Precision@2: 1.00 | MRR: 1.00
 ----------------------------------------------------------------------
 ```
 
@@ -95,6 +95,7 @@ The test PDF is intentionally minimal — three pages, three topics (France/Germ
 - **Focused assertions.** We're testing the *pipeline wiring*, not the model's knowledge. If "Paris", "Berlin", and "Tokyo" are in separate chunks and the model can't distinguish them, something is broken in the pipeline — not the model.
 - **Easy to debug.** When a metric fails, you know exactly which chunk should have matched. No need to inspect 50 pages of output.
 - **3 topics, not 2.** Two topics can be distinguished by simple keyword matching. Three topics require the model to actually understand semantic similarity — a better test of the embedding model.
+- **Cross-topic queries.** 4 of 13 queries span multiple pages (e.g., "European capitals" [1,2], "world landmarks" [1,2,3]). These test whether the model can retrieve from multiple relevant sources — and expose real embedding model limitations when it can't.
 
 This is standard practice for E2E pipeline tests. Real-world PDFs belong in manual evaluation, not automated CI.
 
@@ -110,15 +111,22 @@ The tiny PDF catches the same bugs: broken extraction, wrong chunk boundaries, m
 
 #### Metrics and thresholds
 
-The test uses `tests/eval/labels.json` — 9 labeled queries (3 per topic) with expected relevant page numbers. Three metrics are computed:
+The test uses `tests/eval/labels.json` — 13 labeled queries with expected relevant page numbers. Queries fall into two categories:
+
+- **Single-topic** (9 queries): "What is the capital of France?", "Tell me about Berlin", etc. These test basic retrieval — does the model find the right page?
+- **Cross-topic** (4 queries): "European capitals and their landmarks" [1,2], "world famous landmarks" [1,2,3], etc. These test whether the model can retrieve from multiple relevant pages simultaneously.
+
+Three metrics are computed:
 
 | Metric | What it measures | Threshold | Why this threshold |
 |--------|-----------------|-----------|-------------------|
-| **Recall@2** | Did the relevant chunk appear in top-2? | >= 0.8 | With 11 chunks and 1 relevant per query, recall=1.0 means all relevant pages are found. 0.8 allows one query to miss. |
+| **Recall@2** | Did the relevant chunk appear in top-2? | >= 0.8 | With cross-topic queries having 2-3 relevant pages, recall@2 can't always be 1.0 (k=2 limits coverage). 0.8 allows some multi-page queries to miss a page. |
 | **Precision@2** | Are top-2 results mostly relevant? | >= 0.5 | With 11 chunks, precision@2 can range from 0 (both irrelevant) to 1.0 (both relevant). 0.5 means at least half of top-2 are relevant. |
-| **MRR** | How high up is the first relevant result? | >= 0.7 | MRR=1.0 means relevant result is always rank-1. 0.7 means average rank ~1.4, which is acceptable for an 11-chunk corpus. |
+| **MRR** | How high up is the first relevant result? | >= 0.7 | MRR=1.0 means relevant result is always rank-1. 0.7 means average rank ~1.4. |
 
-**Why these specific thresholds?** They're calibrated for an 11-chunk corpus where topics should be well-separated. If the model can't distinguish Paris from Berlin from Tokyo in a tiny PDF, it won't work on real books. The thresholds are intentionally strict — this is a sanity check, not a lenient pass.
+**Why these specific thresholds?** They're calibrated for an 11-chunk corpus where single-topic queries should be near-perfect, but cross-topic queries may not retrieve all relevant pages in top-2. The thresholds are intentionally strict — this is a sanity check, not a lenient pass.
+
+**What cross-topic queries reveal:** These queries expose real embedding model limitations. For example, `multilingual-e5-small` struggles to connect "famous festivals" with cherry blossom viewing (hanami), or "world landmarks" with the Brandenburg Gate. These are model weaknesses, not pipeline bugs — upgrading to a larger embedding model would likely improve these scores.
 
 **How to extend:** Add queries to `tests/eval/labels.json`. Each entry needs:
 ```json
@@ -126,6 +134,15 @@ The test uses `tests/eval/labels.json` — 9 labeled queries (3 per topic) with 
   "query": "your question",
   "relevant_pages": [1],
   "description": "why this page is relevant"
+}
+```
+
+For cross-topic queries, list multiple pages:
+```json
+{
+  "query": "European capitals and their landmarks",
+  "relevant_pages": [1, 2],
+  "description": "Paris and Berlin are European capitals with famous landmarks"
 }
 ```
 
@@ -142,6 +159,16 @@ MRR          = 1 / rank of first relevant result              = 1/1 = 1.00
 ```
 
 For a query where the relevant chunk is at rank-2: `MRR = 1/2 = 0.50`.
+
+For a cross-topic query with `relevant_pages = [1, 2]` and top-2 results with pages `[1, 3]`:
+
+```
+Recall@2     = |relevant found in top-k| / |total relevant|  = 1/2 = 0.50
+Precision@2  = |relevant found in top-k| / k                 = 1/2 = 0.50
+MRR          = 1 / rank of first relevant result              = 1/1 = 1.00
+```
+
+This is why cross-topic queries are harder — with k=2, you can only retrieve from 2 pages, so queries with 3+ relevant pages will always have recall < 1.0.
 
 For a query with `relevant_pages = [3]` where both top-2 results are from page 3:
 

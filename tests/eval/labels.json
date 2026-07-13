@@ -43,5 +43,25 @@
     "query": "Shibuya Crossing Tokyo",
     "relevant_pages": [3],
     "description": "Page 3 discusses Shibuya Crossing"
+  },
+  {
+    "query": "European capitals and their landmarks",
+    "relevant_pages": [1, 2],
+    "description": "Paris and Berlin are European capitals with famous landmarks"
+  },
+  {
+    "query": "famous festivals and cultural celebrations",
+    "relevant_pages": [2, 3],
+    "description": "Oktoberfest in Munich and hanami cherry blossom viewing in Japan"
+  },
+  {
+    "query": "world famous landmarks and monuments",
+    "relevant_pages": [1, 2, 3],
+    "description": "Eiffel Tower, Brandenburg Gate, and Mount Fuji are all world landmarks"
+  },
+  {
+    "query": "historic architecture and construction",
+    "relevant_pages": [1, 2],
+    "description": "Notre-Dame and Versailles in France, Cologne Cathedral in Germany"
   }
 ]
