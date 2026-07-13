@@ -1,13 +1,13 @@
 import argparse
 import glob
 import os
-import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import fitz
 
+from src.chapter_detection import ChapterDetector
 from src.config import (
     BOOKS_DIR,
     CHUNK_OVERLAP,
@@ -21,11 +21,6 @@ from src.qdrant_store import (
     ensure_collection,
     get_qdrant_client,
     list_collections,
-)
-
-CHAPTER_PATTERN = re.compile(
-    r"(?:^|\n)\s*(?:Rozdział\s+[IVXLCDM\d]+|Chapter\s+\d+|CZĘŚĆ\s+[IVXLCDM\d]+|Tom\s+\d+)",
-    re.IGNORECASE,
 )
 
 
@@ -48,29 +43,6 @@ def extract_pdf(pdf_path: str) -> list[dict]:
         })
     doc.close()
     return pages
-
-
-def detect_chapter(text: str) -> str | None:
-    """Detect chapter/section headings in text using regex patterns.
-
-    Looks for Polish ("Rozdział X", "CZĘŚĆ X") and English ("Chapter X") patterns.
-
-    Args:
-        text: Text chunk to search for chapter markers.
-
-    Returns:
-        Chapter name string if found, None otherwise.
-    """
-    match = re.search(r"(Rozdział\s+[\dIVXLCDM]+)", text, re.IGNORECASE)
-    if match:
-        return match.group(1)
-    match = re.search(r"(Chapter\s+\d+)", text, re.IGNORECASE)
-    if match:
-        return match.group(1)
-    match = re.search(r"(CZĘŚĆ\s+[\dIVXLCDM]+)", text, re.IGNORECASE)
-    if match:
-        return match.group(1)
-    return None
 
 
 def get_page_boundaries(pages_data: list[dict]) -> list[int]:
@@ -189,7 +161,8 @@ def process_book(pdf_path: str) -> dict:
     """Extract, chunk, and annotate a single PDF book.
 
     Reads the PDF, splits into chunks with page tracking, detects chapter
-    headings, and saves raw extracted text to disk.
+    headings via structural metadata (TOC, font analysis) or regex fallback,
+    and saves raw extracted text to disk.
 
     Args:
         pdf_path: Path to the PDF file.
@@ -208,19 +181,20 @@ def process_book(pdf_path: str) -> dict:
 
     chunks = chunk_text(full_text, page_boundaries, page_nums)
 
-    result_chunks = []
-    current_chapter = None
-    for chunk in chunks:
-        detected = detect_chapter(chunk["text"])
-        if detected:
-            current_chapter = detected
-        result_chunks.append({
-            "text": chunk["text"],
-            "book": book_name,
-            "chapter": current_chapter or "unknown",
-            "start_page": chunk["start_page"],
-            "end_page": chunk["end_page"],
-        })
+    with ChapterDetector(pdf_path) as detector:
+        strategy = detector.detect_strategy()
+        print(f"    Chapter detection: {strategy} strategy")
+
+        result_chunks = []
+        for chunk in chunks:
+            chapter = detector.get_chapter_for_page(chunk["start_page"])
+            result_chunks.append({
+                "text": chunk["text"],
+                "book": book_name,
+                "chapter": chapter or "unknown",
+                "start_page": chunk["start_page"],
+                "end_page": chunk["end_page"],
+            })
 
     extracted_path = os.path.join(EXTRACTED_DIR, f"{book_name}.txt")
     os.makedirs(EXTRACTED_DIR, exist_ok=True)
