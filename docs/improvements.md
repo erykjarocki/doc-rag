@@ -104,43 +104,49 @@ Tool description quality + speed/reliability often matter more than marginal ret
 - **Fix:** Use the actual tokenizer for exact 400-token chunks with precise overlap
 - **Why:** Consistent chunks = predictable retrieval quality
 
-### 10. Async MCP tools
+### 10. ✅ Universal chapter detection
+- **Effort:** 2 hrs
+- **Problem:** Chapter detection used regex on extracted text, limited to Polish/English patterns, missed headings without matching text patterns
+- **Fix:** `ChapterDetector` with 3-layer fallback: PDF TOC/bookmarks → font-size analysis → regex. Works for any PDF regardless of language or formatting. See `src/chapter_detection.py`.
+- **Why:** Chapter metadata improves retrieval context (Polish citations show book + chapter + pages)
+
+### 11. ✅ Async MCP tools
 - **Effort:** 10 min
 - **Problem:** Tools are synchronous, block the MCP event loop
 - **Fix:** Make tools `async def`, wrap sync calls in `run_in_executor` or use `AsyncQdrantClient`
 - **Why:** Enables concurrent tool calls, faster response
 
-### 11. Async ingestion pipeline
+### 12. Async ingestion pipeline
 - **Effort:** 1 hr
 - **Problem:** PDF processing runs sequentially, slow for large books
 - **Fix:** `asyncio.gather` for parallel PDF processing, async Qdrant upserts
 - **Why:** ~3x faster indexing for multiple books
 
-### 12. Hybrid search (BM25 + vector)
+### 13. Hybrid search (BM25 + vector)
 - **Effort:** 1-2 hrs
 - **Problem:** Pure vector search misses exact keyword matches
 - **Fix:** Add sparse vectors (BM25) to Qdrant collections, use hybrid queries with RRF fusion
 - **Why:** Biggest retrieval quality improvement — catches both semantic and exact matches
 
-### 13. Add reranking
+### 14. Add reranking
 - **Effort:** 1 hr
 - **Problem:** Top-8 by vector similarity ≠ top-8 by relevance
 - **Fix:** Cross-encoder reranker (`cross-encoder/ms-marco-MiniLM-L-6-v2`) re-scores candidates
 - **Why:** +10-20% retrieval accuracy, eliminates false positives
 
-### 14. Query expansion
+### 15. Query expansion
 - **Effort:** 1 hr
 - **Problem:** Single query may not match varied phrasing in the book
 - **Fix:** Synonym expansion or LLM-generated query variants before search
 - **Why:** Better recall — finds passages even when wording differs
 
-### 15. Dockerfile + docker-compose
+### 16. Dockerfile + docker-compose
 - **Effort:** 1 hr
 - **Problem:** No reproducible deployment, setup depends on local env
 - **Fix:** Dockerfile for pdf-rag, docker-compose with Qdrant service
 - **Why:** One-command setup, CI/CD ready
 
-### 16. Upgrade embedding model
+### 17. Upgrade embedding model
 - **Effort:** 15 min + re-index
 - **Problem:** `multilingual-e5-small` (384d) is the smallest E5 variant
 - **Fix:** Switch to `multilingual-e5-large` (1024d) or `BAAI/bge-m3`
