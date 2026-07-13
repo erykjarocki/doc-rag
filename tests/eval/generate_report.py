@@ -60,11 +60,20 @@ h1 { border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
 
 
 def _load_baseline():
-    """Load baseline metrics if available."""
+    """Load baseline metrics if available.
+
+    Handles both simple format {recall_at_2: ...} and CI format
+    {queries: [...], metrics: {recall_at_2: ...}}.
+    """
     if not BASELINE_JSON.exists():
         return None
     try:
-        return json.loads(BASELINE_JSON.read_text())
+        data = json.loads(BASELINE_JSON.read_text())
+        if "metrics" in data:
+            return data["metrics"]
+        if "recall_at_2" in data:
+            return data
+        return None
     except (json.JSONDecodeError, KeyError):
         return None
 

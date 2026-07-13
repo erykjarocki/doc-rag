@@ -32,8 +32,14 @@ def delta_icon(delta, threshold):
 
 
 def main():
-    baseline = load_json(BASELINE_PATH)
+    baseline_raw = load_json(BASELINE_PATH)
     current = load_json(REPORT_PATH)
+
+    # Handle both simple {recall_at_2: ...} and CI format {metrics: {...}}
+    if "metrics" in baseline_raw:
+        baseline = baseline_raw["metrics"]
+    else:
+        baseline = baseline_raw
 
     metrics = ["recall_at_2", "precision_at_2", "mrr"]
     labels = ["Recall@2", "Precision@2", "MRR"]

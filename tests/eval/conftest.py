@@ -74,7 +74,11 @@ def pytest_sessionfinish(session, exitstatus):
     baseline = None
     if BASELINE_PATH.exists():
         try:
-            baseline = json.loads(BASELINE_PATH.read_text())
+            raw = json.loads(BASELINE_PATH.read_text())
+            if "metrics" in raw:
+                baseline = raw["metrics"]
+            elif "recall_at_2" in raw:
+                baseline = raw
         except (json.JSONDecodeError, KeyError):
             pass
 
