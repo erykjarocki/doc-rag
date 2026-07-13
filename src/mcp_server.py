@@ -14,12 +14,23 @@ mcp = FastMCP("pdf-rag")
 
 @mcp.tool()
 def search_book_tool(question: str, book: str | None = None) -> str:
-    """Search the knowledge base for relevant fragments from PDF documents.
+    """Search indexed PDF books for relevant text fragments using semantic similarity.
 
-    Use this whenever you need information from the indexed PDFs.
-    Optionally filter to a specific book (use list_books_tool to see available books).
-    Provide a detailed question to get the most relevant excerpts.
-    Returns fragments with text and source (book, chapter, page).
+    Use this tool whenever the user asks a question that might be answered by the
+    indexed book collection (e.g. "What does X say about Y?", "Summarize the chapter
+    on Z", "Find information about X in the books"). Always prefer this over
+    guessing or fabricating book content.
+
+    Args:
+        question: A detailed natural-language query. More specific queries yield
+            better results. Example: "What are the safety protocols for chemical
+            storage?" rather than just "safety".
+        book: Optional book/volume name to restrict search. Use list_books_tool()
+            first to discover exact names. If omitted, searches all indexed books.
+
+    Returns: Formatted text fragments with source references (book, chapter, page).
+        Each fragment includes enough context to answer the query. If nothing
+        relevant is found, returns "No relevant fragments found."
     """
     fragments = search_book(question, book=book)
     if not fragments:
@@ -29,11 +40,21 @@ def search_book_tool(question: str, book: str | None = None) -> str:
 
 @mcp.tool()
 def search_book_raw(question: str, book: str | None = None) -> str:
-    """Search the knowledge base and return structured JSON.
+    """Search indexed PDF books and return raw structured JSON with relevance scores.
 
-    Use when you need the raw data including relevance scores.
-    Optionally filter to a specific book.
-    Returns JSON with text, book, chapter, page, and score.
+    Use this instead of search_book_tool when you need machine-readable output
+    with relevance scores for programmatic comparison, filtering, or ranking.
+    For normal Q&A about book content, prefer search_book_tool which returns
+    human-readable formatted output.
+
+    Args:
+        question: A detailed natural-language query (same as search_book_tool).
+        book: Optional book/volume name to restrict search. Use list_books_tool()
+            to discover available names.
+
+    Returns: JSON array of fragments, each with keys: text, book, chapter, page,
+        score (0-1, higher = more relevant). Useful for thresholding on score
+        or building ranked answer lists.
     """
     import json
     fragments = search_book(question, book=book)
@@ -42,8 +63,13 @@ def search_book_raw(question: str, book: str | None = None) -> str:
 
 @mcp.tool()
 def list_books_tool() -> str:
-    """List all books currently indexed in the knowledge base.
-    Use this to discover what documents are available before searching.
+    """List all books/collections currently indexed in the knowledge base.
+
+    Call this first to discover what documents are available before searching.
+    Returns a list of book/volume names that can be used as the `book` filter
+    argument in search_book_tool and search_book_raw. Always invoke this when
+    the user asks about "all books", wants to know what's available, or when
+    you need the exact book name string for a filtered search.
     """
     collections = list_collections()
     if not collections:
