@@ -18,8 +18,8 @@ from src.config import (
 class TestConfigDefaults:
     def test_default_settings(self):
         s = Settings()
-        assert s.embedding.model == "intfloat/multilingual-e5-small"
-        assert s.embedding.dimension == 384
+        assert s.embedding.model == "intfloat/multilingual-e5-base"
+        assert s.embedding.dimension == 768
         assert s.qdrant.host == "localhost"
         assert s.qdrant.port == 6333
         assert s.chunking.size == 384
@@ -65,7 +65,7 @@ class TestEnvOverrides:
         env.pop("EMBED_MODEL", None)
         with patch.dict(os.environ, env, clear=True):
             s = _apply_env_overrides(Settings())
-            assert s.embedding.model == "intfloat/multilingual-e5-small"
+            assert s.embedding.model == "intfloat/multilingual-e5-base"
 
 
 @pytest.mark.unit
@@ -88,14 +88,14 @@ class TestLoadConfigFromFile:
     def test_missing_file_uses_defaults(self):
         with patch("src.config.CONFIG_FILE", Path("/nonexistent/config.json")):
             s = load_config()
-            assert s.embedding.model == "intfloat/multilingual-e5-small"
+            assert s.embedding.model == "intfloat/multilingual-e5-base"
 
     def test_invalid_json_uses_defaults(self, tmp_path):
         config_file = tmp_path / "config.json"
         config_file.write_text("not json {{{")
         with patch("src.config.CONFIG_FILE", config_file):
             s = load_config()
-            assert s.embedding.model == "intfloat/multilingual-e5-small"
+            assert s.embedding.model == "intfloat/multilingual-e5-base"
 
     def test_partial_config_preserves_defaults(self, tmp_path):
         config_file = tmp_path / "config.json"
@@ -103,7 +103,7 @@ class TestLoadConfigFromFile:
         with patch("src.config.CONFIG_FILE", config_file):
             s = load_config()
             assert s.search.top_k == 20
-            assert s.embedding.model == "intfloat/multilingual-e5-small"
+            assert s.embedding.model == "intfloat/multilingual-e5-base"
             assert s.qdrant.port == 6333
 
 

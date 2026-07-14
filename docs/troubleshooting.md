@@ -57,7 +57,7 @@ python src/ingest.py
 
 **Possible causes:**
 1. Large PDF — normal for 500+ page books
-2. First run downloads embedding model (~130MB for e5-small)
+2. First run downloads embedding model (~1.1GB for e5-base)
 3. Re-chunking on every run (no chunk caching yet)
 
 **Tip:** Check `data/extracted/` — if .txt exists, extraction was already done.

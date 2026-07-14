@@ -35,6 +35,7 @@ pytest tests/integration/ -v -m integration
 - Vector upsert and cosine similarity query
 - Score ranking (exact match ranks higher than partial)
 - FastAPI endpoint contract (`/health`, `/query`, `/books`, `/delete`)
+- Dimension mismatch detection (search errors on wrong-model collections)
 
 ### Eval Tests
 
@@ -49,7 +50,7 @@ pytest tests/eval/ -v -m "eval or rerank"
 ```
 
 **What's covered:**
-- Real `multilingual-e5-small` embedding model
+- Real `multilingual-e5-base` embedding model
 - Qdrant upsert and cosine similarity retrieval
 - Retrieval quality across 8 labeled queries
 - Citation formatting with Polish source labels
@@ -141,7 +142,7 @@ In CI, use the **manual workflow dispatch** (Actions → Run workflow) to test s
 - `chunk_size` — tokens per chunk (default: 384)
 - `chunk_overlap` — overlap tokens (default: 50)
 - `rerank_enabled` — cross-encoder reranking (default: true)
-- `embed_model` — embedding model name (default: multilingual-e5-small)
+- `embed_model` — embedding model name (default: multilingual-e5-base)
 
 Results are saved as artifacts for comparison against the baseline.
 
@@ -198,27 +199,18 @@ GitHub Actions runs a 3-stage pipeline on every PR (see `.github/workflows/ci.ym
 - **Optimization:** CPU-only PyTorch installed first (~150MB vs ~3GB with CUDA)
 - **No Docker needed** — all tests use in-memory Qdrant
 
-### Testing CI Locally
-
-```bash
-# Run the same commands CI executes:
-ruff check src/ tests/
-pytest tests/unit/ -v -m unit
-pytest tests/integration/ -v -m integration
-pytest tests/eval/ -v -m "eval or rerank"
-```
-
 ## Adding New Tests
 
-1. **Pure function?** → Add to `tests/unit/test_<module>.py`, mark `@pytest.mark.unit`
-2. **Needs Qdrant?** → Use the `qdrant_memory` fixture, mark `@pytest.mark.integration`
-3. **Needs embeddings?** → Mock `get_model()` with a `MagicMock` that returns deterministic vectors
-4. **Needs FastAPI?** → Use `TestClient(app)` from `fastapi.testclient`
-5. **Full pipeline with real model?** → Add to `tests/eval/`, mark `@pytest.mark.eval`, use the `benchmark_indexed_qdrant` fixture from `tests/eval/conftest.py`
+| Test type | Where | Marker | Fixture |
+|-----------|-------|--------|---------|
+| Pure function | `tests/unit/test_<module>.py` | `@pytest.mark.unit` | None |
+| Qdrant round-trip | `tests/integration/` | `@pytest.mark.integration` | `qdrant_memory` |
+| FastAPI endpoint | `tests/integration/` | `@pytest.mark.integration` | `TestClient(app)` |
+| Full pipeline + real model | `tests/eval/` | `@pytest.mark.eval` | `benchmark_indexed_qdrant` |
 
 ### Eval Test Design Philosophy
 
-The eval tests follow a principle: **test the pipeline, not the model**. The embedding model is a black box — we don't test whether `multilingual-e5-small` produces optimal vectors. We test that:
+The eval tests follow a principle: **test the pipeline, not the model**. The embedding model is a black box — we don't test whether `multilingual-e5-base` produces optimal vectors. We test that:
 
 1. The pipeline correctly wires chunking → embedding → storage → retrieval
 2. The model's output is used correctly (vectors stored, queried, ranked)
@@ -251,29 +243,4 @@ For multi-document queries:
   "category": "multi_source",
   "description": "cross-document query"
 }
-```
-
-### Example: Testing a New Function
-
-```python
-# tests/unit/test_example.py
-import pytest
-
-@pytest.mark.unit
-def test_my_new_function():
-    from src.my_module import my_new_function
-    result = my_new_function("input")
-    assert result == "expected"
-```
-
-```python
-# tests/integration/test_example.py
-import pytest
-from unittest.mock import patch
-
-@pytest.mark.integration
-def test_with_qdrant(qdrant_memory):
-    from src.qdrant_store import ensure_collection
-    ensure_collection("test", qdrant_memory)
-    assert "test" in qdrant_memory.get_collections().collections
 ```

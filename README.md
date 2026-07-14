@@ -148,8 +148,8 @@ doc-rag/
 
 - Python 3.10+
 - Docker (for Qdrant vector database)
-- RAM: min 4 GB
-- Disk: ~1.5 GB
+- RAM: min 6 GB (8 GB recommended)
+- Disk: ~2 GB
 
 ## Re-ranking
 
@@ -180,19 +180,26 @@ See [Architecture](docs/architecture.md) for detailed explanation of two-stage r
 
 ## Changing the embedding model
 
-The default model is `intfloat/multilingual-e5-small` (384 dim) — fast, local, handles Polish well.
+The default model is `intfloat/multilingual-e5-base` (768 dim) — good balance of quality and speed, handles Polish well.
 
 ```bash
-# Edit src/config.py:
-#    EMBED_MODEL = "intfloat/multilingual-e5-large"
-#    EMBED_DIM = 1024
+# Via environment variables (temporary)
+EMBED_MODEL=intfloat/multilingual-e5-large EMBED_DIM=1024 python src/ingest.py --reindex
 
-# Re-index existing collections
-python src/ingest.py /path/to/file.pdf --reindex
+# Via config file (permanent)
+# Edit ~/.config/doc-rag/config.json:
+# {
+#   "embedding": {
+#     "model": "intfloat/multilingual-e5-large",
+#     "dimension": 1024
+#   }
+# }
+# Then re-index:
+# python src/ingest.py --folder /path/to/documents/ --reindex
 ```
 
-| Model | Dimensions | Quality | Speed |
-|---|---|---|---|
-| `multilingual-e5-small` | 384 | good | fast |
-| `multilingual-e5-base` | 768 | better | medium |
-| `multilingual-e5-large` | 1024 | best | slow |
+| Model | Dimensions | Quality | Speed | RAM |
+|---|---|---|---|---|
+| `multilingual-e5-small` | 384 | good | fast | ~1 GB |
+| `multilingual-e5-base` | 768 | better | medium | ~2 GB |
+| `multilingual-e5-large` | 1024 | best | slow | ~4 GB |

@@ -16,8 +16,8 @@ services:
       - QDRANT_PORT=6333
       - API_HOST=0.0.0.0
       - API_PORT=8000
-      - EMBED_MODEL=${EMBED_MODEL:-intfloat/multilingual-e5-small}
-      - EMBED_DIM=${EMBED_DIM:-384}
+      - EMBED_MODEL=${EMBED_MODEL:-intfloat/multilingual-e5-base}
+      - EMBED_DIM=${EMBED_DIM:-768}
       - CHUNK_SIZE=${CHUNK_SIZE:-384}
       - CHUNK_OVERLAP=${CHUNK_OVERLAP:-50}
       - TOP_K=${TOP_K:-8}

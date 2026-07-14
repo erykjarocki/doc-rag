@@ -56,7 +56,7 @@ def embed(texts: list[str]) -> list[list[float]]:
         texts: List of text strings to embed.
 
     Returns:
-        List of 384-dimensional vectors (one per input text).
+        List of normalized vectors (one per input text).
     """
     model = get_model()
     if _check_prefixes():
@@ -73,7 +73,7 @@ def embed_query(text: str) -> list[float]:
         text: Query string to embed.
 
     Returns:
-        384-dimensional vector representing the query.
+        Normalized vector representing the query.
     """
     model = get_model()
     if _check_prefixes():

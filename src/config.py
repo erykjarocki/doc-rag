@@ -21,8 +21,8 @@ CONFIG_FILE = CONFIG_DIR / "config.json"
 
 @dataclass
 class EmbeddingConfig:
-    model: str = "intfloat/multilingual-e5-small"
-    dimension: int = 384
+    model: str = "intfloat/multilingual-e5-base"
+    dimension: int = 768
 
 
 @dataclass

@@ -53,6 +53,7 @@ def ensure_collection(name: str, client: QdrantClient | None = None):
         )
         logger.info("Created collection '%s'", name, extra={"collection": name, "action": "create"})
     else:
+        check_dimension_mismatch(name, client)
         logger.debug("Collection '%s' already exists", name, extra={"collection": name})
 
 
@@ -81,3 +82,47 @@ def list_collections(client: QdrantClient | None = None) -> list[str]:
     if client is None:
         client = get_qdrant_client()
     return [c.name for c in client.get_collections().collections]
+
+
+def check_dimension_mismatch(
+    name: str,
+    client: QdrantClient | None = None,
+    *,
+    raise_on_mismatch: bool = False,
+) -> bool:
+    """Check if a collection's vector dimension matches the configured EMBED_DIM.
+
+    Args:
+        name: Collection name to check.
+        client: Optional QdrantClient instance (uses default if None).
+        raise_on_mismatch: If True, raises ValueError on mismatch.
+
+    Returns:
+        True if dimensions match, False if mismatch detected.
+    """
+    if client is None:
+        client = get_qdrant_client()
+
+    try:
+        info = client.get_collection(collection_name=name)
+        collection_dim = info.config.params.vectors.size
+    except Exception:
+        logger.warning("Could not get collection info for '%s'", name)
+        return True  # Can't check, assume OK
+
+    if collection_dim != EMBED_DIM:
+        msg = (
+            f"Collection '{name}' has dimension {collection_dim} but config "
+            f"expects {EMBED_DIM}. The collection was indexed with a different "
+            f"model. Re-index with --reindex or update EMBED_DIM in config."
+        )
+        if raise_on_mismatch:
+            raise ValueError(msg)
+        logger.warning("Dimension mismatch", extra={
+            "collection": name,
+            "collection_dim": collection_dim,
+            "expected_dim": EMBED_DIM,
+        })
+        return False
+
+    return True

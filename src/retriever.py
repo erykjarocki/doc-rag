@@ -3,7 +3,7 @@ import time
 from src.config import EMBED_MODEL, RERANK_ENABLED, RERANK_MODEL, RERANK_TOP_N, TOP_K
 from src.embeddings import embed_query
 from src.log import get_logger
-from src.qdrant_store import get_qdrant_client, list_collections
+from src.qdrant_store import check_dimension_mismatch, get_qdrant_client, list_collections
 from src.trace import SearchResult, StageTrace, TraceLog, trace_to_json
 from src.utils import collection_name
 
@@ -72,6 +72,7 @@ def search_book(
         if coll not in list_collections(client):
             results = []
         else:
+            check_dimension_mismatch(coll, client, raise_on_mismatch=True)
             resp = client.query_points(
                 collection_name=coll,
                 query=query_vector,
@@ -83,6 +84,9 @@ def search_book(
         if not collections:
             results = []
         else:
+            for coll in collections:
+                check_dimension_mismatch(coll, client, raise_on_mismatch=True)
+
             all_results = []
             per_collection = max(1, retrieval_limit // len(collections)) + 2
 

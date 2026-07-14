@@ -135,9 +135,11 @@ def get_collection_details(name: str):
     total = count_result.count if hasattr(count_result, "count") else 0
 
     # Sample points to get document names and chapters
+    from src.config import EMBED_DIM
+
     sample = client.query_points(
         collection_name=name,
-        query=[0.0] * 384,
+        query=[0.0] * EMBED_DIM,
         limit=min(total, 100),
     )
 

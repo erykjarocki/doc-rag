@@ -1,53 +1,76 @@
 # Configuration
 
-All configuration lives in `src/config.py`.
+DOC-RAG uses a 3-tier configuration system. Settings are resolved in this order (highest priority first):
+
+1. **Environment variables** — override everything
+2. **Config file** — `~/.config/doc-rag/config.json`
+3. **Code defaults** — built into `src/config.py`
+
+### Creating a config file
+
+```bash
+# Generate default config file
+make setup
+# or:
+python -m src.config_cli init
+```
+
+This creates `~/.config/doc-rag/config.json`. Edit it to customize settings without touching source code.
+
+### Environment variables
+
+Every setting can be overridden via environment variables. This is useful for CI, Docker, or quick testing:
+
+```bash
+EMBED_MODEL=intfloat/multilingual-e5-large EMBED_DIM=1024 python src/ingest.py --reindex
+```
 
 ## Configuration Options
 
 ### Paths
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `BASE_DIR` | Project root | Auto-detected from file location |
-| `EXTRACTED_DIR` | `data/extracted/` | Where raw extracted text is saved (.txt) |
-| `CHUNKS_FILE` | `data/chunks/chunks.json` | Reserved for cached chunks (not yet used) |
-| `METADATA_FILE` | `data/metadata/metadata.json` | Reserved for index metadata (not yet used) |
-| `QDRANT_PATH` | `vector_db/qdrant` | Qdrant storage path (unused, Docker mode active) |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `BASE_DIR` | Project root | — | Auto-detected from file location |
+| `EXTRACTED_DIR` | `data/extracted/` | — | Where raw extracted text is saved (.txt) |
+| `CHUNKS_FILE` | `data/chunks/chunks.json` | — | Reserved for cached chunks (not yet used) |
+| `METADATA_FILE` | `data/metadata/metadata.json` | — | Reserved for index metadata (not yet used) |
+| `QDRANT_PATH` | `vector_db/qdrant` | — | Qdrant storage path (unused, Docker mode active) |
 
 ### Embedding Model
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `EMBED_MODEL` | `intfloat/multilingual-e5-small` | Sentence-transformers model name |
-| `EMBED_DIM` | `384` | Vector dimensions (must match model) |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `EMBED_MODEL` | `intfloat/multilingual-e5-base` | `EMBED_MODEL` | Sentence-transformers model name |
+| `EMBED_DIM` | `768` | `EMBED_DIM` | Vector dimensions (must match model) |
 
 ### Qdrant
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `QDRANT_HOST` | `localhost` | Qdrant Docker host |
-| `QDRANT_PORT` | `6333` | Qdrant Docker port |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `QDRANT_HOST` | `localhost` | `QDRANT_HOST` | Qdrant Docker host |
+| `QDRANT_PORT` | `6333` | `QDRANT_PORT` | Qdrant Docker port |
 
 ### Chunking
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `CHUNK_SIZE` | `384` | Target tokens per chunk |
-| `CHUNK_OVERLAP` | `50` | Overlap tokens between adjacent chunks |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `CHUNK_SIZE` | `384` | `CHUNK_SIZE` | Target tokens per chunk |
+| `CHUNK_OVERLAP` | `50` | `CHUNK_OVERLAP` | Overlap tokens between adjacent chunks |
 
 ### Retrieval
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `TOP_K` | `8` | Default number of results returned per query |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `TOP_K` | `8` | `TOP_K` | Default number of results returned per query |
 
 ### Reranking
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `RERANK_ENABLED` | `true` | Enable cross-encoder re-ranking stage |
-| `RERANK_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2` | HuggingFace CrossEncoder model |
-| `RERANK_TOP_N` | `20` | Candidates to retrieve before re-ranking |
+| Variable | Default | Env Var | Description |
+|----------|---------|---------|-------------|
+| `RERANK_ENABLED` | `true` | `RERANK_ENABLED` | Enable cross-encoder re-ranking stage |
+| `RERANK_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2` | `RERANK_MODEL` | HuggingFace CrossEncoder model |
+| `RERANK_TOP_N` | `20` | `RERANK_TOP_N` | Candidates to retrieve before re-ranking |
 
 ---
 
@@ -68,14 +91,27 @@ See `src/adapters.py` for the complete list of supported extensions.
 
 ## Changing the Embedding Model
 
-Edit `src/config.py`:
+Use environment variables or edit `~/.config/doc-rag/config.json`:
 
-```python
-# Options: multilingual-e5-small (384d), multilingual-e5-base (768d),
-#          multilingual-e5-large (1024d), BAAI/bge-m3, etc.
-EMBED_MODEL = "intfloat/multilingual-e5-large"
-EMBED_DIM = 1024  # Must match the model's output dimension
+```bash
+# Via environment variables (temporary)
+EMBED_MODEL=intfloat/multilingual-e5-large EMBED_DIM=1024 python src/ingest.py --reindex
+
+# Via config file (permanent)
+# Edit ~/.config/doc-rag/config.json:
+# {
+#   "embedding": {
+#     "model": "intfloat/multilingual-e5-large",
+#     "dimension": 1024
+#   }
+# }
 ```
+
+| Model | Dimensions | Quality | Speed | RAM |
+|---|---|---|---|---|
+| `multilingual-e5-small` | 384 | good | fast | ~1 GB |
+| `multilingual-e5-base` | 768 | better | medium | ~2 GB |
+| `multilingual-e5-large` | 1024 | best | slow | ~4 GB |
 
 Then **re-index all documents** (old collections have wrong dimensions):
 
@@ -83,6 +119,8 @@ Then **re-index all documents** (old collections have wrong dimensions):
 python src/ingest.py /path/to/document.pdf --reindex
 python src/ingest.py --folder /path/to/documents/ --reindex
 ```
+
+The system detects dimension mismatches automatically and will error before querying a collection indexed with the wrong model.
 
 ---
 
@@ -116,10 +154,19 @@ curl http://localhost:6333/health
 
 Larger chunks = more context per result, but fewer total chunks. Smaller chunks = more precise retrieval, but may split related content.
 
-```python
-# In src/config.py
-CHUNK_SIZE = 200   # Smaller chunks for more precise retrieval
-CHUNK_OVERLAP = 30 # Proportionally reduce overlap
+Use environment variables or edit `~/.config/doc-rag/config.json`:
+
+```bash
+# Via environment variables (temporary)
+CHUNK_SIZE=200 CHUNK_OVERLAP=30 python src/ingest.py --reindex
+
+# Via config file (permanent)
+# {
+#   "chunking": {
+#     "size": 200,
+#     "overlap": 30
+#   }
+# }
 ```
 
 After changing, re-index affected documents.

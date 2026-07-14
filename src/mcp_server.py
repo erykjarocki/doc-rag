@@ -134,9 +134,11 @@ def get_collection_info(collection_name: str) -> str:
     count_result = client.count(collection_name=collection_name, exact=True)
     total = count_result.count if hasattr(count_result, "count") else 0
 
+    from src.config import EMBED_DIM
+
     sample = client.query_points(
         collection_name=collection_name,
-        query=[0.0] * 384,
+        query=[0.0] * EMBED_DIM,
         limit=min(total, 100),
     )
 

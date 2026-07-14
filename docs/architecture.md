@@ -31,10 +31,10 @@ DOC-RAG is a local Retrieval-Augmented Generation system that lets you query doc
          │  list[dict] with text + start_page + end_page
          ▼
 ┌─────────────────────────────────────┐
-│    embed()       │  Batch encode with multilingual-e5-small
+│    embed()       │  Batch encode with multilingual-e5-base
 │  (embeddings.py) │  (passage: prefix for E5 models)
 └────────┬────────────────────────────┘
-         │  384-dim normalized vectors
+         │  768-dim normalized vectors
          ▼
 ┌─────────────────────┐
 │  qdrant.upsert()    │  Store vectors + metadata in Qdrant
@@ -61,7 +61,7 @@ User question
 │  embed_query()      │  Encode query (query: prefix for E5)
 │  (embeddings.py)    │
 └────────┬───────────┘
-         │  384-dim query vector
+         │  768-dim query vector
          ▼
 ┌─────────────────────────────────────────┐
 │  client.query_points()                   │  Cosine similarity search
@@ -90,7 +90,7 @@ DOC-RAG uses a **two-stage retrieval** architecture for optimal speed and accura
 
 ### Stage 1: Bi-Encoder (Fast Retrieval)
 
-- **Model:** `intfloat/multilingual-e5-small` (384 dimensions)
+- **Model:** `intfloat/multilingual-e5-base` (768 dimensions)
 - **How it works:** Encodes query and documents *separately* into vectors, then uses cosine similarity
 - **Speed:** Very fast — can search millions of documents in milliseconds
 - **Accuracy:** Good but imprecise — sees query and document independently
@@ -116,26 +116,7 @@ The bi-encoder acts as a fast filter, reducing thousands of candidates to a mana
 
 ### Configuration
 
-```json
-{
-  "rerank": {
-    "enabled": true,
-    "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
-    "top_n": 20
-  }
-}
-```
-
-- `enabled`: Toggle re-ranking on/off (on by default for best accuracy)
-- `model`: HuggingFace model identifier (any sentence-transformers CrossEncoder)
-- `top_n`: How many candidates to retrieve before re-ranking (higher = better recall, slower)
-
-### When to Disable Re-ranking
-
-**Disable when:**
-- You need maximum speed and can tolerate lower precision
-- Your queries are simple keyword searches
-- You're running on resource-constrained hardware
+Re-ranking is enabled by default. See [Configuration](configuration.md) for how to toggle it, change the model, or adjust the candidate count.
 
 ## Component Responsibilities
 
@@ -198,9 +179,5 @@ Each strategy is lazy-evaluated: only the first successful strategy is used. Thi
 ### Why adapter pattern for formats?
 Different document types need fundamentally different extraction logic. PDFs require PyMuPDF with font analysis; Markdown needs heading parsing; code needs function/class detection. The adapter pattern encapsulates this complexity while providing a uniform `Document` interface, so adding a new format requires only a new adapter class.
 
-### Why API-first ingestion?
-No staging directory — documents are ingested directly via API, MCP tools, or CLI. This means:
-- No folder to manage or synchronize
-- Works with any file location on disk
-- Clean API for programmatic access
-- MCP tools integrate naturally with AI agents
+### Why no staging directory?
+Documents are ingested directly from their original location via API, MCP tools, or CLI. No intermediate folder to manage — works with any file path on disk.

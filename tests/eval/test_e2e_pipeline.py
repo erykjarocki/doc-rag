@@ -38,8 +38,10 @@ class TestFullPipelineIndexing:
         result, _ = client.scroll(
             collection_name=coll_name, limit=count_result.count, with_vectors=True
         )
+        from src.config import EMBED_DIM
+
         for point in result:
-            assert len(point.vector) == 384
+            assert len(point.vector) == EMBED_DIM
 
 
 @pytest.mark.eval

@@ -20,7 +20,6 @@ nav:
   - Configuration: configuration.md
   - API Reference: api-reference.md
   - Testing: testing.md
-  - Improvements: improvements.md
   - Troubleshooting: troubleshooting.md
 
 markdown_extensions:

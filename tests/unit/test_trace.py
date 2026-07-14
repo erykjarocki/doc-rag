@@ -81,9 +81,9 @@ class TestFormatTrace:
             StageTrace(
                 name="embed",
                 input_summary='Query: "What is Paris?" (15 chars)',
-                output_summary="Model: multilingual-e5-small (384d)",
+                output_summary="Model: multilingual-e5-base (768d)",
                 duration_ms=2.1,
-                details={"model": "multilingual-e5-small", "dimension": 384},
+                details={"model": "multilingual-e5-base", "dimension": 768},
             ),
             StageTrace(
                 name="retrieve",
@@ -131,7 +131,7 @@ class TestFormatTrace:
             book="tiny_sample",
             stages=stages,
             total_ms=21.6,
-            embed_model="multilingual-e5-small",
+            embed_model="multilingual-e5-base",
             rerank_model="ms-marco-MiniLM-L-6-v2" if with_rerank else None,
         )
 
