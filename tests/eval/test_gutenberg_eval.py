@@ -21,28 +21,28 @@ class TestGutenbergRetrievalQuality:
     """Spot-check retrieval on specific chapters."""
 
     def test_mercenaries_query_finds_chapter_12(self, gutenberg_indexed_qdrant):
-        results = search_book("dangers of mercenary soldiers", book=BOOK)
+        results = search_book("dangers of mercenary soldiers", book=BOOK, rerank=False)
         assert len(results) > 0
         top = results[0]
         assert top["start_page"] == 12
         assert top["score"] > 0.3
 
     def test_fortune_query_finds_chapter_25(self, gutenberg_indexed_qdrant):
-        results = search_book("what fortune can effect in human affairs", book=BOOK)
+        results = search_book("what fortune can effect in human affairs", book=BOOK, rerank=False)
         assert len(results) > 0
         top = results[0]
         assert top["start_page"] == 25
         assert top["score"] > 0.3
 
     def test_flattery_query_finds_chapter_23(self, gutenberg_indexed_qdrant):
-        results = search_book("how flatterers should be avoided", book=BOOK)
+        results = search_book("how flatterers should be avoided", book=BOOK, rerank=False)
         assert len(results) > 0
         top = results[0]
         assert top["start_page"] == 23
         assert top["score"] > 0.3
 
     def test_war_query_finds_chapter_14(self, gutenberg_indexed_qdrant):
-        results = search_book("war as the prince's only profession", book=BOOK)
+        results = search_book("war as the prince's only profession", book=BOOK, rerank=False)
         assert len(results) > 0
         top = results[0]
         assert top["start_page"] == 14
@@ -52,7 +52,7 @@ class TestGutenbergRetrievalQuality:
         self, gutenberg_indexed_qdrant
     ):
         results = search_book(
-            "mercenary armies and military organization", book=BOOK
+            "mercenary armies and military organization", book=BOOK, rerank=False
         )
         assert len(results) > 1
         pages = {r["start_page"] for r in results[:3]}
@@ -70,7 +70,7 @@ class TestGutenbergRetrievalMetrics:
         recalls = []
 
         for item in labels:
-            results = search_book(item["query"], book=BOOK)
+            results = search_book(item["query"], book=BOOK, rerank=False)
             r, _, _ = collect_eval_result(
                 request.session,
                 item["query"],
@@ -91,7 +91,7 @@ class TestGutenbergRetrievalMetrics:
         precisions = []
 
         for item in labels:
-            results = search_book(item["query"], book=BOOK)
+            results = search_book(item["query"], book=BOOK, rerank=False)
             _, p, _ = collect_eval_result(
                 request.session,
                 item["query"],
@@ -114,7 +114,7 @@ class TestGutenbergRetrievalMetrics:
         rrs = []
 
         for item in labels:
-            results = search_book(item["query"], book=BOOK)
+            results = search_book(item["query"], book=BOOK, rerank=False)
             _, _, rr = collect_eval_result(
                 request.session,
                 item["query"],
