@@ -13,14 +13,14 @@ import src.qdrant_store as qdrant_store
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from src.chunking import chunk_markdown
 from src.embeddings import embed
 from src.qdrant_store import ensure_collection
-from src.chunking import chunk_markdown
 
 BENCHMARK_COLLECTION = "eval_benchmark"
 BENCHMARK_DOCS_DIR = Path(__file__).parent / "benchmark_docs"
 
-REPORT_PATH = Path(__file__).parent / "eval-report.json"
+REPORT_PATH = Path(os.environ.get("EVAL_REPORT_PATH", Path(__file__).parent / "eval-report.json"))
 BASELINE_PATH = Path(__file__).parent / "eval-baseline.json"
 
 
@@ -323,7 +323,11 @@ def _recall_at_k(results, relevant_documents, k):
     if not relevant_documents:
         return 1.0
     top_k = results[:k]
-    found = set(r.get("source_file", "") for r in top_k if r.get("source_file", "") in relevant_documents)
+    found = set(
+        r.get("source_file", "")
+        for r in top_k
+        if r.get("source_file", "") in relevant_documents
+    )
     return len(found) / len(relevant_documents)
 
 

@@ -1,4 +1,4 @@
-.PHONY: setup install serve mcp qdrant start stop clean lint fmt docs docs-serve test test-unit test-integration docker-up docker-down
+.PHONY: setup install serve mcp qdrant start stop clean lint fmt docs docs-serve test test-unit test-integration eval-sweep eval-sweep-parallel docker-up docker-down
 
 PY = venv/bin/python
 PIP = venv/bin/pip
@@ -86,6 +86,12 @@ test-integration:
 
 test-eval:
 	$(PYTEST) tests/eval/ -v -m "eval or rerank"
+
+eval-sweep:
+	$(PY) tests/eval/run_sweep.py
+
+eval-sweep-parallel:
+	$(PY) tests/eval/run_sweep.py --parallel
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true

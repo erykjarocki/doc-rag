@@ -122,6 +122,29 @@ The `@pytest.mark.rerank` tests run the full pipeline twice:
 
 Both stages are compared in a single table: Before → After → Delta. The reranking detail shows per-query how items were reordered.
 
+#### Configuration sweep
+
+Compare retrieval quality across different configurations (chunk sizes, overlap, reranking):
+
+```bash
+make eval-sweep             # sequential (5 configs × ~90s each ≈ 7 min)
+make eval-sweep-parallel    # parallel (all configs at once ≈ 2 min)
+python tests/eval/run_sweep.py --configs chunk256 chunk512   # specific configs
+python tests/eval/run_sweep.py --dry-run                     # preview without running
+```
+
+Default configurations:
+
+| Config | Chunk Size | Overlap | Description |
+|--------|-----------|---------|-------------|
+| `chunk256` | 256 | 30 | Small chunks — faster, more precise |
+| `chunk384` | 384 | 50 | Default — balanced |
+| `chunk512` | 512 | 80 | Large chunks — more context per result |
+| `overlap100` | 384 | 100 | High overlap — more context continuity |
+| `no-rerank` | 384 | 50 | No cross-encoder reranking |
+
+Results are saved to `tests/eval/eval-sweep/` with per-config reports and a comparison HTML at `sweep-comparison.html`. Add custom configs by editing the `DEFAULT_CONFIGS` dict in `tests/eval/run_sweep.py`.
+
 ## Running All Tests
 
 ```bash
@@ -151,6 +174,8 @@ tests/
     ├── eval-baseline.json      # baseline metrics for regression detection
     ├── compare_to_baseline.py  # diffs current vs baseline scores
     ├── generate_report.py      # custom HTML report from eval-report.json
+    ├── run_sweep.py            # multi-config sweep runner
+    ├── sweep_report.py         # sweep comparison HTML generator
     └── test_e2e_pipeline.py    # E2E: retrieval + reranking (25 tests)
 ```
 

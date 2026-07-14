@@ -25,3 +25,4 @@ tests/eval/eval-report.json
 tests/eval/eval-report.html
 tests/eval/index.html
 tests/eval/comparison.md
+tests/eval/eval-sweep/

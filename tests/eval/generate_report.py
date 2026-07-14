@@ -1,11 +1,13 @@
 """Generate a detailed HTML report from eval-report.json."""
 
 import json
+import os
 from pathlib import Path
 
-REPORT_JSON = Path(__file__).parent / "eval-report.json"
-REPORT_HTML = Path(__file__).parent / "eval-report.html"
-BASELINE_JSON = Path(__file__).parent / "eval-baseline.json"
+_parent = Path(__file__).parent
+REPORT_JSON = Path(os.environ.get("EVAL_REPORT_PATH", _parent / "eval-report.json"))
+REPORT_HTML = Path(os.environ.get("EVAL_REPORT_HTML", _parent / "eval-report.html"))
+BASELINE_JSON = _parent / "eval-baseline.json"
 
 CSS = """
 body {
