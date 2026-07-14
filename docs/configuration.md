@@ -41,6 +41,14 @@ All configuration lives in `src/config.py`.
 |----------|---------|-------------|
 | `TOP_K` | `8` | Default number of results returned per query |
 
+### Reranking
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `RERANK_ENABLED` | `true` | Enable cross-encoder re-ranking stage |
+| `RERANK_MODEL` | `cross-encoder/ms-marco-MiniLM-L-6-v2` | HuggingFace CrossEncoder model |
+| `RERANK_TOP_N` | `20` | Candidates to retrieve before re-ranking |
+
 ---
 
 ## Supported Formats

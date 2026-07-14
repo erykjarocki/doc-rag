@@ -119,26 +119,21 @@ The bi-encoder acts as a fast filter, reducing thousands of candidates to a mana
 ```json
 {
   "rerank": {
-    "enabled": false,
+    "enabled": true,
     "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
     "top_n": 20
   }
 }
 ```
 
-- `enabled`: Toggle re-ranking on/off (off by default for faster startup)
+- `enabled`: Toggle re-ranking on/off (on by default for best accuracy)
 - `model`: HuggingFace model identifier (any sentence-transformers CrossEncoder)
 - `top_n`: How many candidates to retrieve before re-ranking (higher = better recall, slower)
 
-### When to Enable Re-ranking
+### When to Disable Re-ranking
 
-**Enable when:**
-- Answer quality matters more than latency
-- You have complex queries requiring precise matching
-- You're okay with ~100ms additional latency per query
-
-**Keep disabled when:**
-- You need maximum speed
+**Disable when:**
+- You need maximum speed and can tolerate lower precision
 - Your queries are simple keyword searches
 - You're running on resource-constrained hardware
 
@@ -149,7 +144,7 @@ The bi-encoder acts as a fast filter, reducing thousands of candidates to a mana
 | `config.py` | Central configuration | Paths, model name, chunk size, collection naming |
 | `adapters.py` | Format-specific extraction | `get_adapter()`, `PDFAdapter`, `MarkdownAdapter`, `CodeAdapter`, `PlainTextAdapter` |
 | `embeddings.py` | Text ↔ vector conversion | `embed()`, `embed_query()`, `get_model()` |
-| `reranker.py` | Cross-encoder re-ranking | `rerank()`, `get_reranker()` |
+| `reranker.py` | Cross-encoder re-ranking | `rerank()`, `rerank_with_analysis()`, `get_reranker()` |
 | `qdrant_store.py` | Vector DB connection | `ensure_collection()`, `list_collections()` |
 | `chapter_detection.py` | Chapter/section detection (PDF) | `ChapterDetector`, `_build_toc_map()`, `_build_font_map()` |
 | `chunking.py` | Token-aware text splitting | `chunk_text()` |
