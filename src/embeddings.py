@@ -1,6 +1,9 @@
 from sentence_transformers import SentenceTransformer
 
 from src.config import EMBED_MODEL
+from src.log import get_logger
+
+logger = get_logger(__name__)
 
 _model = None
 _requires_prefix = None
@@ -14,9 +17,11 @@ def get_model():
     """
     global _model
     if _model is None:
+        logger.info("Loading embedding model: %s", EMBED_MODEL, extra={"model": EMBED_MODEL})
         _model = SentenceTransformer(EMBED_MODEL, trust_remote_code=True)
         if _model.max_seq_length is None:
             _model.max_seq_length = 512
+        logger.info("Embedding model loaded", extra={"model": EMBED_MODEL})
     return _model
 
 

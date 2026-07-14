@@ -3,6 +3,9 @@ from qdrant_client.http import models
 from qdrant_client.http.models import Distance, VectorParams
 
 from src.config import EMBED_DIM, QDRANT_HOST, QDRANT_PORT
+from src.log import get_logger
+
+logger = get_logger(__name__)
 
 _client = None
 
@@ -48,9 +51,9 @@ def ensure_collection(name: str, client: QdrantClient | None = None):
             field_name="book",
             field_schema=models.PayloadSchemaType.KEYWORD,
         )
-        print(f"  Created collection '{name}'")
+        logger.info("Created collection '%s'", name, extra={"collection": name, "action": "create"})
     else:
-        print(f"  Collection '{name}' already exists")
+        logger.debug("Collection '%s' already exists", name, extra={"collection": name})
 
 
 def delete_collection(name: str, client: QdrantClient | None = None):
@@ -63,7 +66,7 @@ def delete_collection(name: str, client: QdrantClient | None = None):
     if client is None:
         client = get_qdrant_client()
     client.delete_collection(collection_name=name)
-    print(f"  Deleted collection '{name}'")
+    logger.info("Deleted collection '%s'", name, extra={"collection": name, "action": "delete"})
 
 
 def list_collections(client: QdrantClient | None = None) -> list[str]:

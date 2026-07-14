@@ -11,6 +11,7 @@ from src.adapters import get_adapter, section_for_position, supported_extensions
 from src.chunking import chunk_text
 from src.config import EXTRACTED_DIR
 from src.embeddings import embed
+from src.log import get_logger
 from src.qdrant_store import (
     delete_collection,
     ensure_collection,
@@ -18,6 +19,8 @@ from src.qdrant_store import (
     list_collections,
 )
 from src.utils import collection_name
+
+logger = get_logger(__name__)
 
 
 def process_document(file_path: str) -> dict:
@@ -34,12 +37,18 @@ def process_document(file_path: str) -> dict:
     """
     adapter = get_adapter(file_path)
     doc = adapter.extract(file_path)
-    print(f"  Processing: {doc.name} ({adapter.format_name})")
-    print(
-        f"    Sections: {len(doc.sections)}, text length: {len(doc.full_text)} chars"
+    logger.info(
+        "Processing document",
+        extra={"file": doc.name, "format": adapter.format_name},
     )
-    if doc.tables:
-        print(f"    Tables detected: {len(doc.tables)}")
+    logger.debug(
+        "Document details",
+        extra={
+            "sections": len(doc.sections),
+            "text_length": len(doc.full_text),
+            "tables": len(doc.tables),
+        },
+    )
 
     chunks = chunk_text(doc.full_text, doc.page_boundaries, doc.page_nums)
 
@@ -66,7 +75,10 @@ def process_document(file_path: str) -> dict:
         f.write(doc.full_text)
 
     total_pages = len(doc.page_nums)
-    print(f"    Chunks created: {len(result_chunks)}")
+    logger.info(
+        "Chunks created",
+        extra={"file": doc.name, "chunks": len(result_chunks), "pages": total_pages},
+    )
     return {"book": doc.name, "chunks": result_chunks, "total_pages": total_pages}
 
 
@@ -102,14 +114,17 @@ def index_document(file_path: str, reindex: bool = False) -> dict:
     chunks = result["chunks"]
 
     if not chunks:
-        print(f"  No chunks to index for '{book_name}'.")
+        logger.warning("No chunks to index for '%s'", book_name, extra={"book": book_name})
         return result
 
-    print(f"  Generating embeddings for {len(chunks)} chunks...")
+    logger.info(
+        "Generating embeddings",
+        extra={"book": book_name, "chunk_count": len(chunks)},
+    )
     texts = [c["text"] for c in chunks]
     vectors = embed(texts)
 
-    print(f"  Storing in Qdrant collection '{coll}'...")
+    logger.info("Storing in Qdrant", extra={"book": book_name, "collection": coll})
     points = []
     for i, (chunk, vector) in enumerate(zip(chunks, vectors)):
         points.append(
@@ -133,9 +148,15 @@ def index_document(file_path: str, reindex: bool = False) -> dict:
             collection_name=coll,
             points=batch,
         )
-        print(f"    Upserted {start + len(batch)}/{len(points)} points")
+        logger.debug(
+            "Upserted batch",
+            extra={"collection": coll, "upserted": start + len(batch), "total": len(points)},
+        )
 
-    print(f"  Done! Indexed {len(chunks)} chunks into '{coll}'.")
+    logger.info(
+        "Indexing complete",
+        extra={"book": book_name, "collection": coll, "chunks": len(chunks)},
+    )
     return result
 
 
@@ -164,7 +185,7 @@ def ingest_folder(directory: str, reindex: bool = False) -> list[dict]:
     all_files.sort()
 
     if not all_files:
-        print(f"No supported files found in {directory}/")
+        logger.info("No supported files found in %s", directory)
         return []
 
     qdrant = get_qdrant_client()
@@ -176,12 +197,15 @@ def ingest_folder(directory: str, reindex: bool = False) -> list[dict]:
         coll = collection_name(doc_name)
 
         if not reindex and coll in existing:
-            print(f"Skipping: {os.path.basename(file_path)} (already indexed)")
+            logger.info(
+                "Skipping already-indexed file",
+                extra={"file": os.path.basename(file_path)},
+            )
             results.append({"name": doc_name, "status": "skipped"})
             continue
 
         try:
-            print(f"\nIndexing: {os.path.basename(file_path)}")
+            logger.info("Indexing file", extra={"file": os.path.basename(file_path)})
             result = index_document(file_path, reindex=reindex)
             results.append({
                 "name": doc_name,
@@ -189,13 +213,19 @@ def ingest_folder(directory: str, reindex: bool = False) -> list[dict]:
                 "chunks": len(result["chunks"]),
             })
         except Exception as e:
-            print(f"  Error: {e}")
+            logger.error(
+                "Error indexing %s: %s", os.path.basename(file_path), e,
+                extra={"file": os.path.basename(file_path)},
+            )
             results.append({"name": doc_name, "status": "error", "error": str(e)})
 
     indexed = sum(1 for r in results if r["status"] == "indexed")
     skipped = sum(1 for r in results if r["status"] == "skipped")
     errors = sum(1 for r in results if r["status"] == "error")
-    print(f"\nDone! Indexed: {indexed}, Skipped: {skipped}, Errors: {errors}")
+    logger.info(
+        "Folder ingestion complete",
+        extra={"directory": directory, "indexed": indexed, "skipped": skipped, "errors": errors},
+    )
     return results
 
 
@@ -211,11 +241,16 @@ def delete_book(book_name: str):
 
     if coll not in collections:
         possible = [c for c in collections if c != "_point_vector"]
-        print(f"Collection '{coll}' not found. Available: {possible}")
+        logger.warning(
+            "Collection '%s' not found. Available: %s",
+            coll,
+            possible,
+            extra={"collection": coll},
+        )
         return
 
     delete_collection(coll, qdrant)
-    print(f"Document '{book_name}' removed from knowledge base.")
+    logger.info("Document '%s' removed from knowledge base", book_name, extra={"book": book_name})
 
 
 def list_books():
@@ -223,13 +258,13 @@ def list_books():
     qdrant = get_qdrant_client()
     collections = list_collections(qdrant)
     if not collections:
-        print("No documents in the knowledge base.")
+        logger.info("No documents in the knowledge base")
         return
-    print("Documents in knowledge base:")
+    logger.info("Documents in knowledge base:")
     for c in sorted(collections):
         count_result = qdrant.count(collection_name=c, exact=True)
         total = count_result.count if hasattr(count_result, "count") else 0
-        print(f"  - {c} ({total} chunks)")
+        logger.info("  - %s (%d chunks)", c, total, extra={"collection": c, "chunks": total})
 
 
 def main():
@@ -253,7 +288,7 @@ def main():
         ingest_folder(args.folder, reindex=args.reindex)
     elif args.file:
         if not os.path.exists(args.file):
-            print(f"Error: File not found: {args.file}")
+            logger.error("File not found: %s", args.file)
             sys.exit(1)
         index_document(args.file, reindex=args.reindex)
     else:

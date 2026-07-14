@@ -7,10 +7,11 @@ accuracy. This is the "Advanced RAG" re-ranking stage.
 
 from __future__ import annotations
 
-import logging
 from typing import Optional
 
-logger = logging.getLogger(__name__)
+from src.log import get_logger
+
+logger = get_logger(__name__)
 
 _reranker = None
 _model_name: Optional[str] = None
@@ -36,10 +37,10 @@ def get_reranker(model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"):
     if _reranker is None or _model_name != model_name:
         from sentence_transformers import CrossEncoder
 
-        logger.info("Loading cross-encoder model: %s", model_name)
+        logger.info("Loading cross-encoder model: %s", model_name, extra={"model": model_name})
         _reranker = CrossEncoder(model_name, max_length=512)
         _model_name = model_name
-        logger.info("Cross-encoder loaded successfully")
+        logger.info("Cross-encoder loaded", extra={"model": model_name})
 
     return _reranker
 

@@ -9,10 +9,15 @@ from pydantic import BaseModel
 
 from src.adapters import supported_extensions
 from src.ingest import index_document, ingest_folder
+from src.log import get_logger
+from src.middleware import RequestTracingMiddleware
 from src.qdrant_store import delete_collection, get_qdrant_client, list_collections
 from src.retriever import format_fragments_for_prompt, search_book
 
+logger = get_logger(__name__)
+
 app = FastAPI(title="DOC-RAG API", version="2.0.0")
+app.add_middleware(RequestTracingMiddleware)
 
 
 class QueryRequest(BaseModel):

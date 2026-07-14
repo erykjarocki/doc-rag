@@ -2,9 +2,15 @@ import time
 
 from src.config import EMBED_MODEL, RERANK_ENABLED, RERANK_MODEL, RERANK_TOP_N, TOP_K
 from src.embeddings import embed_query
+from src.log import get_logger
 from src.qdrant_store import get_qdrant_client, list_collections
-from src.trace import SearchResult, StageTrace, TraceLog
+from src.trace import SearchResult, StageTrace, TraceLog, trace_to_json
 from src.utils import collection_name
+
+logger = get_logger(__name__)
+
+# Threshold below which a retrieved chunk is considered low quality
+LOW_SCORE_THRESHOLD = 0.3
 
 
 def search_book(
@@ -96,6 +102,41 @@ def search_book(
 
     retrieve_ms = (time.perf_counter() - t0) * 1000
 
+    # Log retrieval quality signals
+    if results:
+        scores = [r["score"] for r in results]
+        avg_score = sum(scores) / len(scores)
+        low_score_count = sum(1 for s in scores if s < LOW_SCORE_THRESHOLD)
+
+        log_data = {
+            "query_preview": query[:80],
+            "collection": book or "all",
+            "results_count": len(results),
+            "top_score": round(scores[0], 4) if scores else 0,
+            "avg_score": round(avg_score, 4),
+            "retrieve_ms": round(retrieve_ms, 1),
+        }
+
+        if low_score_count > 0:
+            logger.warning(
+                "Low retrieval scores detected (%d/%d below %.2f)",
+                low_score_count,
+                len(results),
+                LOW_SCORE_THRESHOLD,
+                extra=log_data,
+            )
+        else:
+            logger.info(
+                "Retrieved %d candidates",
+                len(results),
+                extra=log_data,
+            )
+    else:
+        logger.warning(
+            "No results found",
+            extra={"query_preview": query[:80], "collection": book or "all"},
+        )
+
     candidates_for_trace = [
         {
             "rank": i + 1,
@@ -176,6 +217,19 @@ def search_book(
     total_ms = (time.perf_counter() - total_start) * 1000
     final = results[:top_k]
 
+    # Log the complete pipeline trace
+    logger.info(
+        "Search complete",
+        extra={
+            "query_preview": query[:80],
+            "book": book,
+            "rerank": use_rerank,
+            "total_ms": round(total_ms, 1),
+            "result_count": len(final),
+            "top_score": round(final[0]["score"], 4) if final else 0,
+        },
+    )
+
     if not trace:
         return final
 
@@ -187,6 +241,13 @@ def search_book(
         embed_model=EMBED_MODEL,
         rerank_model=RERANK_MODEL if use_rerank else None,
     )
+
+    # Persist full trace as structured JSON for downstream analysis
+    logger.debug(
+        "Pipeline trace",
+        extra={"trace": trace_to_json(trace_log)},
+    )
+
     return SearchResult(fragments=final, trace=trace_log)
 
 

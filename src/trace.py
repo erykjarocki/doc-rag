@@ -6,6 +6,7 @@ and optional cross-encoder reranking — with timing and metadata.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -93,6 +94,35 @@ def format_trace(trace: TraceLog) -> str:
 
     lines.append(f"Total: {trace.total_ms:.1f}ms")
     return "\n".join(lines)
+
+
+def trace_to_dict(trace: TraceLog) -> dict:
+    """Convert a TraceLog to a JSON-serializable dict.
+
+    Useful for structured logging or persisting traces to files.
+    """
+    return {
+        "query": trace.query,
+        "book": trace.book,
+        "total_ms": trace.total_ms,
+        "embed_model": trace.embed_model,
+        "rerank_model": trace.rerank_model,
+        "stages": [
+            {
+                "name": s.name,
+                "input_summary": s.input_summary,
+                "output_summary": s.output_summary,
+                "duration_ms": s.duration_ms,
+                "details": s.details,
+            }
+            for s in trace.stages
+        ],
+    }
+
+
+def trace_to_json(trace: TraceLog) -> str:
+    """Serialize a TraceLog as a JSON string."""
+    return json.dumps(trace_to_dict(trace), default=str, ensure_ascii=False)
 
 
 def _stage_label(name: str) -> str:
