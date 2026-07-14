@@ -38,147 +38,72 @@ pytest tests/integration/ -v -m integration
 
 ### Eval Tests
 
-Full pipeline with real embeddings and in-memory Qdrant. Generates a tiny test PDF, runs extraction, chunking, chapter detection, embedding, and retrieval — no mocking. Marked `@pytest.mark.eval`.
+Full pipeline with real embeddings and in-memory Qdrant. Uses the [enterprise-rag-gold-standard](https://github.com/SantiagoCompany/enterprise-rag-gold-standard) benchmark corpus — 9 enterprise markdown documents with 8 ground-truth queries. Marked `@pytest.mark.eval`.
 
 ```bash
 make test-eval
 # or directly:
 pytest tests/eval/ -v -m eval
-# with HTML report:
-pytest tests/eval/ -v -m eval --html=eval-report.html --self-contained-html
+# with reranking:
+pytest tests/eval/ -v -m "eval or rerank"
 ```
 
 **What's covered:**
-- Full `process_book()` pipeline (extract → chunk → chapter detection)
 - Real `multilingual-e5-small` embedding model
 - Qdrant upsert and cosine similarity retrieval
-- Retrieval quality: queries retrieve semantically correct chunks
+- Retrieval quality across 8 labeled queries
 - Citation formatting with Polish source labels
 - **Quantified metrics:** Recall@2, Precision@2, MRR over labeled queries
+- **Two-stage pipeline comparison:** Bi-encoder → Cross-encoder reranking
 
-**What you see in the terminal:**
-```
-tests/eval/test_e2e_pipeline.py::TestRetrievalMetrics::test_recall_at_2
-  recall@2 = 1.00 (threshold: 0.80)
-PASSED
-...
-======================================================================
-EVAL RESULTS
-======================================================================
+#### Benchmark corpus
 
-Query: "What is the capital of France?"
-  [1] score=0.85  page=1  ✓ RELEVANT
-      Chapter 1: France
-      Paris is the capital and most populous city of France...
-  [2] score=0.83  page=1  ✓ RELEVANT
-      ...Notre-Dame de Paris is a medieval Catholic cathedral...
+The eval tests use a curated enterprise corpus (`tests/eval/benchmark_docs/`) from the enterprise-rag-gold-standard project:
 
-Query: "Tell me about Berlin"
-  [1] score=0.81  page=2  ✓ RELEVANT
-      ...The Berlin Wall divided the city from August 13, 1961...
-  [2] score=0.80  page=2  ✓ RELEVANT
-      ...Oktoberfest, the world's largest folk festival...
+| Document | Domain |
+|----------|--------|
+| `OP-204_Incident_Management_v4.md` | Operations |
+| `BOM-FLT-H2NEX.md` | Supply Chain |
+| `RGM-2026_Regional_Governance_Matrix.md` | Governance |
+| `FIN-AUTH-101_Authorization_Framework.md` | Finance |
+| `HR-POL-030_Remote_Work_US.md` | HR |
+| `AVL-PUR-012_Supplier_Qualification.md` | Supply Chain |
+| `SOP-COM-015_Regulatory_Breach_Report.md` | Compliance |
+| `HR-POL-030-EMEA_Remote_Work.md` | HR |
+| `LEG-GDPR-007_Supplier_Data_Processing.md` | Legal |
 
-----------------------------------------------------------------------
-Recall@2: 0.94 | Precision@2: 1.00 | MRR: 1.00
-----------------------------------------------------------------------
-```
+**Why this corpus?**
+- Real enterprise documents with specific factual content (thresholds, policies, names)
+- Small enough for fast CI (~40KB total, ~30 chunks)
+- Verifiable ground truth from source_documents field
+- Multi-document queries test cross-file retrieval
+- No PDF extraction needed — pure markdown
 
-After the run, `tests/eval/eval-report.json` contains the full structured results with per-query fragment text, scores, and relevance flags.
+#### Labels
 
-#### Why a 3-topic synthetic PDF?
+`tests/eval/benchmark_labels.json` contains 8 queries mapped to source documents:
 
-The test PDF is intentionally minimal — three pages, three topics (France/Germany/Japan), ~10000 characters total. This is deliberate:
-
-- **Deterministic chunking.** A ~10000-char document produces ~11 chunks (with 384-token chunk size, page-boundary-aware splitting). This is enough to test retrieval discrimination without being overwhelming.
-- **Fast feedback.** The model loads once (~1s), extraction is instant, embedding is a single batch. Total: ~8s. A real book would take minutes.
-- **Focused assertions.** We're testing the *pipeline wiring*, not the model's knowledge. If "Paris", "Berlin", and "Tokyo" are in separate chunks and the model can't distinguish them, something is broken in the pipeline — not the model.
-- **Easy to debug.** When a metric fails, you know exactly which chunk should have matched. No need to inspect 50 pages of output.
-- **3 topics, not 2.** Two topics can be distinguished by simple keyword matching. Three topics require the model to actually understand semantic similarity — a better test of the embedding model.
-- **Cross-topic queries.** 4 of 13 queries span multiple pages (e.g., "European capitals" [1,2], "world landmarks" [1,2,3]). These test whether the model can retrieve from multiple relevant sources — and expose real embedding model limitations when it can't.
-
-This is standard practice for E2E pipeline tests. Real-world PDFs belong in manual evaluation, not automated CI.
-
-#### Gutenberg eval (real content)
-
-The Gutenberg eval (`test_gutenberg_eval.py`) tests retrieval with real prose — 26 chapters of *The Prince* by Machiavelli fetched from Project Gutenberg (~200K chars, ~268 chunks). No PDF involved: plain text is chunked directly via `chunk_text()`.
-
-```bash
-pytest tests/eval/test_gutenberg_eval.py -v -m eval
+```json
+{
+  "query": "What is the financial threshold for Critical Exception?",
+  "relevant_documents": ["OP-204_Incident_Management_v4.md"],
+  "category": "direct_retrieval"
+}
 ```
 
-**What it tests:**
-- Retrieval quality across 27 labeled queries across 6 difficulty categories
-- Semantic understanding of a real treatise (not synthetic keyword-separated content)
-- Cross-chapter topic retrieval (e.g., "military organization" → chapters XII, XIII, XIV)
-- Hard queries: negative (irrelevant topics), ambiguous (vague), deep paraphrase (no keyword overlap)
-
-**Thresholds:**
-
-| Metric | Threshold | Notes |
-|--------|-----------|-------|
-| Recall@2 | >= 0.70 | 268 chunks is harder than 11; relaxed from 0.80 |
-| Precision@2 | >= 0.50 | Same as tiny_pdf — at least half of top-2 should be relevant |
-| MRR | >= 0.60 | Relaxed from 0.7 — more chunks means lower rank positions |
-
-**How it works:**
-1. `gutenberg_corpus.py` fetches the text, strips header/footer, splits by `CHAPTER` markers
-2. `chunk_text()` splits into ~268 chunks (384-token chunks, 50-token overlap)
-3. Chunks are embedded and stored in in-memory Qdrant
-4. 27 queries are run and scored against `labels.json`
-
-#### Why not test with a real book?
-
-Testing with a 300-page book would:
-- Take 2-5 minutes per CI run (embedding model load + extraction + chunking)
-- Make failures ambiguous (is the model wrong, or the chunking?)
-- Require checking in a large PDF to git (or downloading it in CI)
-- Create flaky tests (floating-point differences across platforms)
-
-The tiny PDF catches the same bugs: broken extraction, wrong chunk boundaries, missing vectors, disconnected retrieval.
+Relevance is **file-based**: a chunk is relevant if it comes from one of the `relevant_documents`.
 
 #### Metrics and thresholds
 
-The test uses `tests/eval/labels.json` — 13 labeled queries with expected relevant page numbers. Queries fall into two categories:
-
-- **Single-topic** (9 queries): "What is the capital of France?", "Tell me about Berlin", etc. These test basic retrieval — does the model find the right page?
-- **Cross-topic** (4 queries): "European capitals and their landmarks" [1,2], "world famous landmarks" [1,2,3], etc. These test whether the model can retrieve from multiple relevant pages simultaneously.
-
-Three metrics are computed:
-
 | Metric | What it measures | Threshold | Why this threshold |
 |--------|-----------------|-----------|-------------------|
-| **Recall@2** | Did the relevant chunk appear in top-2? | >= 0.8 | With cross-topic queries having 2-3 relevant pages, recall@2 can't always be 1.0 (k=2 limits coverage). 0.8 allows some multi-page queries to miss a page. |
-| **Precision@2** | Are top-2 results mostly relevant? | >= 0.5 | With 11 chunks, precision@2 can range from 0 (both irrelevant) to 1.0 (both relevant). 0.5 means at least half of top-2 are relevant. |
-| **MRR** | How high up is the first relevant result? | >= 0.7 | MRR=1.0 means relevant result is always rank-1. 0.7 means average rank ~1.4. |
-
-**Why these specific thresholds?** They're calibrated for an 11-chunk corpus where single-topic queries should be near-perfect, but cross-topic queries may not retrieve all relevant pages in top-2. The thresholds are intentionally strict — this is a sanity check, not a lenient pass.
-
-**What cross-topic queries reveal:** These queries expose real embedding model limitations. For example, `multilingual-e5-small` struggles to connect "famous festivals" with cherry blossom viewing (hanami), or "world landmarks" with the Brandenburg Gate. These are model weaknesses, not pipeline bugs — upgrading to a larger embedding model would likely improve these scores.
-
-**How to extend:** Add queries to `tests/eval/labels.json`. Each entry needs:
-```json
-{
-  "query": "your question",
-  "relevant_pages": [1],
-  "description": "why this page is relevant"
-}
-```
-
-For cross-topic queries, list multiple pages:
-```json
-{
-  "query": "European capitals and their landmarks",
-  "relevant_pages": [1, 2],
-  "description": "Paris and Berlin are European capitals with famous landmarks"
-}
-```
-
-As the corpus grows, tighten thresholds. With 20+ chunks, expect Precision@2 to drop — consider raising k or adding a Recall@5 metric.
+| **Recall@2** | Did the relevant document appear in top-2? | >= 0.6 | With 9 documents, some queries may have overlapping content; 0.6 allows for imperfect retrieval |
+| **Precision@2** | Are top-2 results from relevant documents? | >= 0.4 | At least 1 of top-2 should be from the right document |
+| **MRR** | How high up is the first relevant result? | >= 0.5 | Average rank ~2 for first relevant result |
 
 #### How scores are calculated
 
-For a query with `relevant_pages = [1]` and top-2 results with pages `[1, 2]`:
+For a query with `relevant_documents = ["OP-204_Incident_Management_v4.md"]` and top-2 results from files `[OP-204_Incident_Management_v4.md, BOM-FLT-H2NEX.md]`:
 
 ```
 Recall@2     = |relevant found in top-k| / |total relevant|  = 1/1 = 1.00
@@ -186,29 +111,16 @@ Precision@2  = |relevant found in top-k| / k                 = 1/2 = 0.50
 MRR          = 1 / rank of first relevant result              = 1/1 = 1.00
 ```
 
-For a query where the relevant chunk is at rank-2: `MRR = 1/2 = 0.50`.
-
-For a cross-topic query with `relevant_pages = [1, 2]` and top-2 results with pages `[1, 3]`:
-
-```
-Recall@2     = |relevant found in top-k| / |total relevant|  = 1/2 = 0.50
-Precision@2  = |relevant found in top-k| / k                 = 1/2 = 0.50
-MRR          = 1 / rank of first relevant result              = 1/1 = 1.00
-```
-
-This is why cross-topic queries are harder — with k=2, you can only retrieve from 2 pages, so queries with 3+ relevant pages will always have recall < 1.0.
-
-For a query with `relevant_pages = [3]` where both top-2 results are from page 3:
-
-```
-Recall@2     = 1/1 = 1.00
-Precision@2  = 2/2 = 1.00
-MRR          = 1/1 = 1.00
-```
-
 Each query is evaluated independently, then metrics are averaged across all queries. The `pytest_sessionfinish` hook in `tests/eval/conftest.py` collects per-query results, computes averages, prints a terminal summary, and writes `tests/eval/eval-report.json`.
 
-The `collect_eval_result()` function in `tests/eval/conftest.py` computes per-query metrics and stores per-fragment details (chunk text, cosine score, rank, relevance flag) that feed into both the terminal output and JSON report. This gives full visibility into what the model retrieved for each query.
+#### Two-stage pipeline comparison
+
+The `@pytest.mark.rerank` tests run the full pipeline twice:
+
+1. **Bi-encoder only** — baseline retrieval metrics
+2. **Bi-encoder + cross-encoder** — reranked metrics
+
+Both stages are compared in a single table: Before → After → Delta. The reranking detail shows per-query how items were reordered.
 
 ## Running All Tests
 
@@ -233,14 +145,13 @@ tests/
 │   ├── test_retrieval.py       # Qdrant round-trip (in-memory)
 │   └── test_api.py             # FastAPI TestClient endpoint tests
 └── eval/
-    ├── conftest.py             # Gutenberg corpus fixtures, metric functions
-    ├── gutenberg_corpus.py     # fetch/split The Prince from Project Gutenberg
-    ├── labels.json             # 27 labeled queries (Gutenberg, 26 chapters)
+    ├── conftest.py             # benchmark corpus fixtures, metric functions
+    ├── benchmark_docs/         # enterprise-rag-gold-standard markdown docs
+    ├── benchmark_labels.json   # 8 labeled queries (file-based relevance)
     ├── eval-baseline.json      # baseline metrics for regression detection
     ├── compare_to_baseline.py  # diffs current vs baseline scores
     ├── generate_report.py      # custom HTML report from eval-report.json
-    ├── test_e2e_pipeline.py    # E2E: tiny PDF smoke test (15 tests)
-    └── test_gutenberg_eval.py  # E2E: Gutenberg retrieval quality (8 tests)
+    └── test_e2e_pipeline.py    # E2E: retrieval + reranking (25 tests)
 ```
 
 ## How Mocking Works
@@ -271,7 +182,7 @@ GitHub Actions runs a 3-stage pipeline on every PR (see `.github/workflows/ci.ym
 ruff check src/ tests/
 pytest tests/unit/ -v -m unit
 pytest tests/integration/ -v -m integration
-pytest tests/eval/ -v -m eval
+pytest tests/eval/ -v -m "eval or rerank"
 ```
 
 ## Adding New Tests
@@ -280,21 +191,44 @@ pytest tests/eval/ -v -m eval
 2. **Needs Qdrant?** → Use the `qdrant_memory` fixture, mark `@pytest.mark.integration`
 3. **Needs embeddings?** → Mock `get_model()` with a `MagicMock` that returns deterministic vectors
 4. **Needs FastAPI?** → Use `TestClient(app)` from `fastapi.testclient`
-5. **Full pipeline with real model?** → Add to `tests/eval/`, mark `@pytest.mark.eval`, use the `indexed_qdrant` fixture from `tests/eval/conftest.py`
+5. **Full pipeline with real model?** → Add to `tests/eval/`, mark `@pytest.mark.eval`, use the `benchmark_indexed_qdrant` fixture from `tests/eval/conftest.py`
 
 ### Eval Test Design Philosophy
 
 The eval tests follow a principle: **test the pipeline, not the model**. The embedding model is a black box — we don't test whether `multilingual-e5-small` produces optimal vectors. We test that:
 
-1. The pipeline correctly wires extraction → chunking → embedding → storage → retrieval
+1. The pipeline correctly wires chunking → embedding → storage → retrieval
 2. The model's output is used correctly (vectors stored, queried, ranked)
 3. Retrieval quality is *good enough* for the tool to be useful
 
 This means:
-- **Small, predictable PDFs** — not real books. We control the ground truth.
-- **Real model, not mocked** — mocked embeddings would test nothing. The model must actually separate Paris from Berlin.
+- **Real enterprise documents** — not synthetic content. We control the ground truth via labeled queries.
+- **Real model, not mocked** — mocked embeddings would test nothing. The model must actually distinguish incident management from valve specifications.
 - **Quantified metrics** — not just "does it return something". Recall@k, Precision@k, MRR give a number you can track over time.
 - **Strict thresholds** — on a small corpus, the model should be near-perfect. Loosening thresholds hides regressions.
+
+### Adding Benchmark Queries
+
+Add entries to `tests/eval/benchmark_labels.json`:
+
+```json
+{
+  "query": "your question",
+  "relevant_documents": ["filename.md"],
+  "category": "direct_retrieval",
+  "description": "why this document is relevant"
+}
+```
+
+For multi-document queries:
+```json
+{
+  "query": "question requiring two documents",
+  "relevant_documents": ["doc1.md", "doc2.md"],
+  "category": "multi_source",
+  "description": "cross-document query"
+}
+```
 
 ### Example: Testing a New Function
 

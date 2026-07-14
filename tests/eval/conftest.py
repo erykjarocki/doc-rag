@@ -13,11 +13,12 @@ import src.qdrant_store as qdrant_store
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
-from src.chunking import chunk_text
 from src.embeddings import embed
 from src.qdrant_store import ensure_collection
+from src.chunking import chunk_markdown
 
-GUTENBERG_COLLECTION = "gutenberg_prince"
+BENCHMARK_COLLECTION = "eval_benchmark"
+BENCHMARK_DOCS_DIR = Path(__file__).parent / "benchmark_docs"
 
 REPORT_PATH = Path(__file__).parent / "eval-report.json"
 BASELINE_PATH = Path(__file__).parent / "eval-baseline.json"
@@ -53,7 +54,7 @@ def pytest_sessionfinish(session, exitstatus):
             relevant = frag["is_relevant"]
             mark = "  \u2713 RELEVANT" if relevant else ""
             terminal.write(
-                f"  [{frag['rank']}] score={frag['score']:.2f}  page={frag['start_page']}{mark}\n"
+                f"  [{frag['rank']}] score={frag['score']:.2f}  file={frag['source_file']}{mark}\n"
             )
             for line in frag["text"].split("\n"):
                 terminal.write(f"      {line}\n")
@@ -109,7 +110,7 @@ def pytest_sessionfinish(session, exitstatus):
         m_after = _compute_metrics(rerank_results)
         terminal.write("\n")
         terminal.write("=" * 70 + "\n")
-        terminal.write("PIPELINE COMPARISON: Bi-Encoder → Cross-Encoder Reranking\n")
+        terminal.write("PIPELINE COMPARISON: Bi-Encoder \u2192 Cross-Encoder Reranking\n")
         terminal.write("=" * 70 + "\n")
         terminal.write(f"  {'Metric':<15} {'Before':>10} {'After':>10} {'Delta':>10}\n")
         terminal.write(f"  {'-' * 45}\n")
@@ -156,8 +157,12 @@ def pytest_sessionfinish(session, exitstatus):
         pass
 
 
-def collect_eval_result(session, query, results, relevant_pages, k=2):
-    """Run metrics on a query result and store on session for the summary hook."""
+def collect_eval_result(session, query, results, relevant_documents, k=2):
+    """Run metrics on a query result and store on session for the summary hook.
+
+    Relevance is file-based: a chunk is relevant if its source_file matches
+    one of the relevant_documents listed in the label.
+    """
     if not hasattr(session, "eval_results"):
         session.eval_results = []
 
@@ -165,15 +170,15 @@ def collect_eval_result(session, query, results, relevant_pages, k=2):
     if any(item["query"] == query for item in session.eval_results):
         top_k = results[:k]
         return (
-            _recall_at_k(results, relevant_pages, k),
-            _precision_at_k(results, relevant_pages, k),
-            _mrr(results, relevant_pages),
+            _recall_at_k(results, relevant_documents, k),
+            _precision_at_k(results, relevant_documents, k),
+            _mrr(results, relevant_documents),
         )
 
     top_k = results[:k]
-    rr = _mrr(results, relevant_pages)
-    recall = _recall_at_k(results, relevant_pages, k)
-    precision = _precision_at_k(results, relevant_pages, k)
+    rr = _mrr(results, relevant_documents)
+    recall = _recall_at_k(results, relevant_documents, k)
+    precision = _precision_at_k(results, relevant_documents, k)
 
     fragments = []
     for i, r in enumerate(top_k, 1):
@@ -182,17 +187,15 @@ def collect_eval_result(session, query, results, relevant_pages, k=2):
                 "rank": i,
                 "text": r["text"],
                 "score": round(r["score"], 4),
-                "start_page": r["start_page"],
-                "end_page": r["end_page"],
-                "chapter": r.get("chapter", ""),
-                "is_relevant": r["start_page"] in relevant_pages,
+                "source_file": r.get("source_file", ""),
+                "is_relevant": r.get("source_file", "") in relevant_documents,
             }
         )
 
     session.eval_results.append(
         {
             "query": query,
-            "relevant_pages": relevant_pages,
+            "relevant_documents": relevant_documents,
             "retrieved_fragments": fragments,
             "recall_at_k": recall,
             "precision_at_k": precision,
@@ -203,26 +206,22 @@ def collect_eval_result(session, query, results, relevant_pages, k=2):
     return recall, precision, rr
 
 
-def collect_rerank_result(session, query, results, relevant_pages, k=2):
-    """Store stage-1 (bi-encoder) results for two-stage pipeline comparison.
-
-    Uses a separate session attribute (rerank_results) so both stages
-    appear in the same report.
-    """
+def collect_rerank_result(session, query, results, relevant_documents, k=2):
+    """Store stage-1 (bi-encoder) results for two-stage pipeline comparison."""
     if not hasattr(session, "rerank_results"):
         session.rerank_results = []
 
     if any(item["query"] == query for item in session.rerank_results):
         return (
-            _recall_at_k(results, relevant_pages, k),
-            _precision_at_k(results, relevant_pages, k),
-            _mrr(results, relevant_pages),
+            _recall_at_k(results, relevant_documents, k),
+            _precision_at_k(results, relevant_documents, k),
+            _mrr(results, relevant_documents),
         )
 
     top_k = results[:k]
-    rr = _mrr(results, relevant_pages)
-    recall = _recall_at_k(results, relevant_pages, k)
-    precision = _precision_at_k(results, relevant_pages, k)
+    rr = _mrr(results, relevant_documents)
+    recall = _recall_at_k(results, relevant_documents, k)
+    precision = _precision_at_k(results, relevant_documents, k)
 
     fragments = []
     for i, r in enumerate(top_k, 1):
@@ -231,17 +230,15 @@ def collect_rerank_result(session, query, results, relevant_pages, k=2):
                 "rank": i,
                 "text": r["text"],
                 "score": round(r["score"], 4),
-                "start_page": r["start_page"],
-                "end_page": r["end_page"],
-                "chapter": r.get("chapter", ""),
-                "is_relevant": r["start_page"] in relevant_pages,
+                "source_file": r.get("source_file", ""),
+                "is_relevant": r.get("source_file", "") in relevant_documents,
             }
         )
 
     session.rerank_results.append(
         {
             "query": query,
-            "relevant_pages": relevant_pages,
+            "relevant_documents": relevant_documents,
             "retrieved_fragments": fragments,
             "recall_at_k": recall,
             "precision_at_k": precision,
@@ -253,18 +250,9 @@ def collect_rerank_result(session, query, results, relevant_pages, k=2):
 
 
 def collect_rerank_detail(
-    session, query, bi_results, reranked_results, rank_changes, relevant_pages
+    session, query, bi_results, reranked_results, rank_changes, relevant_documents
 ):
-    """Store per-query before/after reranking detail for the HTML report.
-
-    Args:
-        session: Pytest session object.
-        query: The query string.
-        bi_results: Bi-encoder results (top 8, from rerank=False).
-        reranked_results: Cross-encoder results (top 8, from rerank=True).
-        rank_changes: List of rank change dicts from trace, or None.
-        relevant_pages: List of relevant page numbers.
-    """
+    """Store per-query before/after reranking detail for the HTML report."""
     if not hasattr(session, "rerank_detail"):
         session.rerank_detail = []
 
@@ -272,34 +260,41 @@ def collect_rerank_detail(
         return
 
     def _build_frag(r, rank, is_ce=False):
+        source = r.get("source_file", "?")
         return {
             "rank": rank,
-            "page": r.get("start_page", "?"),
-            "chapter": r.get("chapter", ""),
+            "source_file": source,
             "bi_score": round(r["score"], 4),
             "ce_score": round(r.get("rerank_score", 0), 4) if is_ce else None,
-            "text_preview": r["text"][:200] + ("…" if len(r["text"]) > 200 else ""),
-            "is_relevant": r.get("start_page", "?") in relevant_pages,
+            "text_preview": r["text"][:200] + ("\u2026" if len(r["text"]) > 200 else ""),
+            "is_relevant": source in relevant_documents,
         }
 
     bi_top8 = [_build_frag(r, i + 1) for i, r in enumerate(bi_results[:8])]
     reranked_top8 = [_build_frag(r, i + 1, is_ce=True) for i, r in enumerate(reranked_results[:8])]
 
-    # Build a lookup of bi_score by page for rank_changes augmentation
-    bi_by_page = {}
+    # Build a lookup of bi_score by source_file for rank_changes augmentation
+    bi_by_source = {}
     for r in bi_results:
-        p = r.get("start_page", "?")
-        if p not in bi_by_page:
-            bi_by_page[p] = round(r["score"], 4)
+        s = r.get("source_file", "?")
+        if s not in bi_by_source:
+            bi_by_source[s] = round(r["score"], 4)
+
+    # Build a lookup by before-rank to map chunk indices → source files
+    bi_by_rank = {}
+    for i, r in enumerate(bi_results):
+        bi_by_rank[i + 1] = r.get("source_file", "?")
 
     clean_changes = []
     if rank_changes:
         for rc in rank_changes:
+            # rank_changes.page = start_page (chunk index); map to source_file
+            before_rank = rc.get("before", 1)
+            source = bi_by_rank.get(before_rank, rc.get("page", "?"))
             clean_changes.append(
                 {
-                    "page": rc["page"],
-                    "chapter": rc.get("chapter", ""),
-                    "before": rc["before"],
+                    "source_file": source,
+                    "before": before_rank,
                     "after": rc["after"],
                     "delta": rc["delta"],
                     "bi_score": round(rc["bi_score"], 4),
@@ -310,7 +305,7 @@ def collect_rerank_detail(
     session.rerank_detail.append(
         {
             "query": query,
-            "relevant_pages": relevant_pages,
+            "relevant_documents": relevant_documents,
             "bi_encoder_top8": bi_top8,
             "reranked_top8": reranked_top8,
             "rank_changes": clean_changes,
@@ -318,53 +313,55 @@ def collect_rerank_detail(
     )
 
 
-def _precision_at_k(results, relevant_pages, k):
+def _precision_at_k(results, relevant_documents, k):
     top_k = results[:k]
-    relevant = sum(1 for r in top_k if r["start_page"] in relevant_pages)
+    relevant = sum(1 for r in top_k if r.get("source_file", "") in relevant_documents)
     return relevant / k
 
 
-def _recall_at_k(results, relevant_pages, k):
-    if not relevant_pages:
+def _recall_at_k(results, relevant_documents, k):
+    if not relevant_documents:
         return 1.0
     top_k = results[:k]
-    found_pages = set(r["start_page"] for r in top_k if r["start_page"] in relevant_pages)
-    return len(found_pages) / len(relevant_pages)
+    found = set(r.get("source_file", "") for r in top_k if r.get("source_file", "") in relevant_documents)
+    return len(found) / len(relevant_documents)
 
 
-def _mrr(results, relevant_pages):
+def _mrr(results, relevant_documents):
     for i, r in enumerate(results, 1):
-        if r["start_page"] in relevant_pages:
+        if r.get("source_file", "") in relevant_documents:
             return 1.0 / i
     return 0.0
 
 
 # ---------------------------------------------------------------------------
-# Gutenberg corpus fixtures (real content, no PDF)
+# Benchmark corpus fixtures (enterprise-rag-gold-standard markdown docs)
 # ---------------------------------------------------------------------------
 
 
 @pytest.fixture(scope="module")
-def gutenberg_corpus():
-    """Fetch The Prince from Gutenberg, split into chapters.
+def benchmark_corpus():
+    """Load markdown documents from benchmark_docs/.
 
-    Returns (text, page_boundaries, page_nums) — 26 chapters.
-    Cached via lru_cache so multiple fixtures share one fetch.
+    Returns list of (filename, text_content) tuples.
     """
-    from tests.eval.gutenberg_corpus import fetch_and_split
-
-    return fetch_and_split()
+    docs = []
+    for md_file in sorted(BENCHMARK_DOCS_DIR.glob("*.md")):
+        text = md_file.read_text()
+        if text.strip():
+            docs.append((md_file.name, text))
+    assert len(docs) > 0, "No benchmark documents found"
+    return docs
 
 
 @pytest.fixture(scope="module")
-def gutenberg_indexed_qdrant(gutenberg_corpus, tmp_path_factory):
-    """Chunk, embed, and index the Gutenberg corpus into in-memory Qdrant.
+def benchmark_indexed_qdrant(benchmark_corpus, tmp_path_factory):
+    """Chunk, embed, and index benchmark docs into in-memory Qdrant.
 
-    Uses chunk_text() directly — no PDF parsing, no extraction.
+    Each chunk stores source_file in payload for file-based relevance.
     Returns (qdrant_client, collection_name, chunks).
     """
-    text, page_boundaries, page_nums = gutenberg_corpus
-    tmp_dir = tmp_path_factory.mktemp("gutenberg")
+    tmp_dir = tmp_path_factory.mktemp("benchmark")
 
     in_memory_client = QdrantClient(":memory:")
     original_client = qdrant_store._client
@@ -375,43 +372,47 @@ def gutenberg_indexed_qdrant(gutenberg_corpus, tmp_path_factory):
     ingest.EXTRACTED_DIR = config.EXTRACTED_DIR
 
     try:
-        ensure_collection(GUTENBERG_COLLECTION, in_memory_client)
+        ensure_collection(BENCHMARK_COLLECTION, in_memory_client)
 
-        chunks = chunk_text(text, page_boundaries, page_nums)
-        assert len(chunks) > 0, "Expected at least one chunk from Gutenberg corpus"
+        all_chunks = []
+        for filename, text in benchmark_corpus:
+            chunks = chunk_markdown(text, source_file=filename)
+            all_chunks.extend(chunks)
 
-        texts = [c["text"] for c in chunks]
+        assert len(all_chunks) > 0, "Expected at least one chunk from benchmark corpus"
+
+        texts = [c["text"] for c in all_chunks]
         vectors = embed(texts)
 
         points = []
-        for i, (chunk, vector) in enumerate(zip(chunks, vectors)):
+        for i, (chunk, vector) in enumerate(zip(all_chunks, vectors)):
             points.append(
                 PointStruct(
                     id=i + 1,
                     vector=vector,
                     payload={
                         "text": chunk["text"],
-                        "book": "gutenberg_prince",
-                        "chapter": f"Chapter {chunk['start_page']}",
-                        "start_page": chunk["start_page"],
-                        "end_page": chunk["end_page"],
+                        "book": "eval_benchmark",
+                        "source_file": chunk["source_file"],
+                        "start_page": i + 1,
+                        "end_page": i + 1,
                     },
                 )
             )
 
-        in_memory_client.upsert(collection_name=GUTENBERG_COLLECTION, points=points)
+        in_memory_client.upsert(collection_name=BENCHMARK_COLLECTION, points=points)
     except Exception:
         qdrant_store._client = original_client
         config.EXTRACTED_DIR = original_extracted
         ingest.EXTRACTED_DIR = original_extracted
         raise
 
-    yield in_memory_client, GUTENBERG_COLLECTION, chunks
+    yield in_memory_client, BENCHMARK_COLLECTION, all_chunks
 
     qdrant_store._client = original_client
     config.EXTRACTED_DIR = original_extracted
     ingest.EXTRACTED_DIR = original_extracted
     try:
-        in_memory_client.delete_collection(collection_name=GUTENBERG_COLLECTION)
+        in_memory_client.delete_collection(collection_name=BENCHMARK_COLLECTION)
     except Exception:
         pass

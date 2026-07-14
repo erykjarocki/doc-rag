@@ -1,0 +1,50 @@
+[
+  {
+    "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?",
+    "relevant_documents": ["OP-204_Incident_Management_v4.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document factual lookup with specific threshold"
+  },
+  {
+    "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
+    "relevant_documents": ["BOM-FLT-H2NEX.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document technical specification lookup"
+  },
+  {
+    "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
+    "relevant_documents": ["RGM-2026_Regional_Governance_Matrix.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document entity extraction from governance matrix"
+  },
+  {
+    "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
+    "relevant_documents": ["FIN-AUTH-101_Authorization_Framework.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document policy lookup with specific tiers"
+  },
+  {
+    "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
+    "relevant_documents": ["HR-POL-030_Remote_Work_US.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document policy lookup"
+  },
+  {
+    "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
+    "relevant_documents": ["AVL-PUR-012_Supplier_Qualification.md", "BOM-FLT-H2NEX.md"],
+    "category": "multi_source",
+    "description": "Cross-document query requiring both supplier qualification and BOM context"
+  },
+  {
+    "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
+    "relevant_documents": ["SOP-COM-015_Regulatory_Breach_Report.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document compliance procedure lookup"
+  },
+  {
+    "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
+    "relevant_documents": ["HR-POL-030-EMEA_Remote_Work.md"],
+    "category": "direct_retrieval",
+    "description": "Single-document regional policy lookup"
+  }
+]

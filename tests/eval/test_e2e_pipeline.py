@@ -6,8 +6,8 @@ import pytest
 from src.qdrant_store import list_collections
 from src.retriever import format_fragments_for_prompt, search_book
 
-LABELS_PATH = Path(__file__).parent / "labels.json"
-BOOK = "gutenberg_prince"
+LABELS_PATH = Path(__file__).parent / "benchmark_labels.json"
+BOOK = "eval_benchmark"
 
 
 def _load_labels():
@@ -17,23 +17,22 @@ def _load_labels():
 
 @pytest.mark.eval
 class TestFullPipelineIndexing:
-    def test_chunks_are_indexed(self, gutenberg_indexed_qdrant):
-        client, coll_name, chunks = gutenberg_indexed_qdrant
+    def test_chunks_are_indexed(self, benchmark_indexed_qdrant):
+        client, coll_name, chunks = benchmark_indexed_qdrant
         collections = list_collections(client)
         assert coll_name in collections
 
         count_result = client.count(collection_name=coll_name, exact=True)
         assert count_result.count == len(chunks)
 
-    def test_chunks_have_required_fields(self, gutenberg_indexed_qdrant):
-        _, _, chunks = gutenberg_indexed_qdrant
+    def test_chunks_have_required_fields(self, benchmark_indexed_qdrant):
+        _, _, chunks = benchmark_indexed_qdrant
         for chunk in chunks:
             assert "text" in chunk and chunk["text"], "chunk must have non-empty text"
-            assert "start_page" in chunk and chunk["start_page"] >= 1
-            assert "end_page" in chunk and chunk["end_page"] >= chunk["start_page"]
+            assert "source_file" in chunk and chunk["source_file"], "chunk must have source_file"
 
-    def test_vectors_match_chunk_count(self, gutenberg_indexed_qdrant):
-        client, coll_name, chunks = gutenberg_indexed_qdrant
+    def test_vectors_match_chunk_count(self, benchmark_indexed_qdrant):
+        client, coll_name, chunks = benchmark_indexed_qdrant
         count_result = client.count(collection_name=coll_name, exact=True)
         assert count_result.count == len(chunks)
         result, _ = client.scroll(
@@ -45,61 +44,61 @@ class TestFullPipelineIndexing:
 
 @pytest.mark.eval
 class TestRetrievalQuality:
-    def test_principalities_query_retrieves_chapter_1(self, gutenberg_indexed_qdrant):
-        results = search_book("different kinds of principalities", book=BOOK)
+    def test_incident_management_query(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "financial threshold for Critical Exception", book=BOOK
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "principalit" in text_lower
+        assert "10,000" in text_lower or "critical exception" in text_lower
         assert top["score"] > 0.3
 
-    def test_darius_query_retrieves_chapter_4(self, gutenberg_indexed_qdrant):
-        results = search_book("Darius and Alexander conquest", book=BOOK)
+    def test_valve_pressure_query(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "maximum allowable psi for Valve-B", book=BOOK
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "darius" in text_lower or "alexander" in text_lower
+        assert "2,800" in text_lower or "valve-b" in text_lower
         assert top["score"] > 0.3
 
-    def test_feared_vs_loved_query(self, gutenberg_indexed_qdrant):
-        results = search_book("being feared versus being loved", book=BOOK)
+    def test_remote_work_query(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "remote work days allowed per month US policy", book=BOOK
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "fear" in text_lower or "love" in text_lower or "hate" in text_lower
+        assert "remote" in text_lower or "work" in text_lower
 
-    def test_mercenaries_query(self, gutenberg_indexed_qdrant):
-        results = search_book("dangers of mercenary soldiers", book=BOOK)
+    def test_breach_reporting_query(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "Level-3 regulatory breach reporting hours", book=BOOK
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "mercenary" in text_lower or "soldier" in text_lower or "army" in text_lower
-
-    def test_fortune_query(self, gutenberg_indexed_qdrant):
-        results = search_book("fortune and luck in ruling", book=BOOK)
-        assert len(results) > 0
-        top = results[0]
-        text_lower = top["text"].lower()
-        assert "fortune" in text_lower or "luck" in text_lower
+        assert "breach" in text_lower or "compliance" in text_lower or "report" in text_lower
 
 
 @pytest.mark.eval
 class TestFormattedOutput:
-    def test_citations_have_polish_format(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK)
+    def test_citations_have_polish_format(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK)
         formatted = format_fragments_for_prompt(results)
         assert "\u0179r\u00f3d\u0142o:" in formatted
-        assert "str." in formatted
 
-    def test_numbered_blocks(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK)
+    def test_numbered_blocks(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK)
         formatted = format_fragments_for_prompt(results)
         assert "[1]" in formatted
         if len(results) > 1:
             assert "[2]" in formatted
 
-    def test_separator_between_blocks(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK)
+    def test_separator_between_blocks(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK)
         formatted = format_fragments_for_prompt(results)
         assert "---" in formatted
 
@@ -108,7 +107,7 @@ class TestFormattedOutput:
 class TestRetrievalMetrics:
     """Evaluate retrieval quality using precision, recall, and MRR over labeled data."""
 
-    def test_recall_at_2(self, request, gutenberg_indexed_qdrant):
+    def test_recall_at_2(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -117,7 +116,11 @@ class TestRetrievalMetrics:
         for item in labels:
             results = search_book(item["query"], book=BOOK, rerank=False)
             r, _, _ = collect_eval_result(
-                request.session, item["query"], results, item["relevant_pages"], k=2
+                request.session,
+                item["query"],
+                results,
+                item["relevant_documents"],
+                k=2,
             )
             recalls.append(r)
 
@@ -125,7 +128,7 @@ class TestRetrievalMetrics:
         print(f"\n  recall@2 = {avg_recall:.2f} (threshold: 0.60)")
         assert avg_recall >= 0.6, f"Recall@2 = {avg_recall:.2f}, expected >= 0.6"
 
-    def test_precision_at_2(self, request, gutenberg_indexed_qdrant):
+    def test_precision_at_2(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -134,7 +137,11 @@ class TestRetrievalMetrics:
         for item in labels:
             results = search_book(item["query"], book=BOOK, rerank=False)
             _, p, _ = collect_eval_result(
-                request.session, item["query"], results, item["relevant_pages"], k=2
+                request.session,
+                item["query"],
+                results,
+                item["relevant_documents"],
+                k=2,
             )
             precisions.append(p)
 
@@ -142,7 +149,7 @@ class TestRetrievalMetrics:
         print(f"\n  precision@2 = {avg_precision:.2f} (threshold: 0.40)")
         assert avg_precision >= 0.4, f"Precision@2 = {avg_precision:.2f}, expected >= 0.4"
 
-    def test_mrr(self, request, gutenberg_indexed_qdrant):
+    def test_mrr(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -151,7 +158,11 @@ class TestRetrievalMetrics:
         for item in labels:
             results = search_book(item["query"], book=BOOK, rerank=False)
             _, _, rr = collect_eval_result(
-                request.session, item["query"], results, item["relevant_pages"], k=2
+                request.session,
+                item["query"],
+                results,
+                item["relevant_documents"],
+                k=2,
             )
             rrs.append(rr)
 
@@ -169,44 +180,44 @@ class TestRetrievalMetrics:
 class TestRerankRetrievalQuality:
     """Test retrieval quality WITH cross-encoder re-ranking enabled."""
 
-    def test_principalities_reranked(self, gutenberg_indexed_qdrant):
-        results = search_book("different kinds of principalities", book=BOOK, rerank=True)
+    def test_incident_reranked(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "financial threshold for Critical Exception", book=BOOK, rerank=True
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "principalit" in text_lower
+        assert "10,000" in text_lower or "critical exception" in text_lower
         assert "rerank_score" in top, "rerank_score must be present when rerank=True"
 
-    def test_darius_reranked(self, gutenberg_indexed_qdrant):
-        results = search_book("Darius and Alexander conquest", book=BOOK, rerank=True)
+    def test_valve_reranked(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "maximum allowable psi for Valve-B", book=BOOK, rerank=True
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "darius" in text_lower or "alexander" in text_lower
+        assert "2,800" in text_lower or "valve-b" in text_lower
         assert "rerank_score" in top
 
-    def test_feared_vs_loved_reranked(self, gutenberg_indexed_qdrant):
-        results = search_book("being feared versus being loved", book=BOOK, rerank=True)
+    def test_remote_work_reranked(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "remote work days allowed per month US policy", book=BOOK, rerank=True
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "fear" in text_lower or "love" in text_lower or "hate" in text_lower
+        assert "remote" in text_lower or "work" in text_lower
         assert "rerank_score" in top
 
-    def test_mercenaries_reranked(self, gutenberg_indexed_qdrant):
-        results = search_book("dangers of mercenary soldiers", book=BOOK, rerank=True)
+    def test_breach_reranked(self, benchmark_indexed_qdrant):
+        results = search_book(
+            "Level-3 regulatory breach reporting hours", book=BOOK, rerank=True
+        )
         assert len(results) > 0
         top = results[0]
         text_lower = top["text"].lower()
-        assert "mercenary" in text_lower or "soldier" in text_lower or "army" in text_lower
-        assert "rerank_score" in top
-
-    def test_fortune_reranked(self, gutenberg_indexed_qdrant):
-        results = search_book("fortune and luck in ruling", book=BOOK, rerank=True)
-        assert len(results) > 0
-        top = results[0]
-        text_lower = top["text"].lower()
-        assert "fortune" in text_lower or "luck" in text_lower
+        assert "breach" in text_lower or "compliance" in text_lower
         assert "rerank_score" in top
 
 
@@ -214,7 +225,7 @@ class TestRerankRetrievalQuality:
 class TestRerankMetrics:
     """Evaluate retrieval quality WITH re-ranking enabled."""
 
-    def test_recall_at_2_reranked(self, request, gutenberg_indexed_qdrant):
+    def test_recall_at_2_reranked(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -226,7 +237,7 @@ class TestRerankMetrics:
                 request.session,
                 f"{item['query']}_reranked",
                 results,
-                item["relevant_pages"],
+                item["relevant_documents"],
                 k=2,
             )
             recalls.append(r)
@@ -235,7 +246,7 @@ class TestRerankMetrics:
         print(f"\n  recall@2 (reranked) = {avg_recall:.2f} (threshold: 0.60)")
         assert avg_recall >= 0.6, f"Recall@2 = {avg_recall:.2f}, expected >= 0.6"
 
-    def test_precision_at_2_reranked(self, request, gutenberg_indexed_qdrant):
+    def test_precision_at_2_reranked(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -247,7 +258,7 @@ class TestRerankMetrics:
                 request.session,
                 f"{item['query']}_reranked",
                 results,
-                item["relevant_pages"],
+                item["relevant_documents"],
                 k=2,
             )
             precisions.append(p)
@@ -256,7 +267,7 @@ class TestRerankMetrics:
         print(f"\n  precision@2 (reranked) = {avg_precision:.2f} (threshold: 0.40)")
         assert avg_precision >= 0.4, f"Precision@2 = {avg_precision:.2f}, expected >= 0.4"
 
-    def test_mrr_reranked(self, request, gutenberg_indexed_qdrant):
+    def test_mrr_reranked(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
         labels = _load_labels()
@@ -268,7 +279,7 @@ class TestRerankMetrics:
                 request.session,
                 f"{item['query']}_reranked",
                 results,
-                item["relevant_pages"],
+                item["relevant_documents"],
                 k=2,
             )
             rrs.append(rr)
@@ -282,25 +293,25 @@ class TestRerankMetrics:
 class TestRerankBehavior:
     """Verify reranker mechanics: scores present, ordering correct."""
 
-    def test_rerank_score_populated(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK, rerank=True)
+    def test_rerank_score_populated(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK, rerank=True)
         assert len(results) > 0
         for r in results:
             assert "rerank_score" in r, f"Missing rerank_score in result: {r}"
             assert isinstance(r["rerank_score"], float)
 
-    def test_results_sorted_by_rerank_score(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK, rerank=True)
+    def test_results_sorted_by_rerank_score(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK, rerank=True)
         assert len(results) > 1
         scores = [r["rerank_score"] for r in results]
         assert scores == sorted(scores, reverse=True), "Results not sorted by rerank_score"
 
-    def test_rerank_returns_fewer_or_equal_results(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK, rerank=True)
+    def test_rerank_returns_fewer_or_equal_results(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK, rerank=True)
         assert len(results) <= 8, f"Expected <= 8 results, got {len(results)}"
 
-    def test_rerank_disabled_has_no_rerank_score(self, gutenberg_indexed_qdrant):
-        results = search_book("principalities", book=BOOK, rerank=False)
+    def test_rerank_disabled_has_no_rerank_score(self, benchmark_indexed_qdrant):
+        results = search_book("incident management", book=BOOK, rerank=False)
         assert len(results) > 0
         for r in results:
             assert "rerank_score" not in r, "Unexpected rerank_score when rerank=False"
@@ -319,11 +330,11 @@ class TestPipelineComparison:
     Stage 2: Cross-encoder re-ranks candidates (final metrics)
 
     Both stages are stored on the session so the report shows a single
-    comparison table with Before → After → Delta, plus per-query
+    comparison table with Before -> After -> Delta, plus per-query
     reranking detail showing how items were reordered.
     """
 
-    def test_pipeline_comparison(self, request, gutenberg_indexed_qdrant):
+    def test_pipeline_comparison(self, request, benchmark_indexed_qdrant):
         from src.trace import SearchResult
         from tests.eval.conftest import (
             collect_eval_result,
@@ -338,7 +349,7 @@ class TestPipelineComparison:
 
         for item in labels:
             query = item["query"]
-            relevant = item["relevant_pages"]
+            relevant = item["relevant_documents"]
 
             # Stage 1: bi-encoder only
             results_before = search_book(query, book=BOOK, rerank=False)
@@ -409,8 +420,8 @@ class TestPipelineComparison:
 
         # Assertions: reranking should not severely degrade metrics
         assert m_after["recall"] >= m_before["recall"] - 0.10, (
-            f"Recall degraded significantly: {m_before['recall']:.2f} → {m_after['recall']:.2f}"
+            f"Recall degraded significantly: {m_before['recall']:.2f} -> {m_after['recall']:.2f}"
         )
         assert m_after["mrr"] >= m_before["mrr"] - 0.10, (
-            f"MRR degraded significantly: {m_before['mrr']:.2f} → {m_after['mrr']:.2f}"
+            f"MRR degraded significantly: {m_before['mrr']:.2f} -> {m_after['mrr']:.2f}"
         )

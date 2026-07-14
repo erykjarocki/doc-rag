@@ -209,6 +209,7 @@ def _format_results(points) -> list[dict]:
                 "chapter": p.get("chapter", ""),
                 "start_page": p.get("start_page", ""),
                 "end_page": p.get("end_page", ""),
+                "source_file": p.get("source_file", ""),
                 "score": round(hit.score, 4),
             }
         )

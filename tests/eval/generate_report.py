@@ -73,7 +73,7 @@ h1 { border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
 }
 .rank { font-weight: 700; }
 .score { color: #555; }
-.page { color: #555; }
+.source { color: #555; font-family: monospace; font-size: 12px; }
 .relevant { background: #e6ffe6; }
 .irrelevant { background: #fff0f0; }
 .tag {
@@ -86,7 +86,7 @@ h1 { border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 12px; line-height: 1.5; white-space: pre-wrap; color: #333;
 }
-.relevant-pages { font-size: 13px; color: #555; }
+.relevant-docs { font-size: 13px; color: #555; }
 .rerank-detail { margin: 16px 0; }
 .rerank-detail-header {
   padding: 10px 16px; background: #f0f7ff; border: 1px solid #b8daff;
@@ -111,7 +111,7 @@ h1 { border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
 }
 .rerank-item:first-of-type { border-top: none; }
 .rerank-rank { font-weight: 700; min-width: 18px; color: #333; }
-.rerank-page { color: #555; min-width: 28px; }
+.rerank-source { color: #555; min-width: 28px; font-family: monospace; font-size: 11px; }
 .rerank-score { color: #666; font-family: monospace; font-size: 11px; }
 .rerank-arrow { font-weight: 700; min-width: 22px; text-align: center; }
 .rerank-arrow.up { color: #28a745; }
@@ -127,11 +127,7 @@ h1 { border-bottom: 2px solid #dee2e6; padding-bottom: 10px; }
 
 
 def _load_baseline():
-    """Load baseline metrics if available.
-
-    Handles both simple format {recall_at_2: ...} and CI format
-    {queries: [...], metrics: {recall_at_2: ...}}.
-    """
+    """Load baseline metrics if available."""
     if not BASELINE_JSON.exists():
         return None
     try:
@@ -165,7 +161,6 @@ def _pipeline_comparison_html(pipeline):
     before = pipeline["before"]
     after = pipeline["after"]
 
-    # Compute overall improvement
     improvements = []
     for key, label in [
         ("recall_at_2", "Recall@2"),
@@ -189,7 +184,7 @@ def _pipeline_comparison_html(pipeline):
     html = (
         '<div class="comparison">\n'
         '  <div class="comparison-header">\n'
-        "    <span>Pipeline: Bi-Encoder → Cross-Encoder Reranking</span>\n"
+        "    <span>Pipeline: Bi-Encoder \u2192 Cross-Encoder Reranking</span>\n"
         '    <span class="badge">RERANK ENABLED</span>\n'
         "  </div>\n"
         "  <table>\n"
@@ -211,7 +206,7 @@ def _pipeline_comparison_html(pipeline):
         a = after.get(key, 0)
         d = a - b
         if abs(d) < 0.005:
-            delta_cls, delta_text = "delta-flat", "—"
+            delta_cls, delta_text = "delta-flat", "\u2014"
         elif d > 0:
             delta_cls, delta_text = "delta-up", f"+{d:.2f}"
         else:
@@ -227,7 +222,7 @@ def _pipeline_comparison_html(pipeline):
 
 
 def _rerank_detail_html(detail):
-    """Build the per-query reranking detail section (before/after two-column view)."""
+    """Build the per-query reranking detail section."""
     if not detail:
         return ""
 
@@ -238,15 +233,14 @@ def _rerank_detail_html(detail):
     if not bi_top8 and not reranked_top8:
         return ""
 
-    # Build lookup: page → rank_change info
-    rc_by_page = {}
+    rc_by_source = {}
     for rc in rank_changes:
-        rc_by_page[rc["page"]] = rc
+        rc_by_source[rc.get("source_file", rc.get("page", "?"))] = rc
 
     html = (
         '<div class="rerank-detail">\n'
         '  <div class="rerank-detail-header">'
-        "Reranking Detail — Bi-Encoder top 8 → Cross-Encoder top 8"
+        "Reranking Detail \u2014 Bi-Encoder top 8 \u2192 Cross-Encoder top 8"
         "</div>\n"
         '  <div class="rerank-columns">\n'
     )
@@ -261,7 +255,7 @@ def _rerank_detail_html(detail):
         html += (
             f'      <div class="rerank-item {cls}">'
             f'<span class="rerank-rank">#{frag["rank"]}</span>'
-            f'<span class="rerank-page">p.{frag["page"]}</span>'
+            f'<span class="rerank-source">{_escape_html(frag["source_file"])}</span>'
             f'<span class="rerank-score">{frag["bi_score"]:.4f}</span>'
             f'<span class="tag {tag_cls}">{tag_text}</span>'
             f'<span class="rerank-text">{_escape_html(frag["text_preview"])}</span>'
@@ -279,20 +273,20 @@ def _rerank_detail_html(detail):
         tag_cls = "relevant-tag" if frag["is_relevant"] else "irrelevant-tag"
         tag_text = "REL" if frag["is_relevant"] else "NOT REL"
 
-        # Find rank change for this page
-        rc = rc_by_page.get(frag["page"])
+        source = frag.get("source_file", "?")
+        rc = rc_by_source.get(source)
         if rc and rc["delta"] > 0:
-            arrow = f'<span class="rerank-arrow up">↑{rc["delta"]}</span>'
+            arrow = f'<span class="rerank-arrow up">\u2191{rc["delta"]}</span>'
         elif rc and rc["delta"] < 0:
-            arrow = f'<span class="rerank-arrow down">↓{abs(rc["delta"])}</span>'
+            arrow = f'<span class="rerank-arrow down">\u2193{abs(rc["delta"])}</span>'
         else:
-            arrow = '<span class="rerank-arrow flat">—</span>'
+            arrow = '<span class="rerank-arrow flat">\u2014</span>'
 
         html += (
             f'      <div class="rerank-item {cls}">'
             f'<span class="rerank-rank">#{frag["rank"]}</span>'
             f"{arrow}"
-            f'<span class="rerank-page">p.{frag["page"]}</span>'
+            f'<span class="rerank-source">{_escape_html(frag["source_file"])}</span>'
             f'<span class="rerank-score">bi:{frag["bi_score"]:.4f} ce:{frag["ce_score"]:.4f}</span>'
             f'<span class="tag {tag_cls}">{tag_text}</span>'
             f'<span class="rerank-text">{_escape_html(frag["text_preview"])}</span>'
@@ -313,7 +307,7 @@ def _escape_html(text):
 
 def generate():
     if not REPORT_JSON.exists():
-        print(f"No {REPORT_JSON} found — skipping report generation.")
+        print(f"No {REPORT_JSON} found \u2014 skipping report generation.")
         return
 
     data = json.loads(REPORT_JSON.read_text())
@@ -341,10 +335,10 @@ def generate():
         '<!DOCTYPE html>\n<html lang="en">\n<head>\n'
         '<meta charset="UTF-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        "<title>Eval Report — DOC RAG</title>\n"
+        "<title>Eval Report \u2014 DOC RAG</title>\n"
         f"<style>{CSS}</style>\n"
         "</head>\n<body>\n"
-        "<h1>DOC RAG — Eval Report</h1>\n\n"
+        "<h1>DOC RAG \u2014 Eval Report</h1>\n\n"
     )
 
     # Pipeline comparison (prominent, at the top)
@@ -373,7 +367,7 @@ def generate():
     )
 
     for q in queries:
-        relevant_pages = q["relevant_pages"]
+        relevant_docs = q.get("relevant_documents", [])
         recall = q.get("recall_at_k", 0)
         precision = q.get("precision_at_k", 0)
 
@@ -381,7 +375,7 @@ def generate():
             '<div class="query-card">\n'
             f'  <div class="query-header">&ldquo;{q["query"]}&rdquo;</div>\n'
             '  <div class="query-meta">'
-            f"Relevant pages: {relevant_pages} &nbsp;|&nbsp; "
+            f"Relevant: {', '.join(relevant_docs)} &nbsp;|&nbsp; "
             f"Recall@2: {recall:.2f} &nbsp;|&nbsp; "
             f"Precision@2: {precision:.2f}</div>\n"
         )
@@ -393,19 +387,19 @@ def generate():
             tag_text = "RELEVANT" if is_rel else "NOT RELEVANT"
             text = frag["text"][:300]
             if len(frag["text"]) > 300:
-                text += "…"
+                text += "\u2026"
 
             html += (
                 f'  <div class="fragment {cls}">\n'
                 '    <div class="fragment-header">\n'
                 "      <span>\n"
                 f'        <span class="rank">#{frag["rank"]}</span>\n'
-                f'        <span class="page">p.{frag["start_page"]}</span>\n'
+                f'        <span class="source">{_escape_html(frag["source_file"])}</span>\n'
                 f'        <span class="tag {tag_cls}">{tag_text}</span>\n'
                 "      </span>\n"
                 f'      <span class="score">score: {frag["score"]:.4f}</span>\n'
                 "    </div>\n"
-                f'    <div class="text">{text}</div>\n'
+                f'    <div class="text">{_escape_html(text)}</div>\n'
                 "  </div>\n"
             )
 
