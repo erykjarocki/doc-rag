@@ -8,6 +8,7 @@ from fastmcp import FastMCP
 
 from src.qdrant_store import list_collections
 from src.retriever import format_fragments_for_prompt, search_book
+from src.trace import format_trace
 
 mcp = FastMCP("doc-rag")
 
@@ -66,6 +67,30 @@ def search_book_raw(question: str, book: str | None = None, rerank: bool | None 
 
     fragments = search_book(question, book=book, rerank=rerank)
     return json.dumps(fragments, ensure_ascii=False, indent=2)
+
+
+@mcp.tool()
+def search_book_trace(question: str, book: str | None = None, rerank: bool | None = None) -> str:
+    """Search documents with full pipeline trace showing retrieval and reranking details.
+
+    Returns a detailed trace showing: which text chunks were retrieved by the
+    bi-encoder (with cosine scores), and how the cross-encoder reranker
+    reordered them (before/after rank positions with score deltas).
+    Use this for debugging retrieval quality or understanding why certain
+    results appear at the top.
+
+    Args:
+        question: A detailed natural-language query.
+        book: Optional document/collection name to restrict search.
+        rerank: Whether to apply cross-encoder re-ranking. If None, uses config default.
+
+    Returns: Human-readable trace report with per-stage timing, retrieved
+        candidates, and rerank rank changes.
+    """
+    result = search_book(question, book=book, rerank=rerank, trace=True)
+    if not result.trace:
+        return "No trace available."
+    return format_trace(result.trace)
 
 
 @mcp.tool()

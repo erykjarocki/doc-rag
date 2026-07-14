@@ -83,6 +83,66 @@ def rerank(
     return fragments[:top_k]
 
 
+def rerank_with_analysis(
+    query: str,
+    fragments: list[dict],
+    top_k: int = 5,
+    model_name: str | None = None,
+) -> tuple[list[dict], list[dict]]:
+    """Re-rank and return rank change analysis alongside results.
+
+    Same as rerank() but also computes before/after rank positions for
+    each fragment, enabling the trace system to show how the cross-encoder
+    reordered the bi-encoder results.
+
+    Returns:
+        Tuple of (reranked_fragments, rank_changes) where rank_changes
+        is a list of dicts with keys: page, before, after, delta,
+        bi_score, ce_score.
+    """
+    if not fragments:
+        return [], []
+
+    model = get_reranker(model_name or "cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+    # Record original bi-encoder ranking
+    original_order = list(fragments)
+
+    pairs = [(query, f["text"]) for f in fragments]
+    scores = model.predict(pairs)
+
+    for frag, score in zip(fragments, scores):
+        frag["rerank_score"] = round(float(score), 4)
+
+    # Build rank analysis before sorting
+    rank_changes = []
+    for i, frag in enumerate(fragments):
+        before_rank = next(
+            (j + 1 for j, orig in enumerate(original_order) if orig is frag), i + 1
+        )
+        rank_changes.append(
+            {
+                "page": frag.get("start_page", "?"),
+                "chapter": frag.get("chapter", ""),
+                "before": before_rank,
+                "bi_score": frag["score"],
+            }
+        )
+
+    fragments.sort(key=lambda x: x.get("rerank_score", 0), reverse=True)
+
+    # Fill in after-rank and delta
+    for i, frag in enumerate(fragments):
+        for rc in rank_changes:
+            if rc["page"] == frag.get("start_page", "?") and rc["bi_score"] == frag["score"]:
+                rc["after"] = i + 1
+                rc["ce_score"] = frag["rerank_score"]
+                rc["delta"] = rc["before"] - rc["after"]
+                break
+
+    return fragments[:top_k], rank_changes
+
+
 def is_reranker_available() -> bool:
     """Check if the reranker model is loaded and available."""
     return _reranker is not None
