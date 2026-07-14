@@ -7,7 +7,7 @@ import pytest
 
 from src.retriever import search_book
 
-LABELS_PATH = Path(__file__).parent / "labels_gutenberg.json"
+LABELS_PATH = Path(__file__).parent / "labels.json"
 BOOK = "gutenberg_prince"
 
 

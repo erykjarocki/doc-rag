@@ -1,67 +1,164 @@
 [
   {
-    "query": "What is the capital of France?",
+    "query": "different kinds of principalities",
     "relevant_pages": [1],
-    "description": "Page 1 mentions Paris as capital of France"
+    "category": "exact_keyword",
+    "description": "Chapter I discusses the various types of principalities"
   },
   {
-    "query": "Tell me about Berlin",
-    "relevant_pages": [2],
-    "description": "Page 2 mentions Berlin as capital of Germany"
-  },
-  {
-    "query": "famous museums and art",
-    "relevant_pages": [1],
-    "description": "Page 1 mentions the Louvre Museum"
-  },
-  {
-    "query": "the Berlin Wall and Cold War",
-    "relevant_pages": [2],
-    "description": "Page 2 discusses the Berlin Wall"
-  },
-  {
-    "query": "Mount Fuji and cherry blossoms",
-    "relevant_pages": [3],
-    "description": "Page 3 discusses Mount Fuji and sakura"
-  },
-  {
-    "query": "bullet train technology",
-    "relevant_pages": [3],
-    "description": "Page 3 discusses the Shinkansen network"
-  },
-  {
-    "query": "Notre-Dame cathedral history",
-    "relevant_pages": [1],
-    "description": "Page 1 discusses Notre-Dame de Paris"
-  },
-  {
-    "query": "Oktoberfest celebration",
-    "relevant_pages": [2],
-    "description": "Page 2 discusses Oktoberfest in Munich"
-  },
-  {
-    "query": "Shibuya Crossing Tokyo",
-    "relevant_pages": [3],
-    "description": "Page 3 discusses Shibuya Crossing"
-  },
-  {
-    "query": "European capitals and their landmarks",
+    "query": "hereditary principalities and succession",
     "relevant_pages": [1, 2],
-    "description": "Paris and Berlin are European capitals with famous landmarks"
+    "category": "paraphrase",
+    "description": "Chapters I and II discuss hereditary principalities"
   },
   {
-    "query": "famous festivals and cultural celebrations",
-    "relevant_pages": [2, 3],
-    "description": "Oktoberfest in Munich and hanami cherry blossom viewing in Japan"
+    "query": "mixed principalities and conquest",
+    "relevant_pages": [3],
+    "category": "exact_keyword",
+    "description": "Chapter III discusses difficulties of mixed principalities"
   },
   {
-    "query": "world famous landmarks and monuments",
-    "relevant_pages": [1, 2, 3],
-    "description": "Eiffel Tower, Brandenburg Gate, and Mount Fuji are all world landmarks"
+    "query": "Darius and Alexander's conquest",
+    "relevant_pages": [4],
+    "category": "exact_keyword",
+    "description": "Chapter IV explains why Darius's kingdom did not rebel"
   },
   {
-    "query": "historic architecture and construction",
-    "relevant_pages": [1, 2],
-    "description": "Notre-Dame and Versailles in France, Cologne Cathedral in Germany"
+    "query": "newly acquired cities and laws",
+    "relevant_pages": [5],
+    "category": "paraphrase",
+    "description": "Chapter V covers governing cities that lived under their own laws"
+  },
+  {
+    "query": "princes who gain power by their own ability",
+    "relevant_pages": [6],
+    "category": "paraphrase",
+    "description": "Chapter VI discusses new principalities acquired by one's own arms"
+  },
+  {
+    "query": "princes who gain power through fortune",
+    "relevant_pages": [7],
+    "category": "paraphrase",
+    "description": "Chapter VII covers principalities acquired by fortune or ability"
+  },
+  {
+    "query": "wickedness and criminal means to power",
+    "relevant_pages": [8],
+    "category": "exact_keyword",
+    "description": "Chapter VIII discusses those who obtained power through wickedness"
+  },
+  {
+    "query": "civil principality and popular support",
+    "relevant_pages": [9],
+    "category": "exact_keyword",
+    "description": "Chapter IX covers civil principalities arising from the people"
+  },
+  {
+    "query": "strength and resources of a principality",
+    "relevant_pages": [10],
+    "category": "paraphrase",
+    "description": "Chapter X discusses how to measure a principality's strength"
+  },
+  {
+    "query": "ecclesiastical principalities and religion",
+    "relevant_pages": [11],
+    "category": "exact_keyword",
+    "description": "Chapter XI covers ecclesiastical principalities"
+  },
+  {
+    "query": "dangers of mercenary soldiers",
+    "relevant_pages": [12],
+    "category": "exact_keyword",
+    "description": "Chapter XII discusses the problems with mercenary armies"
+  },
+  {
+    "query": "prince's own army versus auxiliaries",
+    "relevant_pages": [13],
+    "category": "paraphrase",
+    "description": "Chapter XIII covers auxiliaries, mixed soldiery, and one's own"
+  },
+  {
+    "query": "war as the prince's only profession",
+    "relevant_pages": [14],
+    "category": "exact_keyword",
+    "description": "Chapter XIV discusses the art of war"
+  },
+  {
+    "query": "prince avoiding contempt and hatred",
+    "relevant_pages": [19],
+    "category": "paraphrase",
+    "description": "Chapter XIX covers avoiding being despised and hated"
+  },
+  {
+    "query": "being feared versus being loved",
+    "relevant_pages": [17],
+    "category": "paraphrase",
+    "description": "Chapter XVII is specifically about whether it is better to be loved than feared"
+  },
+  {
+    "query": "fortune and luck in ruling",
+    "relevant_pages": [7, 25],
+    "category": "cross_chapter",
+    "description": "Chapters VII and XXV discuss the role of fortune in politics"
+  },
+  {
+    "query": "military organization and strategy",
+    "relevant_pages": [12, 13, 14],
+    "category": "cross_chapter",
+    "description": "Chapters XII-XIV cover mercenary armies, auxiliaries, and war"
+  },
+  {
+    "query": "how princes lose their states",
+    "relevant_pages": [24],
+    "category": "paraphrase",
+    "description": "Chapter XXIV specifically discusses why Italian princes lost their states"
+  },
+  {
+    "query": "cruelty and severity in governance",
+    "relevant_pages": [8, 17],
+    "category": "cross_chapter",
+    "description": "Chapters VIII and XVII discuss wickedness and cruelty vs clemency"
+  },
+  {
+    "query": "advisors and avoiding flattery",
+    "relevant_pages": [22, 23],
+    "category": "cross_chapter",
+    "description": "Chapters XXII and XXIII cover secretaries and flatterers"
+  },
+  {
+    "query": "Italian states and foreign powers",
+    "relevant_pages": [11, 24, 26],
+    "category": "cross_chapter",
+    "description": "Chapters XI, XXIV, and XXVI discuss Italian potentates and foreign powers"
+  },
+  {
+    "query": "quantum computing and quantum mechanics",
+    "relevant_pages": [],
+    "category": "negative",
+    "description": "Not discussed in The Prince — tests graceful handling of irrelevant queries"
+  },
+  {
+    "query": "modern democratic elections and voting",
+    "relevant_pages": [],
+    "category": "negative",
+    "description": "Not discussed in The Prince — tests graceful handling of irrelevant queries"
+  },
+  {
+    "query": "the manner in which a ruler ought to maintain control over newly conquered territories",
+    "relevant_pages": [3, 5],
+    "category": "deep_paraphrase",
+    "description": "Heavily paraphrased version of Ch III/V topics — no keyword overlap with source"
+  },
+  {
+    "query": "how to handle problems",
+    "relevant_pages": [1, 3, 7, 19, 24],
+    "category": "ambiguous",
+    "description": "Intentionally vague — could apply to many chapters, tests precision under ambiguity"
+  },
+  {
+    "query": "the relationship between a leader's personal qualities and their success in governance",
+    "relevant_pages": [6, 7],
+    "category": "deep_paraphrase",
+    "description": "Paraphrase of Ch VI/VII about ability versus fortune — no direct keyword match"
   }
 ]

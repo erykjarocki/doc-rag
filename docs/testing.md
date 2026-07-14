@@ -125,7 +125,7 @@ pytest tests/eval/test_gutenberg_eval.py -v -m eval
 1. `gutenberg_corpus.py` fetches the text, strips header/footer, splits by `CHAPTER` markers
 2. `chunk_text()` splits into ~268 chunks (384-token chunks, 50-token overlap)
 3. Chunks are embedded and stored in in-memory Qdrant
-4. 27 queries are run and scored against `labels_gutenberg.json`
+4. 27 queries are run and scored against `labels.json`
 
 #### Why not test with a real book?
 
@@ -233,10 +233,9 @@ tests/
 │   ├── test_retrieval.py       # Qdrant round-trip (in-memory)
 │   └── test_api.py             # FastAPI TestClient endpoint tests
 └── eval/
-    ├── conftest.py             # tiny PDF + Gutenberg fixtures, metric functions
+    ├── conftest.py             # Gutenberg corpus fixtures, metric functions
     ├── gutenberg_corpus.py     # fetch/split The Prince from Project Gutenberg
-    ├── labels.json             # 13 labeled queries (tiny_pdf, 3 topics)
-    ├── labels_gutenberg.json   # 22 labeled queries (Gutenberg, 26 chapters)
+    ├── labels.json             # 27 labeled queries (Gutenberg, 26 chapters)
     ├── eval-baseline.json      # baseline metrics for regression detection
     ├── compare_to_baseline.py  # diffs current vs baseline scores
     ├── generate_report.py      # custom HTML report from eval-report.json
