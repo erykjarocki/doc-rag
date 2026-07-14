@@ -1,5 +1,3235 @@
 {
-  "recall_at_2": 0,
-  "precision_at_2": 0,
-  "mrr": 0
+  "queries": [
+    {
+      "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?",
+      "relevant_documents": [
+        "OP-204_Incident_Management_v4.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" under SOP OP-204 Section 4.2 (financial impact exceeding $10,000 from a Tier-2 incident), the following applies:\n\n1. The incident must be assigned to the Regional Operations Vice President listed in Table 2A for the applicable region.\n2. The Regional Vice President must provide **formal written sign-off** before any corrective expenditure exceeding $10,000 may be authorized.\n3. Verbal or phone approval is insufficient; a signed document must be filed in the AVL Global Incident Registry (GIR).\n4. If the designated Regional Vice President is unavailable for more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F",
+          "score": 0.8823,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the initial fine amount.\n\n## 4. Escalation Protocols\n\n### 4.1 Tier-1 and Tier-2 Incidents\n\nTier-1 incidents are resolved by the local Hub Operations Manager. Tier-2 incidents require escalation to the Regional Operations Director within the applicable geographic division.\n\n### 4.2 Critical Exceptions (SECTION 4.2)\n\n> **Tier-2 logistical delays are categorized by financial impact. If the compounding costs, fines, or penalties of a single Tier-2 incident exceed $10,000 USD, the incident escalates to a \"Critical Exception.\" Critical Exceptions bypass local managers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the",
+          "score": 0.8734,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
+      "relevant_documents": [
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|--------------|---------------------|\n| Standard (8 AGV, 40ft capacity) | **$1,478,000** |\n| Extended (12 AGV, 45ft capacity) | **$1,892,000** |\n| Maximum (16 AGV, 45ft + dual clamping) | **$2,340,000** |\n\n## 3. Valve Specifications — H2-Nexus Critical Components\n\n### 3.1 Hydraulic Valve-B (Primary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **2,800 psi** (193 bar) |\n| Maximum allowable test pressure | 4,200 psi (290 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI",
+          "score": 0.8711,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "# AeroVelo Logistics Global — Bill of Materials\n\n**Document ID:** BOM-FLT-H2NEX  \n**Revision:** 7.3 (Current)  \n**Effective Date:** 2025-08-15  \n**Classification:** Internal — Operations, Procurement, and Engineering  \n**Product:** H2-Nexus Class Cargo Handling System  \n**Applicable Hubs:** Frankfurt (FRA), Dallas-Fort Worth (DFW), Singapore (SIN)\n\n---\n\n## 1. Product Description\n\nThe H2-Nexus is a modular cargo handling system designed for high-volume containerized freight operations. It includes automated guided vehicles (AGVs), conveyor systems, and hydraulic lifting mechanisms rated for containers up to 45 feet / 40 tons.\n\n## 2. Bill of Materials — H2-Nexus Standard Configuration\n\n### 2.1 Major Sub-Assemblies\n\n| Sub-Assembly ID | Description | Unit Cost (USD) | Quantity per Unit | Source |\n|----------------|-------------|-----------------|-------------------|--------|\n| H2-NEX-001 | Hydraulic lifting mechanism (dual-stage) | $185,000 | 4 | Atl",
+          "score": 0.858,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
+      "relevant_documents": [
+        "RGM-2026_Regional_Governance_Matrix.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The Frankfurt hub falls under Marcus Vance's authority regardless of any prior contractual arrangements with local management.\n- **Americas Division** covers all operations in the Western Hemisphere, including the São Paulo hub (GRU), which reports to Sarah Jenkins.\n- **APAC Division** covers all operations in the Eastern Hemisphere east of the Prime Meridian, including the Tokyo (NRT), Singapore (SIN), and Sydney (SYD) hubs.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **FIN-AUTH-101** — Finance Authorization Policies (see finance/FIN-AUTH-101_Authorization_Framework.md)\n- **AVL-ORG-001** — Corporate Organization Chart (see governance/AVL-ORG-001_Corporate_Org_Chart.pdf)\n\n---",
+          "score": 0.8533,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub Centers | Vice President, Operations | Start Date |\n|----------|-------------------|-------------|---------------------------|------------|\n| **Americas Division** | United States, Canada, Mexico, Brazil | Dallas-Fort Worth (DFW), Los Angeles (LAX), São Paulo (GRU) | **Sarah Jenkins** | 2023-03-15 |\n| **EMEA Division** | Europe, Middle East, Africa (including Frankfurt, Amsterdam, Dubai, Johannesburg, Istanbul) | Frankfurt (FRA), Amsterdam (AMS), Dubai (DXB) | **Marcus Vance** | 2022-09-01 |\n| **APAC Division** | East Asia, Southeast Asia, Oceania (including Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth",
+          "score": 0.8525,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
+      "relevant_documents": [
+        "FIN-AUTH-101_Authorization_Framework.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and Operations Leadership  \n**Owner:** Global Finance Directorate  \n**Approved By:** CFO and Board Risk Committee\n\n---\n\n## 1. Purpose\n\nThis Finance Authorization Framework defines the spending authorities, budget variance thresholds, procurement approvals, and financial sign-off requirements for all divisions of AeroVelo Logistics Global (AVL).\n\n## 2. Core Spending Authority Matrix\n\n### Table 1: Per-Transaction Spending Limits\n\n| Authorization Level | Max per Transaction | Max per Month (Cumulative) | Budget Variance Allowed | Approval Required Above Limit |\n|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub O",
+          "score": 0.845,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001 – $50,000:** Regional Operations Director must approve prior to commitment (verbal approval acceptable, written confirmation within 24 hours).\n3. **$50,001 – $250,000:** Regional Operations Vice President must approve. Post-facto board notification required if cumulative emergency spending for the quarter exceeds the region's annual emergency contingency allocation (currently set at 3% of regional annual budget).\n4. **Above $250,000:** Requires CFO pre-approval unless a Tier-4 incident as defined by SOP OP-204 is active, in which case the COO may authorize with simultaneous notification to the CFO and General Counsel.\n\n## 3. Budget Variance Policy\n\n### 3.1 Variance Tolerance\n\nEach regional division receives an annual operating budget. The following",
+          "score": 0.8402,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
+      "relevant_documents": [
+        "HR-POL-030_Remote_Work_US.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The employer bears 50% of internet costs regardless of the stated stipend.\n\n### 5.3 UAE (Dubai hub)\nRemote work permits must be obtained through the UAE Free Zone Authority. Employees on remote arrangements retain the right to work from within UAE jurisdiction only.\n\n## 6. Reference Documents\n\n- **AVL-EMP-001-EMEA** — EMEA Employee Handbook (Section 14: Remote Work)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governance_Matrix.md)\n- **SOP-COM-015** — Regulatory Breach Reporting (see compliance/SOP-COM-015_Regulatory_Breach_Report.md)\n\n---\n\n*Document control: This is a controlled document. This policy applies exclusively to the EMEA entity. The US entity operates under HR-POL-030, which contains materially different stipend",
+          "score": 0.8525,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "ued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **no chair stipend provided**\n- Peripheral kit (webcam, headset)\n\n### 3.3 On-Call and Critical Duties Surcharge\n\nEmployees assigned to on-call incident response or crisis management positions receive a reduced surcharge of **€80/month** (approximately $85 USD), bringing the full remote stipend for critical-duty remote workers to **€260/month maximum** (approximately $280 USD).\n\n### 3.4 Internet and Phone Reimbursement\n\n- Internet: Actual costs, up to **€50/month** (receipts required)\n- Business phone line: Full coverage provided at **€30/month** (no receipt required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 i",
+          "score": 0.8394,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 0.0,
+      "precision_at_k": 0.0,
+      "reciprocal_rank": 0.3333333333333333
+    },
+    {
+      "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
+      "relevant_documents": [
+        "AVL-PUR-012_Supplier_Qualification.md",
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — Procurement and Supply Chain Leadership  \n**Owner:** Global Procurement Directorate\n\n---\n\n## 1. Supplier Classification\n\n| Class | Definition | Qualification Requirement | Review Frequency |\n|-------|-----------|--------------------------|-----------------|\n| Strategic | Single or sole source, critical to operations | Full financial, safety, and ESG audit + board-level approval | 12 months |\n| Preferred | Multiple qualified sources, non-critical | Standard qualification (financial stability, quality record) | 24 months |\n| Approved | Commodity suppliers, easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoi",
+          "score": 0.8471,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "| None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency stop) | None (sole source — no alternative exists) | None |\n| BELT-001 | BeltFlow Systems | Preferred | H2-NEX-006 (Conveyor belt) | — | None |\n| EUR-001 | EuroVolt GmbH | Preferred (EMEA only) | H2-NEX-008 (Power distribution, EMEA alternate) | None | EMEA region only (Germany-based) |\n\n## 3. Supplier Performance Metrics\n\nKey performance indicators for all Strategic and Preferred suppliers:\n- On-time delivery rate (target: >95%)\n- Quality acceptance rate (target: >99%)\n- Lead time adherence (target: within ±5 days of quoted lead time)\n- Incident response time (target: <4 hours for critical supply disruptions)\n\n## 4. Reference Documents\n\n- **BOM-FLT-H2NEX** — H2-Nexus Bill of Materials (see supply_chain/BOM-FLT-H2NEX.md)\n- **FIN-AUTH-101** — Finance A",
+          "score": 0.8347,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 0.5,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
+      "relevant_documents": [
+        "SOP-COM-015_Regulatory_Breach_Report.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nProcurement outside these conditions reverts to the standard 72-hour provisional DPA requirement.\n\n## 6. Breach Notification Coordination\n\nA personal-data breach involving an AVL supplier must be reported under **two** parallel reporting tracks:\n\n1. **Regulatory:** the relevant Data Protection Authority within 72 hours (GDPR Article 33), coordinated by the General Counsel.\n2. **Internal:** the AVL Compliance Hotline per **SOP-COM-015** (Regulatory Breach Reporting) within the timeframe corresponding to the breach severity tier.\n\nIf the breach is classified Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the",
+          "score": 0.8518,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": ">$1M in fines, or imminent safety risk | 2 hours from discovery | Regional VP, General Counsel, relevant regulator |\n| Major | Civil penalty exposure $100K–$1M, or service suspension risk | 24 hours | Regional Operations Director, General Counsel |\n| Minor | Administrative notice, <$100K exposure, no service disruption | 72 hours | Regional Operations Director |\n\n## 3. Reporting Procedure\n\n### 3.1 Initial Notification\n\nAny AVL employee who becomes aware of a potential regulatory breach must report it immediately through one of these channels:\n- AVL Compliance Hotline: 1-800-AVL-COMP (24/7, multilingual)\n- AVL HR Portal: Form COM-015-BREACH (submitted to Global Compliance Office)\n- Direct notification to the Regional Compliance Officer (contact list in Appendix A)\n\n### 3.2 Regional Compliance Officers\n\n| Region | Regional Compliance Officer | Contact |\n|--------|---------------------------|---------|\n| Americas (Sarah Jenkins' region) | Patricia G",
+          "score": 0.8503,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
+      "relevant_documents": [
+        "HR-POL-030-EMEA_Remote_Work.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The employer bears 50% of internet costs regardless of the stated stipend.\n\n### 5.3 UAE (Dubai hub)\nRemote work permits must be obtained through the UAE Free Zone Authority. Employees on remote arrangements retain the right to work from within UAE jurisdiction only.\n\n## 6. Reference Documents\n\n- **AVL-EMP-001-EMEA** — EMEA Employee Handbook (Section 14: Remote Work)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governance_Matrix.md)\n- **SOP-COM-015** — Regulatory Breach Reporting (see compliance/SOP-COM-015_Regulatory_Breach_Report.md)\n\n---\n\n*Document control: This is a controlled document. This policy applies exclusively to the EMEA entity. The US entity operates under HR-POL-030, which contains materially different stipend",
+          "score": 0.8705,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of the Regional Operations Director (not merely the direct supervisor) and notification to the EMEA Regional Vice President.\n\n### 4.2 Annual Renewal\n\nAll remote work arrangements must be renewed annually. Additionally, a bi-annual compliance review is required, including:\n- Home workspace safety inspection (virtual, conducted by EHS)\n- IT security assessment (annual, documented)\n- Employee wellbeing survey (semi-annual, 2026 version)\n\n## 5. Regional Variations\n\n### 5.1 Germany (Düsseldorf, Frankfurt hubs)\nFull compliance with German works council requirements. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp",
+          "score": 0.8686,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?_reranked",
+      "relevant_documents": [
+        "OP-204_Incident_Management_v4.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" under SOP OP-204 Section 4.2 (financial impact exceeding $10,000 from a Tier-2 incident), the following applies:\n\n1. The incident must be assigned to the Regional Operations Vice President listed in Table 2A for the applicable region.\n2. The Regional Vice President must provide **formal written sign-off** before any corrective expenditure exceeding $10,000 may be authorized.\n3. Verbal or phone approval is insufficient; a signed document must be filed in the AVL Global Incident Registry (GIR).\n4. If the designated Regional Vice President is unavailable for more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F",
+          "score": 0.8823,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the initial fine amount.\n\n## 4. Escalation Protocols\n\n### 4.1 Tier-1 and Tier-2 Incidents\n\nTier-1 incidents are resolved by the local Hub Operations Manager. Tier-2 incidents require escalation to the Regional Operations Director within the applicable geographic division.\n\n### 4.2 Critical Exceptions (SECTION 4.2)\n\n> **Tier-2 logistical delays are categorized by financial impact. If the compounding costs, fines, or penalties of a single Tier-2 incident exceed $10,000 USD, the incident escalates to a \"Critical Exception.\" Critical Exceptions bypass local managers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the",
+          "score": 0.8734,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?_reranked",
+      "relevant_documents": [
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "00V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRITICAL NOTE:** Valve-B units that have exceeded their replacement cycle must be taken offline immediately. Continued operation above 2,800 psi on a cycle-expired Valve-B unit constitutes a Tier-3 safety event under SOP OP-204.\n\n### 3.2 Hydraulic Valve-C (Secondary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **3,200 psi** (221 bar) |\n| Maximum allowable test pressure | 4,800 psi (331 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V-SC |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n\n## 4. Supply Chain Risk Warnings\n\n### 4.1 Sole Source Components\n\nThe following components have",
+          "score": 0.8436,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|--------------|---------------------|\n| Standard (8 AGV, 40ft capacity) | **$1,478,000** |\n| Extended (12 AGV, 45ft capacity) | **$1,892,000** |\n| Maximum (16 AGV, 45ft + dual clamping) | **$2,340,000** |\n\n## 3. Valve Specifications — H2-Nexus Critical Components\n\n### 3.1 Hydraulic Valve-B (Primary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **2,800 psi** (193 bar) |\n| Maximum allowable test pressure | 4,200 psi (290 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI",
+          "score": 0.8711,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?_reranked",
+      "relevant_documents": [
+        "RGM-2026_Regional_Governance_Matrix.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The Frankfurt hub falls under Marcus Vance's authority regardless of any prior contractual arrangements with local management.\n- **Americas Division** covers all operations in the Western Hemisphere, including the São Paulo hub (GRU), which reports to Sarah Jenkins.\n- **APAC Division** covers all operations in the Eastern Hemisphere east of the Prime Meridian, including the Tokyo (NRT), Singapore (SIN), and Sydney (SYD) hubs.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **FIN-AUTH-101** — Finance Authorization Policies (see finance/FIN-AUTH-101_Authorization_Framework.md)\n- **AVL-ORG-001** — Corporate Organization Chart (see governance/AVL-ORG-001_Corporate_Org_Chart.pdf)\n\n---",
+          "score": 0.8533,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub Centers | Vice President, Operations | Start Date |\n|----------|-------------------|-------------|---------------------------|------------|\n| **Americas Division** | United States, Canada, Mexico, Brazil | Dallas-Fort Worth (DFW), Los Angeles (LAX), São Paulo (GRU) | **Sarah Jenkins** | 2023-03-15 |\n| **EMEA Division** | Europe, Middle East, Africa (including Frankfurt, Amsterdam, Dubai, Johannesburg, Istanbul) | Frankfurt (FRA), Amsterdam (AMS), Dubai (DXB) | **Marcus Vance** | 2022-09-01 |\n| **APAC Division** | East Asia, Southeast Asia, Oceania (including Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth",
+          "score": 0.8525,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?_reranked",
+      "relevant_documents": [
+        "FIN-AUTH-101_Authorization_Framework.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and Operations Leadership  \n**Owner:** Global Finance Directorate  \n**Approved By:** CFO and Board Risk Committee\n\n---\n\n## 1. Purpose\n\nThis Finance Authorization Framework defines the spending authorities, budget variance thresholds, procurement approvals, and financial sign-off requirements for all divisions of AeroVelo Logistics Global (AVL).\n\n## 2. Core Spending Authority Matrix\n\n### Table 1: Per-Transaction Spending Limits\n\n| Authorization Level | Max per Transaction | Max per Month (Cumulative) | Budget Variance Allowed | Approval Required Above Limit |\n|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub O",
+          "score": 0.845,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, penalties, customer compensation, corrective action costs) follow a dual-track authorization:\n\n1. **Incident-specific costs** are authorized per the authority levels defined in Section 3.1 of SOP OP-204 (Incident Management).\n2. **Budget allocation** for those costs is pulled from the regional \"Incident Reserve Fund,\" which is pre-allocated at 2% of each regional annual budget.\n3. If the Incident Reserve Fund is depleted, the regional Operations VP must submit a variance request to the CFO before authorizing additional incident-related expenditures.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governa",
+          "score": 0.8238,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?_reranked",
+      "relevant_documents": [
+        "HR-POL-030_Remote_Work_US.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (USD) | Annual Maximum (USD) |\n|-----------------|----------------------|---------------------|\n| Full Remote (5 days/week from home office) | $350 | $4,200 |\n| Hybrid Remote (3 days remote per week) | $200 | $2,400 |\n| Hybrid Remote (2 days remote per week) | $125 | $1,500 |\n\n### 3.2 Equipment Provision\n\nAVL provides a standard home office kit valued at $1,200 (one-time):\n- 16\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (27\", company-owned, loaned for duration)\n- Ergonomic chair (employee-purchased, reimbursed up to $600)\n- Peripheral kit (keyboard, mouse, headset)\n\n### 3.3 High-Intensity Remote Worker Surcharge\n\nEmployees classified as \"High-Intensity\" (defined as those performing 24/7 on-call incident response or crisis management duties) receive an additional $150/month surcharge, bringing",
+          "score": 0.8245,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "trol personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (EUR) | Annual Maximum (EUR) |\n|-----------------|----------------------|---------------------|\n| Full Remote (5 days/week from home office) | $180 | $2,160 |\n| Hybrid Remote (3 days remote per week) | $100 | $1,200 |\n| Hybrid Remote (2 days remote per week) | $60 | $720 |\n\n> **Note:** All EMEA stipends are paid in EUR at the monthly exchange rate published by the European Central Bank on the first business day of each month.\n\n### 3.2 Equipment Provision\n\nAVL provides a standard home office kit valued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **n",
+          "score": 0.8265,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?_reranked",
+      "relevant_documents": [
+        "AVL-PUR-012_Supplier_Qualification.md",
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoing during trial |\n\n## 2. Strategic Supplier List (Active)\n\n| Supplier ID | Name | Classification | Primary Supply | Alternate Supply For | Regional Restrictions |\n|------------|------|---------------|---------------|---------------------|---------------------|\n| ATL-001 | Atlas Hydraulic Systems | Strategic | H2-NEX-001 (Valves), H2-NEX-005 (Clamping) | — | Americas and APAC only |\n| EMM-001 | ElectroMove Robotics | Strategic | H2-NEX-002 (AGV chassis) | — | None |\n| ALC-001 | AVL Software Division | Strategic (in-house) | H2-NEX-003 (Control module) | — | None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency s",
+          "score": 0.8252,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — Procurement and Supply Chain Leadership  \n**Owner:** Global Procurement Directorate\n\n---\n\n## 1. Supplier Classification\n\n| Class | Definition | Qualification Requirement | Review Frequency |\n|-------|-----------|--------------------------|-----------------|\n| Strategic | Single or sole source, critical to operations | Full financial, safety, and ESG audit + board-level approval | 12 months |\n| Preferred | Multiple qualified sources, non-critical | Standard qualification (financial stability, quality record) | 24 months |\n| Approved | Commodity suppliers, easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoi",
+          "score": 0.8471,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 0.5,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?_reranked",
+      "relevant_documents": [
+        "SOP-COM-015_Regulatory_Breach_Report.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nProcurement outside these conditions reverts to the standard 72-hour provisional DPA requirement.\n\n## 6. Breach Notification Coordination\n\nA personal-data breach involving an AVL supplier must be reported under **two** parallel reporting tracks:\n\n1. **Regulatory:** the relevant Data Protection Authority within 72 hours (GDPR Article 33), coordinated by the General Counsel.\n2. **Internal:** the AVL Compliance Hotline per **SOP-COM-015** (Regulatory Breach Reporting) within the timeframe corresponding to the breach severity tier.\n\nIf the breach is classified Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the",
+          "score": 0.8518,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the Regional Operations Vice President and the Global Compliance Officer within 4 hours of incident confirmation. Tier-4 incidents trigger automatic notification of the Chief Operating Officer and the General Counsel.\n\n### 4.4 Equipment-Driven Tier-3 Override\n\n> **CRITICAL NOTE:** Valve-B units that have exceeded their replacement cycle must be taken offline immediately. Continued operation above 2,800 psi on a cycle-expired Valve-B unit constitutes a Tier-3 safety event under SOP OP-204, regardless of the calculated financial impact. The safety-tier override supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within",
+          "score": 0.8317,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 0.0,
+      "precision_at_k": 0.0,
+      "reciprocal_rank": 0.3333333333333333
+    },
+    {
+      "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?_reranked",
+      "relevant_documents": [
+        "HR-POL-030-EMEA_Remote_Work.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 internet + €240 on-call surcharge), which converts to approximately **$3,200 USD** at current exchange rates.\n\n### 3.6 Local Law Compliance\n\nAll EMEA remote work benefits are subject to applicable local employment law, including but not limited to:\n- German Working Hours Act (Arbeitszeitgesetz) — remote workers on full remote are not subject to working hours regulations but must maintain 12 hours between shifts\n- EU Working Time Directive (2003/88/EC) — maximum 48 hours/week including remote work\n- GDPR-compliant home network security assessment (annual, conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of",
+          "score": 0.8613,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "ying Roles\n\nThe following job families are eligible for remote or hybrid remote work arrangements within the EMEA entity:\n\n- Logistics Planning and Scheduling (hybrid minimum: 3 days/week on-site)\n- Data Analytics and Business Intelligence (fully remote)\n- IT Systems Administration (hybrid minimum: 2 days/week on-site)\n- Finance and Accounting (fully remote)\n- Legal and Compliance (hybrid minimum: 2 days/week on-site)\n- Executive Management (discretionary, per VP approval)\n\n### 2.2 Non-Qualifying Roles\n\nThe following roles are explicitly excluded from remote work eligibility:\n\n- Hub floor operations and warehouse personnel\n- Field logistics coordinators (on-site freight handling)\n- Equipment maintenance technicians (on-site)\n- Security and access control personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work s",
+          "score": 0.8484,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off? (pipeline)",
+      "relevant_documents": [
+        "OP-204_Incident_Management_v4.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" under SOP OP-204 Section 4.2 (financial impact exceeding $10,000 from a Tier-2 incident), the following applies:\n\n1. The incident must be assigned to the Regional Operations Vice President listed in Table 2A for the applicable region.\n2. The Regional Vice President must provide **formal written sign-off** before any corrective expenditure exceeding $10,000 may be authorized.\n3. Verbal or phone approval is insufficient; a signed document must be filed in the AVL Global Incident Registry (GIR).\n4. If the designated Regional Vice President is unavailable for more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F",
+          "score": 0.8823,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the initial fine amount.\n\n## 4. Escalation Protocols\n\n### 4.1 Tier-1 and Tier-2 Incidents\n\nTier-1 incidents are resolved by the local Hub Operations Manager. Tier-2 incidents require escalation to the Regional Operations Director within the applicable geographic division.\n\n### 4.2 Critical Exceptions (SECTION 4.2)\n\n> **Tier-2 logistical delays are categorized by financial impact. If the compounding costs, fines, or penalties of a single Tier-2 incident exceed $10,000 USD, the incident escalates to a \"Critical Exception.\" Critical Exceptions bypass local managers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the",
+          "score": 0.8734,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system? (pipeline)",
+      "relevant_documents": [
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "00V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRITICAL NOTE:** Valve-B units that have exceeded their replacement cycle must be taken offline immediately. Continued operation above 2,800 psi on a cycle-expired Valve-B unit constitutes a Tier-3 safety event under SOP OP-204.\n\n### 3.2 Hydraulic Valve-C (Secondary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **3,200 psi** (221 bar) |\n| Maximum allowable test pressure | 4,800 psi (331 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V-SC |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n\n## 4. Supply Chain Risk Warnings\n\n### 4.1 Sole Source Components\n\nThe following components have",
+          "score": 0.8436,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|--------------|---------------------|\n| Standard (8 AGV, 40ft capacity) | **$1,478,000** |\n| Extended (12 AGV, 45ft capacity) | **$1,892,000** |\n| Maximum (16 AGV, 45ft + dual clamping) | **$2,340,000** |\n\n## 3. Valve Specifications — H2-Nexus Critical Components\n\n### 3.1 Hydraulic Valve-B (Primary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **2,800 psi** (193 bar) |\n| Maximum allowable test pressure | 4,200 psi (290 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI",
+          "score": 0.8711,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority? (pipeline)",
+      "relevant_documents": [
+        "RGM-2026_Regional_Governance_Matrix.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The Frankfurt hub falls under Marcus Vance's authority regardless of any prior contractual arrangements with local management.\n- **Americas Division** covers all operations in the Western Hemisphere, including the São Paulo hub (GRU), which reports to Sarah Jenkins.\n- **APAC Division** covers all operations in the Eastern Hemisphere east of the Prime Meridian, including the Tokyo (NRT), Singapore (SIN), and Sydney (SYD) hubs.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **FIN-AUTH-101** — Finance Authorization Policies (see finance/FIN-AUTH-101_Authorization_Framework.md)\n- **AVL-ORG-001** — Corporate Organization Chart (see governance/AVL-ORG-001_Corporate_Org_Chart.pdf)\n\n---",
+          "score": 0.8533,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub Centers | Vice President, Operations | Start Date |\n|----------|-------------------|-------------|---------------------------|------------|\n| **Americas Division** | United States, Canada, Mexico, Brazil | Dallas-Fort Worth (DFW), Los Angeles (LAX), São Paulo (GRU) | **Sarah Jenkins** | 2023-03-15 |\n| **EMEA Division** | Europe, Middle East, Africa (including Frankfurt, Amsterdam, Dubai, Johannesburg, Istanbul) | Frankfurt (FRA), Amsterdam (AMS), Dubai (DXB) | **Marcus Vance** | 2022-09-01 |\n| **APAC Division** | East Asia, Southeast Asia, Oceania (including Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth",
+          "score": 0.8525,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000? (pipeline)",
+      "relevant_documents": [
+        "FIN-AUTH-101_Authorization_Framework.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and Operations Leadership  \n**Owner:** Global Finance Directorate  \n**Approved By:** CFO and Board Risk Committee\n\n---\n\n## 1. Purpose\n\nThis Finance Authorization Framework defines the spending authorities, budget variance thresholds, procurement approvals, and financial sign-off requirements for all divisions of AeroVelo Logistics Global (AVL).\n\n## 2. Core Spending Authority Matrix\n\n### Table 1: Per-Transaction Spending Limits\n\n| Authorization Level | Max per Transaction | Max per Month (Cumulative) | Budget Variance Allowed | Approval Required Above Limit |\n|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub O",
+          "score": 0.845,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, penalties, customer compensation, corrective action costs) follow a dual-track authorization:\n\n1. **Incident-specific costs** are authorized per the authority levels defined in Section 3.1 of SOP OP-204 (Incident Management).\n2. **Budget allocation** for those costs is pulled from the regional \"Incident Reserve Fund,\" which is pre-allocated at 2% of each regional annual budget.\n3. If the Incident Reserve Fund is depleted, the regional Operations VP must submit a variance request to the CFO before authorizing additional incident-related expenditures.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governa",
+          "score": 0.8238,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the maximum number of remote work days allowed per month under the US remote work policy? (pipeline)",
+      "relevant_documents": [
+        "HR-POL-030_Remote_Work_US.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (USD) | Annual Maximum (USD) |\n|-----------------|----------------------|---------------------|\n| Full Remote (5 days/week from home office) | $350 | $4,200 |\n| Hybrid Remote (3 days remote per week) | $200 | $2,400 |\n| Hybrid Remote (2 days remote per week) | $125 | $1,500 |\n\n### 3.2 Equipment Provision\n\nAVL provides a standard home office kit valued at $1,200 (one-time):\n- 16\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (27\", company-owned, loaned for duration)\n- Ergonomic chair (employee-purchased, reimbursed up to $600)\n- Peripheral kit (keyboard, mouse, headset)\n\n### 3.3 High-Intensity Remote Worker Surcharge\n\nEmployees classified as \"High-Intensity\" (defined as those performing 24/7 on-call incident response or crisis management duties) receive an additional $150/month surcharge, bringing",
+          "score": 0.8245,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "trol personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (EUR) | Annual Maximum (EUR) |\n|-----------------|----------------------|---------------------|\n| Full Remote (5 days/week from home office) | $180 | $2,160 |\n| Hybrid Remote (3 days remote per week) | $100 | $1,200 |\n| Hybrid Remote (2 days remote per week) | $60 | $720 |\n\n> **Note:** All EMEA stipends are paid in EUR at the monthly exchange rate published by the European Central Bank on the first business day of each month.\n\n### 3.2 Equipment Provision\n\nAVL provides a standard home office kit valued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **n",
+          "score": 0.8265,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status? (pipeline)",
+      "relevant_documents": [
+        "AVL-PUR-012_Supplier_Qualification.md",
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoing during trial |\n\n## 2. Strategic Supplier List (Active)\n\n| Supplier ID | Name | Classification | Primary Supply | Alternate Supply For | Regional Restrictions |\n|------------|------|---------------|---------------|---------------------|---------------------|\n| ATL-001 | Atlas Hydraulic Systems | Strategic | H2-NEX-001 (Valves), H2-NEX-005 (Clamping) | — | Americas and APAC only |\n| EMM-001 | ElectroMove Robotics | Strategic | H2-NEX-002 (AGV chassis) | — | None |\n| ALC-001 | AVL Software Division | Strategic (in-house) | H2-NEX-003 (Control module) | — | None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency s",
+          "score": 0.8252,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — Procurement and Supply Chain Leadership  \n**Owner:** Global Procurement Directorate\n\n---\n\n## 1. Supplier Classification\n\n| Class | Definition | Qualification Requirement | Review Frequency |\n|-------|-----------|--------------------------|-----------------|\n| Strategic | Single or sole source, critical to operations | Full financial, safety, and ESG audit + board-level approval | 12 months |\n| Preferred | Multiple qualified sources, non-critical | Standard qualification (financial stability, quality record) | 24 months |\n| Approved | Commodity suppliers, easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoi",
+          "score": 0.8471,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 0.5,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer? (pipeline)",
+      "relevant_documents": [
+        "SOP-COM-015_Regulatory_Breach_Report.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nProcurement outside these conditions reverts to the standard 72-hour provisional DPA requirement.\n\n## 6. Breach Notification Coordination\n\nA personal-data breach involving an AVL supplier must be reported under **two** parallel reporting tracks:\n\n1. **Regulatory:** the relevant Data Protection Authority within 72 hours (GDPR Article 33), coordinated by the General Counsel.\n2. **Internal:** the AVL Compliance Hotline per **SOP-COM-015** (Regulatory Breach Reporting) within the timeframe corresponding to the breach severity tier.\n\nIf the breach is classified Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the",
+          "score": 0.8518,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the Regional Operations Vice President and the Global Compliance Officer within 4 hours of incident confirmation. Tier-4 incidents trigger automatic notification of the Chief Operating Officer and the General Counsel.\n\n### 4.4 Equipment-Driven Tier-3 Override\n\n> **CRITICAL NOTE:** Valve-B units that have exceeded their replacement cycle must be taken offline immediately. Continued operation above 2,800 psi on a cycle-expired Valve-B unit constitutes a Tier-3 safety event under SOP OP-204, regardless of the calculated financial impact. The safety-tier override supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within",
+          "score": 0.8317,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 0.0,
+      "precision_at_k": 0.0,
+      "reciprocal_rank": 0.3333333333333333
+    },
+    {
+      "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed? (pipeline)",
+      "relevant_documents": [
+        "HR-POL-030-EMEA_Remote_Work.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 internet + €240 on-call surcharge), which converts to approximately **$3,200 USD** at current exchange rates.\n\n### 3.6 Local Law Compliance\n\nAll EMEA remote work benefits are subject to applicable local employment law, including but not limited to:\n- German Working Hours Act (Arbeitszeitgesetz) — remote workers on full remote are not subject to working hours regulations but must maintain 12 hours between shifts\n- EU Working Time Directive (2003/88/EC) — maximum 48 hours/week including remote work\n- GDPR-compliant home network security assessment (annual, conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of",
+          "score": 0.8613,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "ying Roles\n\nThe following job families are eligible for remote or hybrid remote work arrangements within the EMEA entity:\n\n- Logistics Planning and Scheduling (hybrid minimum: 3 days/week on-site)\n- Data Analytics and Business Intelligence (fully remote)\n- IT Systems Administration (hybrid minimum: 2 days/week on-site)\n- Finance and Accounting (fully remote)\n- Legal and Compliance (hybrid minimum: 2 days/week on-site)\n- Executive Management (discretionary, per VP approval)\n\n### 2.2 Non-Qualifying Roles\n\nThe following roles are explicitly excluded from remote work eligibility:\n\n- Hub floor operations and warehouse personnel\n- Field logistics coordinators (on-site freight handling)\n- Equipment maintenance technicians (on-site)\n- Security and access control personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work s",
+          "score": 0.8484,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    }
+  ],
+  "metrics": {
+    "recall_at_2": 0.8125,
+    "precision_at_2": 0.75,
+    "mrr": 0.8333
+  },
+  "rerank_queries": [
+    {
+      "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?",
+      "relevant_documents": [
+        "OP-204_Incident_Management_v4.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" under SOP OP-204 Section 4.2 (financial impact exceeding $10,000 from a Tier-2 incident), the following applies:\n\n1. The incident must be assigned to the Regional Operations Vice President listed in Table 2A for the applicable region.\n2. The Regional Vice President must provide **formal written sign-off** before any corrective expenditure exceeding $10,000 may be authorized.\n3. Verbal or phone approval is insufficient; a signed document must be filed in the AVL Global Incident Registry (GIR).\n4. If the designated Regional Vice President is unavailable for more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F",
+          "score": 0.8823,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the initial fine amount.\n\n## 4. Escalation Protocols\n\n### 4.1 Tier-1 and Tier-2 Incidents\n\nTier-1 incidents are resolved by the local Hub Operations Manager. Tier-2 incidents require escalation to the Regional Operations Director within the applicable geographic division.\n\n### 4.2 Critical Exceptions (SECTION 4.2)\n\n> **Tier-2 logistical delays are categorized by financial impact. If the compounding costs, fines, or penalties of a single Tier-2 incident exceed $10,000 USD, the incident escalates to a \"Critical Exception.\" Critical Exceptions bypass local managers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the",
+          "score": 0.8734,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
+      "relevant_documents": [
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|--------------|---------------------|\n| Standard (8 AGV, 40ft capacity) | **$1,478,000** |\n| Extended (12 AGV, 45ft capacity) | **$1,892,000** |\n| Maximum (16 AGV, 45ft + dual clamping) | **$2,340,000** |\n\n## 3. Valve Specifications — H2-Nexus Critical Components\n\n### 3.1 Hydraulic Valve-B (Primary Lifting Circuit)\n\n| Parameter | Specification |\n|-----------|--------------|\n| Maximum operating pressure | **2,800 psi** (193 bar) |\n| Maximum allowable test pressure | 4,200 psi (290 bar) — do NOT exceed |\n| Manufacturer | Atlas Hydraulic Systems, Model AHS-4400V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI",
+          "score": 0.8711,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "# AeroVelo Logistics Global — Bill of Materials\n\n**Document ID:** BOM-FLT-H2NEX  \n**Revision:** 7.3 (Current)  \n**Effective Date:** 2025-08-15  \n**Classification:** Internal — Operations, Procurement, and Engineering  \n**Product:** H2-Nexus Class Cargo Handling System  \n**Applicable Hubs:** Frankfurt (FRA), Dallas-Fort Worth (DFW), Singapore (SIN)\n\n---\n\n## 1. Product Description\n\nThe H2-Nexus is a modular cargo handling system designed for high-volume containerized freight operations. It includes automated guided vehicles (AGVs), conveyor systems, and hydraulic lifting mechanisms rated for containers up to 45 feet / 40 tons.\n\n## 2. Bill of Materials — H2-Nexus Standard Configuration\n\n### 2.1 Major Sub-Assemblies\n\n| Sub-Assembly ID | Description | Unit Cost (USD) | Quantity per Unit | Source |\n|----------------|-------------|-----------------|-------------------|--------|\n| H2-NEX-001 | Hydraulic lifting mechanism (dual-stage) | $185,000 | 4 | Atl",
+          "score": 0.858,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
+      "relevant_documents": [
+        "RGM-2026_Regional_Governance_Matrix.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The Frankfurt hub falls under Marcus Vance's authority regardless of any prior contractual arrangements with local management.\n- **Americas Division** covers all operations in the Western Hemisphere, including the São Paulo hub (GRU), which reports to Sarah Jenkins.\n- **APAC Division** covers all operations in the Eastern Hemisphere east of the Prime Meridian, including the Tokyo (NRT), Singapore (SIN), and Sydney (SYD) hubs.\n\n## 6. Reference Documents\n\n- **OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **FIN-AUTH-101** — Finance Authorization Policies (see finance/FIN-AUTH-101_Authorization_Framework.md)\n- **AVL-ORG-001** — Corporate Organization Chart (see governance/AVL-ORG-001_Corporate_Org_Chart.pdf)\n\n---",
+          "score": 0.8533,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub Centers | Vice President, Operations | Start Date |\n|----------|-------------------|-------------|---------------------------|------------|\n| **Americas Division** | United States, Canada, Mexico, Brazil | Dallas-Fort Worth (DFW), Los Angeles (LAX), São Paulo (GRU) | **Sarah Jenkins** | 2023-03-15 |\n| **EMEA Division** | Europe, Middle East, Africa (including Frankfurt, Amsterdam, Dubai, Johannesburg, Istanbul) | Frankfurt (FRA), Amsterdam (AMS), Dubai (DXB) | **Marcus Vance** | 2022-09-01 |\n| **APAC Division** | East Asia, Southeast Asia, Oceania (including Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth",
+          "score": 0.8525,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
+      "relevant_documents": [
+        "FIN-AUTH-101_Authorization_Framework.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and Operations Leadership  \n**Owner:** Global Finance Directorate  \n**Approved By:** CFO and Board Risk Committee\n\n---\n\n## 1. Purpose\n\nThis Finance Authorization Framework defines the spending authorities, budget variance thresholds, procurement approvals, and financial sign-off requirements for all divisions of AeroVelo Logistics Global (AVL).\n\n## 2. Core Spending Authority Matrix\n\n### Table 1: Per-Transaction Spending Limits\n\n| Authorization Level | Max per Transaction | Max per Month (Cumulative) | Budget Variance Allowed | Approval Required Above Limit |\n|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub O",
+          "score": 0.845,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001 – $50,000:** Regional Operations Director must approve prior to commitment (verbal approval acceptable, written confirmation within 24 hours).\n3. **$50,001 – $250,000:** Regional Operations Vice President must approve. Post-facto board notification required if cumulative emergency spending for the quarter exceeds the region's annual emergency contingency allocation (currently set at 3% of regional annual budget).\n4. **Above $250,000:** Requires CFO pre-approval unless a Tier-4 incident as defined by SOP OP-204 is active, in which case the COO may authorize with simultaneous notification to the CFO and General Counsel.\n\n## 3. Budget Variance Policy\n\n### 3.1 Variance Tolerance\n\nEach regional division receives an annual operating budget. The following",
+          "score": 0.8402,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
+      "relevant_documents": [
+        "HR-POL-030_Remote_Work_US.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The employer bears 50% of internet costs regardless of the stated stipend.\n\n### 5.3 UAE (Dubai hub)\nRemote work permits must be obtained through the UAE Free Zone Authority. Employees on remote arrangements retain the right to work from within UAE jurisdiction only.\n\n## 6. Reference Documents\n\n- **AVL-EMP-001-EMEA** — EMEA Employee Handbook (Section 14: Remote Work)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governance_Matrix.md)\n- **SOP-COM-015** — Regulatory Breach Reporting (see compliance/SOP-COM-015_Regulatory_Breach_Report.md)\n\n---\n\n*Document control: This is a controlled document. This policy applies exclusively to the EMEA entity. The US entity operates under HR-POL-030, which contains materially different stipend",
+          "score": 0.8525,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": "ued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **no chair stipend provided**\n- Peripheral kit (webcam, headset)\n\n### 3.3 On-Call and Critical Duties Surcharge\n\nEmployees assigned to on-call incident response or crisis management positions receive a reduced surcharge of **€80/month** (approximately $85 USD), bringing the full remote stipend for critical-duty remote workers to **€260/month maximum** (approximately $280 USD).\n\n### 3.4 Internet and Phone Reimbursement\n\n- Internet: Actual costs, up to **€50/month** (receipts required)\n- Business phone line: Full coverage provided at **€30/month** (no receipt required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 i",
+          "score": 0.8394,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": false
+        }
+      ],
+      "recall_at_k": 0.0,
+      "precision_at_k": 0.0,
+      "reciprocal_rank": 0.3333333333333333
+    },
+    {
+      "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
+      "relevant_documents": [
+        "AVL-PUR-012_Supplier_Qualification.md",
+        "BOM-FLT-H2NEX.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — Procurement and Supply Chain Leadership  \n**Owner:** Global Procurement Directorate\n\n---\n\n## 1. Supplier Classification\n\n| Class | Definition | Qualification Requirement | Review Frequency |\n|-------|-----------|--------------------------|-----------------|\n| Strategic | Single or sole source, critical to operations | Full financial, safety, and ESG audit + board-level approval | 12 months |\n| Preferred | Multiple qualified sources, non-critical | Standard qualification (financial stability, quality record) | 24 months |\n| Approved | Commodity suppliers, easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoi",
+          "score": 0.8471,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "| None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency stop) | None (sole source — no alternative exists) | None |\n| BELT-001 | BeltFlow Systems | Preferred | H2-NEX-006 (Conveyor belt) | — | None |\n| EUR-001 | EuroVolt GmbH | Preferred (EMEA only) | H2-NEX-008 (Power distribution, EMEA alternate) | None | EMEA region only (Germany-based) |\n\n## 3. Supplier Performance Metrics\n\nKey performance indicators for all Strategic and Preferred suppliers:\n- On-time delivery rate (target: >95%)\n- Quality acceptance rate (target: >99%)\n- Lead time adherence (target: within ±5 days of quoted lead time)\n- Incident response time (target: <4 hours for critical supply disruptions)\n\n## 4. Reference Documents\n\n- **BOM-FLT-H2NEX** — H2-Nexus Bill of Materials (see supply_chain/BOM-FLT-H2NEX.md)\n- **FIN-AUTH-101** — Finance A",
+          "score": 0.8347,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 0.5,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    },
+    {
+      "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
+      "relevant_documents": [
+        "SOP-COM-015_Regulatory_Breach_Report.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nProcurement outside these conditions reverts to the standard 72-hour provisional DPA requirement.\n\n## 6. Breach Notification Coordination\n\nA personal-data breach involving an AVL supplier must be reported under **two** parallel reporting tracks:\n\n1. **Regulatory:** the relevant Data Protection Authority within 72 hours (GDPR Article 33), coordinated by the General Counsel.\n2. **Internal:** the AVL Compliance Hotline per **SOP-COM-015** (Regulatory Breach Reporting) within the timeframe corresponding to the breach severity tier.\n\nIf the breach is classified Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the",
+          "score": 0.8518,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "text": ">$1M in fines, or imminent safety risk | 2 hours from discovery | Regional VP, General Counsel, relevant regulator |\n| Major | Civil penalty exposure $100K–$1M, or service suspension risk | 24 hours | Regional Operations Director, General Counsel |\n| Minor | Administrative notice, <$100K exposure, no service disruption | 72 hours | Regional Operations Director |\n\n## 3. Reporting Procedure\n\n### 3.1 Initial Notification\n\nAny AVL employee who becomes aware of a potential regulatory breach must report it immediately through one of these channels:\n- AVL Compliance Hotline: 1-800-AVL-COMP (24/7, multilingual)\n- AVL HR Portal: Form COM-015-BREACH (submitted to Global Compliance Office)\n- Direct notification to the Regional Compliance Officer (contact list in Appendix A)\n\n### 3.2 Regional Compliance Officers\n\n| Region | Regional Compliance Officer | Contact |\n|--------|---------------------------|---------|\n| Americas (Sarah Jenkins' region) | Patricia G",
+          "score": 0.8503,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 0.5,
+      "reciprocal_rank": 0.5
+    },
+    {
+      "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
+      "relevant_documents": [
+        "HR-POL-030-EMEA_Remote_Work.md"
+      ],
+      "retrieved_fragments": [
+        {
+          "rank": 1,
+          "text": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The employer bears 50% of internet costs regardless of the stated stipend.\n\n### 5.3 UAE (Dubai hub)\nRemote work permits must be obtained through the UAE Free Zone Authority. Employees on remote arrangements retain the right to work from within UAE jurisdiction only.\n\n## 6. Reference Documents\n\n- **AVL-EMP-001-EMEA** — EMEA Employee Handbook (Section 14: Remote Work)\n- **RGM-2026** — Regional Governance Matrix (see governance/RGM-2026_Regional_Governance_Matrix.md)\n- **SOP-COM-015** — Regulatory Breach Reporting (see compliance/SOP-COM-015_Regulatory_Breach_Report.md)\n\n---\n\n*Document control: This is a controlled document. This policy applies exclusively to the EMEA entity. The US entity operates under HR-POL-030, which contains materially different stipend",
+          "score": 0.8705,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "text": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of the Regional Operations Director (not merely the direct supervisor) and notification to the EMEA Regional Vice President.\n\n### 4.2 Annual Renewal\n\nAll remote work arrangements must be renewed annually. Additionally, a bi-annual compliance review is required, including:\n- Home workspace safety inspection (virtual, conducted by EHS)\n- IT security assessment (annual, documented)\n- Employee wellbeing survey (semi-annual, 2026 version)\n\n## 5. Regional Variations\n\n### 5.1 Germany (Düsseldorf, Frankfurt hubs)\nFull compliance with German works council requirements. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp",
+          "score": 0.8686,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "is_relevant": true
+        }
+      ],
+      "recall_at_k": 1.0,
+      "precision_at_k": 1.0,
+      "reciprocal_rank": 1.0
+    }
+  ],
+  "rerank_metrics": {
+    "recall_at_2": 0.8125,
+    "precision_at_2": 0.75,
+    "mrr": 0.7917
+  },
+  "pipeline_comparison": {
+    "before": {
+      "recall_at_2": 0.8125,
+      "precision_at_2": 0.75,
+      "mrr": 0.8333
+    },
+    "after": {
+      "recall_at_2": 0.8125,
+      "precision_at_2": 0.75,
+      "mrr": 0.7917
+    }
+  },
+  "rerank_detail": [
+    {
+      "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?",
+      "relevant_documents": [
+        "OP-204_Incident_Management_v4.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8823,
+          "ce_score": null,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8734,
+          "ce_score": null,
+          "text_preview": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8538,
+          "ce_score": null,
+          "text_preview": "00) | No (self-authorizing) |\n| Board Risk Committee | Unlimited | N/A | N/A | N/A |\n\nFor the canonical authorization framework (including emergency procurement brackets), see **FIN-AUTH-101**. The Re…",
+          "is_relevant": false
+        },
+        {
+          "rank": 4,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8523,
+          "ce_score": null,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8521,
+          "ce_score": null,
+          "text_preview": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8509,
+          "ce_score": null,
+          "text_preview": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, pena…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8465,
+          "ce_score": null,
+          "text_preview": "|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub Op…",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8417,
+          "ce_score": null,
+          "text_preview": "er Definitions\n\n| Tier | Description | Financial Threshold (per incident) | Response SLA |\n|------|-------------|-----------------------------------|--------------|\n| Tier-1 | Minor procedural deviati…",
+          "is_relevant": true
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8823,
+          "ce_score": 4.8795,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8734,
+          "ce_score": 2.6935,
+          "text_preview": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8523,
+          "ce_score": 1.865,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8538,
+          "ce_score": -0.515,
+          "text_preview": "00) | No (self-authorizing) |\n| Board Risk Committee | Unlimited | N/A | N/A | N/A |\n\nFor the canonical authorization framework (including emergency procurement brackets), see **FIN-AUTH-101**. The Re…",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8417,
+          "ce_score": -1.0417,
+          "text_preview": "er Definitions\n\n| Tier | Description | Financial Threshold (per incident) | Response SLA |\n|------|-------------|-----------------------------------|--------------|\n| Tier-1 | Minor procedural deviati…",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8382,
+          "ce_score": -1.1782,
+          "text_preview": "ing Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8509,
+          "ce_score": -1.4106,
+          "text_preview": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, pena…",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8311,
+          "ce_score": -1.9733,
+          "text_preview": "e supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within …",
+          "is_relevant": true
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 1,
+          "after": 1,
+          "delta": 0,
+          "bi_score": 0.8823,
+          "ce_score": 4.8795
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 2,
+          "after": 2,
+          "delta": 0,
+          "bi_score": 0.8734,
+          "ce_score": 2.6935
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 3,
+          "after": 4,
+          "delta": -1,
+          "bi_score": 0.8538,
+          "ce_score": -0.515
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 4,
+          "after": 3,
+          "delta": 1,
+          "bi_score": 0.8523,
+          "ce_score": 1.865
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 5,
+          "after": 10,
+          "delta": -5,
+          "bi_score": 0.8521,
+          "ce_score": -3.632
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 6,
+          "after": 7,
+          "delta": -1,
+          "bi_score": 0.8509,
+          "ce_score": -1.4106
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 7,
+          "after": 14,
+          "delta": -7,
+          "bi_score": 0.8465,
+          "ce_score": -5.773
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 8,
+          "after": 5,
+          "delta": 3,
+          "bi_score": 0.8417,
+          "ce_score": -1.0417
+        },
+        {
+          "source_file": 44,
+          "before": 9,
+          "after": 13,
+          "delta": -4,
+          "bi_score": 0.8409,
+          "ce_score": -5.2962
+        },
+        {
+          "source_file": 53,
+          "before": 10,
+          "after": 6,
+          "delta": 4,
+          "bi_score": 0.8382,
+          "ce_score": -1.1782
+        },
+        {
+          "source_file": 18,
+          "before": 11,
+          "after": 9,
+          "delta": 2,
+          "bi_score": 0.8348,
+          "ce_score": -2.7119
+        },
+        {
+          "source_file": 48,
+          "before": 12,
+          "after": 8,
+          "delta": 4,
+          "bi_score": 0.8311,
+          "ce_score": -1.9733
+        },
+        {
+          "source_file": 51,
+          "before": 13,
+          "after": 15,
+          "delta": -2,
+          "bi_score": 0.8276,
+          "ce_score": -7.7062
+        },
+        {
+          "source_file": 59,
+          "before": 14,
+          "after": 16,
+          "delta": -2,
+          "bi_score": 0.8269,
+          "ce_score": -9.336
+        },
+        {
+          "source_file": 20,
+          "before": 15,
+          "after": 18,
+          "delta": -3,
+          "bi_score": 0.8247,
+          "ce_score": -10.2841
+        },
+        {
+          "source_file": 4,
+          "before": 16,
+          "after": 17,
+          "delta": -1,
+          "bi_score": 0.8221,
+          "ce_score": -9.343
+        },
+        {
+          "source_file": 10,
+          "before": 17,
+          "after": 19,
+          "delta": -2,
+          "bi_score": 0.8196,
+          "ce_score": -10.5957
+        },
+        {
+          "source_file": 14,
+          "before": 18,
+          "after": 11,
+          "delta": 7,
+          "bi_score": 0.8181,
+          "ce_score": -4.4543
+        },
+        {
+          "source_file": 17,
+          "before": 19,
+          "after": 12,
+          "delta": 7,
+          "bi_score": 0.8174,
+          "ce_score": -5.2657
+        },
+        {
+          "source_file": 52,
+          "before": 20,
+          "after": 20,
+          "delta": 0,
+          "bi_score": 0.8148,
+          "ce_score": -10.7272
+        }
+      ]
+    },
+    {
+      "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
+      "relevant_documents": [
+        "BOM-FLT-H2NEX.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8711,
+          "ce_score": null,
+          "text_preview": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|---…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.858,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Bill of Materials\n\n**Document ID:** BOM-FLT-H2NEX  \n**Revision:** 7.3 (Current)  \n**Effective Date:** 2025-08-15  \n**Classification:** Internal — Operations, Procurement,…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8436,
+          "ce_score": null,
+          "text_preview": "00V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8321,
+          "ce_score": null,
+          "text_preview": "t Cost (USD) | Quantity per Unit | Source |\n|----------------|-------------|-----------------|-------------------|--------|\n| H2-NEX-001 | Hydraulic lifting mechanism (dual-stage) | $185,000 | 4 | Atl…",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8232,
+          "ce_score": null,
+          "text_preview": "-006 | Conveyor belt module (modular, 6m) | $18,500 | 10 | BeltFlow Systems (primary) / ConveyTech Ltd. (alternate) |\n| H2-NEX-007 | Emergency stop and isolation system | $12,000 | 1 | SafetyFirst Ind…",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8217,
+          "ce_score": null,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8196,
+          "ce_score": null,
+          "text_preview": "easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoin…",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8094,
+          "ce_score": null,
+          "text_preview": "time (target: <4 hours for critical supply disruptions)\n\n## 4. Reference Documents\n\n- **BOM-FLT-H2NEX** — H2-Nexus Bill of Materials (see supply_chain/BOM-FLT-H2NEX.md)\n- **FIN-AUTH-101** — Finance Au…",
+          "is_relevant": false
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8436,
+          "ce_score": 2.8693,
+          "text_preview": "00V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8711,
+          "ce_score": 1.8905,
+          "text_preview": "H2-NEX-001 and H2-NEX-005 is **Atlas Hydraulic Systems**; Hydratech Industries is the qualified alternate for H2-NEX-001 only.\n\n### 2.3 Total System Cost\n\n| Configuration | Total per Unit (USD) |\n|---…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.858,
+          "ce_score": 0.1869,
+          "text_preview": "# AeroVelo Logistics Global — Bill of Materials\n\n**Document ID:** BOM-FLT-H2NEX  \n**Revision:** 7.3 (Current)  \n**Effective Date:** 2025-08-15  \n**Classification:** Internal — Operations, Procurement,…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8217,
+          "ce_score": -0.8518,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8094,
+          "ce_score": -6.1854,
+          "text_preview": "time (target: <4 hours for critical supply disruptions)\n\n## 4. Reference Documents\n\n- **BOM-FLT-H2NEX** — H2-Nexus Bill of Materials (see supply_chain/BOM-FLT-H2NEX.md)\n- **FIN-AUTH-101** — Finance Au…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8063,
+          "ce_score": -6.6773,
+          "text_preview": "| None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency st…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8232,
+          "ce_score": -7.9561,
+          "text_preview": "-006 | Conveyor belt module (modular, 6m) | $18,500 | 10 | BeltFlow Systems (primary) / ConveyTech Ltd. (alternate) |\n| H2-NEX-007 | Emergency stop and isolation system | $12,000 | 1 | SafetyFirst Ind…",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8321,
+          "ce_score": -8.5186,
+          "text_preview": "t Cost (USD) | Quantity per Unit | Source |\n|----------------|-------------|-----------------|-------------------|--------|\n| H2-NEX-001 | Hydraulic lifting mechanism (dual-stage) | $185,000 | 4 | Atl…",
+          "is_relevant": true
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 1,
+          "after": 2,
+          "delta": -1,
+          "bi_score": 0.8711,
+          "ce_score": 1.8905
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 2,
+          "after": 3,
+          "delta": -1,
+          "bi_score": 0.858,
+          "ce_score": 0.1869
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 3,
+          "after": 1,
+          "delta": 2,
+          "bi_score": 0.8436,
+          "ce_score": 2.8693
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 4,
+          "after": 8,
+          "delta": -4,
+          "bi_score": 0.8321,
+          "ce_score": -8.5186
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 5,
+          "after": 7,
+          "delta": -2,
+          "bi_score": 0.8232,
+          "ce_score": -7.9561
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 6,
+          "after": 4,
+          "delta": 2,
+          "bi_score": 0.8217,
+          "ce_score": -0.8518
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 7,
+          "after": 10,
+          "delta": -3,
+          "bi_score": 0.8196,
+          "ce_score": -8.9123
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 8,
+          "after": 5,
+          "delta": 3,
+          "bi_score": 0.8094,
+          "ce_score": -6.1854
+        },
+        {
+          "source_file": 11,
+          "before": 9,
+          "after": 9,
+          "delta": 0,
+          "bi_score": 0.8076,
+          "ce_score": -8.5606
+        },
+        {
+          "source_file": 3,
+          "before": 10,
+          "after": 6,
+          "delta": 4,
+          "bi_score": 0.8063,
+          "ce_score": -6.6773
+        },
+        {
+          "source_file": 13,
+          "before": 11,
+          "after": 11,
+          "delta": 0,
+          "bi_score": 0.8025,
+          "ce_score": -10.2209
+        },
+        {
+          "source_file": 54,
+          "before": 12,
+          "after": 12,
+          "delta": 0,
+          "bi_score": 0.7974,
+          "ce_score": -11.0573
+        },
+        {
+          "source_file": 55,
+          "before": 13,
+          "after": 13,
+          "delta": 0,
+          "bi_score": 0.7921,
+          "ce_score": -11.0697
+        },
+        {
+          "source_file": 12,
+          "before": 14,
+          "after": 14,
+          "delta": 0,
+          "bi_score": 0.7904,
+          "ce_score": -11.1822
+        },
+        {
+          "source_file": 40,
+          "before": 15,
+          "after": 19,
+          "delta": -4,
+          "bi_score": 0.7893,
+          "ce_score": -11.3022
+        },
+        {
+          "source_file": 31,
+          "before": 16,
+          "after": 17,
+          "delta": -1,
+          "bi_score": 0.7881,
+          "ce_score": -11.2738
+        },
+        {
+          "source_file": 56,
+          "before": 17,
+          "after": 20,
+          "delta": -3,
+          "bi_score": 0.788,
+          "ce_score": -11.3515
+        },
+        {
+          "source_file": 59,
+          "before": 18,
+          "after": 16,
+          "delta": 2,
+          "bi_score": 0.7878,
+          "ce_score": -11.2132
+        },
+        {
+          "source_file": 37,
+          "before": 19,
+          "after": 18,
+          "delta": 1,
+          "bi_score": 0.7866,
+          "ce_score": -11.2746
+        },
+        {
+          "source_file": 44,
+          "before": 20,
+          "after": 15,
+          "delta": 5,
+          "bi_score": 0.7865,
+          "ce_score": -11.2097
+        }
+      ]
+    },
+    {
+      "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
+      "relevant_documents": [
+        "RGM-2026_Regional_Governance_Matrix.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8533,
+          "ce_score": null,
+          "text_preview": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8525,
+          "ce_score": null,
+          "text_preview": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub C…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8397,
+          "ce_score": null,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8152,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Human Resources Policy (EMEA Entity)\n\n**Document ID:** HR-POL-030-EMEA  \n**Version:** 4.3 (Current)  \n**Effective Date:** 2026-01-01  \n**Classification:** Internal — All …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8148,
+          "ce_score": null,
+          "text_preview": "|--------------------|--------------------|---------------------------|----------------------|------------------------------|\n| Field Logistics Coordinator | $500 | $2,000 | 0% | Supervisor |\n| Hub Op…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.813,
+          "ce_score": null,
+          "text_preview": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8101,
+          "ce_score": null,
+          "text_preview": "ize with simultaneous notification to the CFO and General Counsel.\n\n## 3. Budget Variance Policy\n\n### 3.1 Variance Tolerance\n\nEach regional division receives an annual operating budget. The following …",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8096,
+          "ce_score": null,
+          "text_preview": "licy applies exclusively to the US entity (AeroVelo Logistics US, LLC). The EMEA entity operates under HR-POL-030-EMEA, which contains materially different provisions regarding remote work stipends.*",
+          "is_relevant": false
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8533,
+          "ce_score": 4.7822,
+          "text_preview": "more than 8 hours, the matter escalates to the Chief Operating Officer.\n\n## 5. Regional Boundary Clarifications\n\n- **EMEA Division** explicitly includes the Frankfurt, Amsterdam, and Dubai hubs. The F…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8525,
+          "ce_score": 1.0991,
+          "text_preview": "isions within their geographic jurisdiction.\n\n## 3. Executive Leadership Assignments\n\n### Table 2A: Regional Operational Leadership (Current as of 2026-01-01)\n\n| Division | Geographic Coverage | Hub C…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8033,
+          "ce_score": -2.081,
+          "text_preview": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of …",
+          "is_relevant": false
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8152,
+          "ce_score": -2.9292,
+          "text_preview": "# AeroVelo Logistics Global — Human Resources Policy (EMEA Entity)\n\n**Document ID:** HR-POL-030-EMEA  \n**Version:** 4.3 (Current)  \n**Effective Date:** 2026-01-01  \n**Classification:** Internal — All …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8096,
+          "ce_score": -4.5715,
+          "text_preview": "licy applies exclusively to the US entity (AeroVelo Logistics US, LLC). The EMEA entity operates under HR-POL-030-EMEA, which contains materially different provisions regarding remote work stipends.*",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8061,
+          "ce_score": -4.7486,
+          "text_preview": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8057,
+          "ce_score": -5.2414,
+          "text_preview": "# AeroVelo Logistics Global — Regional Governance Matrix\n\n**Document ID:** RGM-2026  \n**Version:** 2026.1 (Current)  \n**Effective Date:** 2026-01-01  \n**Classification:** Internal — Management and Abo…",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.813,
+          "ce_score": -5.3208,
+          "text_preview": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 1,
+          "after": 1,
+          "delta": 0,
+          "bi_score": 0.8533,
+          "ce_score": 4.7822
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 2,
+          "after": 2,
+          "delta": 0,
+          "bi_score": 0.8525,
+          "ce_score": 1.0991
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 3,
+          "after": 10,
+          "delta": -7,
+          "bi_score": 0.8397,
+          "ce_score": -5.7071
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 4,
+          "after": 4,
+          "delta": 0,
+          "bi_score": 0.8152,
+          "ce_score": -2.9292
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 5,
+          "after": 18,
+          "delta": -13,
+          "bi_score": 0.8148,
+          "ce_score": -8.6112
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 6,
+          "after": 8,
+          "delta": -2,
+          "bi_score": 0.813,
+          "ce_score": -5.3208
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 7,
+          "after": 12,
+          "delta": -5,
+          "bi_score": 0.8101,
+          "ce_score": -6.7386
+        },
+        {
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "before": 8,
+          "after": 5,
+          "delta": 3,
+          "bi_score": 0.8096,
+          "ce_score": -4.5715
+        },
+        {
+          "source_file": 53,
+          "before": 9,
+          "after": 14,
+          "delta": -5,
+          "bi_score": 0.8092,
+          "ce_score": -7.5382
+        },
+        {
+          "source_file": 16,
+          "before": 10,
+          "after": 6,
+          "delta": 4,
+          "bi_score": 0.8061,
+          "ce_score": -4.7486
+        },
+        {
+          "source_file": 51,
+          "before": 11,
+          "after": 7,
+          "delta": 4,
+          "bi_score": 0.8057,
+          "ce_score": -5.2414
+        },
+        {
+          "source_file": 27,
+          "before": 12,
+          "after": 3,
+          "delta": 9,
+          "bi_score": 0.8033,
+          "ce_score": -2.081
+        },
+        {
+          "source_file": 44,
+          "before": 13,
+          "after": 9,
+          "delta": 4,
+          "bi_score": 0.802,
+          "ce_score": -5.6305
+        },
+        {
+          "source_file": 40,
+          "before": 14,
+          "after": 20,
+          "delta": -6,
+          "bi_score": 0.8012,
+          "ce_score": -11.2892
+        },
+        {
+          "source_file": 54,
+          "before": 15,
+          "after": 17,
+          "delta": -2,
+          "bi_score": 0.7981,
+          "ce_score": -8.4568
+        },
+        {
+          "source_file": 11,
+          "before": 16,
+          "after": 13,
+          "delta": 3,
+          "bi_score": 0.7972,
+          "ce_score": -6.7895
+        },
+        {
+          "source_file": 35,
+          "before": 17,
+          "after": 19,
+          "delta": -2,
+          "bi_score": 0.7946,
+          "ce_score": -11.0613
+        },
+        {
+          "source_file": 29,
+          "before": 18,
+          "after": 11,
+          "delta": 7,
+          "bi_score": 0.7944,
+          "ce_score": -6.5713
+        },
+        {
+          "source_file": 41,
+          "before": 19,
+          "after": 16,
+          "delta": 3,
+          "bi_score": 0.7911,
+          "ce_score": -7.865
+        },
+        {
+          "source_file": 47,
+          "before": 20,
+          "after": 15,
+          "delta": 5,
+          "bi_score": 0.7896,
+          "ce_score": -7.8529
+        }
+      ]
+    },
+    {
+      "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
+      "relevant_documents": [
+        "FIN-AUTH-101_Authorization_Framework.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.845,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and …",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8402,
+          "ce_score": null,
+          "text_preview": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8238,
+          "ce_score": null,
+          "text_preview": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, pena…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8224,
+          "ce_score": null,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8217,
+          "ce_score": null,
+          "text_preview": "ing Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8207,
+          "ce_score": null,
+          "text_preview": "e supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within …",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8202,
+          "ce_score": null,
+          "text_preview": "ize with simultaneous notification to the CFO and General Counsel.\n\n## 3. Budget Variance Policy\n\n### 3.1 Variance Tolerance\n\nEach regional division receives an annual operating budget. The following …",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8195,
+          "ce_score": null,
+          "text_preview": "00) | No (self-authorizing) |\n| Board Risk Committee | Unlimited | N/A | N/A | N/A |\n\nFor the canonical authorization framework (including emergency procurement brackets), see **FIN-AUTH-101**. The Re…",
+          "is_relevant": false
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.845,
+          "ce_score": -3.4516,
+          "text_preview": "# AeroVelo Logistics Global — Finance Authorization Framework\n\n**Document ID:** FIN-AUTH-101  \n**Version:** 3.0 (Current)  \n**Effective Date:** 2025-06-15  \n**Classification:** Internal — Finance and …",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8238,
+          "ce_score": -3.9076,
+          "text_preview": "etitive bidding. Contracts with >15% increase require full competitive re-procurement.\n\n## 5. Incident-Related Financial Resolution\n\nFinancial resolutions arising from logistics incidents (fines, pena…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8402,
+          "ce_score": -3.9447,
+          "text_preview": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8195,
+          "ce_score": -4.0077,
+          "text_preview": "00) | No (self-authorizing) |\n| Board Risk Committee | Unlimited | N/A | N/A | N/A |\n\nFor the canonical authorization framework (including emergency procurement brackets), see **FIN-AUTH-101**. The Re…",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8224,
+          "ce_score": -4.0757,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8207,
+          "ce_score": -6.4871,
+          "text_preview": "e supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within …",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8101,
+          "ce_score": -6.696,
+          "text_preview": "gdom, or Switzerland. Cross-referenced by procurement document **AVL-PUR-012** (Supplier Qualification) and financial framework **FIN-AUTH-101** (Authorization Framework).\n\n## 3. Supplier Classificati…",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.8217,
+          "ce_score": -6.956,
+          "text_preview": "ing Tokyo, Singapore, Sydney, Shanghai) | Tokyo (NRT), Singapore (SIN), Sydney (SYD) | **Kenji Sato** | 2024-01-10 |\n\n### Table 2B: Financial Authority Limits by Role\n\n| Role | Single Transaction Auth…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 1,
+          "after": 1,
+          "delta": 0,
+          "bi_score": 0.845,
+          "ce_score": -3.4516
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 2,
+          "after": 3,
+          "delta": -1,
+          "bi_score": 0.8402,
+          "ce_score": -3.9447
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 3,
+          "after": 2,
+          "delta": 1,
+          "bi_score": 0.8238,
+          "ce_score": -3.9076
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 4,
+          "after": 5,
+          "delta": -1,
+          "bi_score": 0.8224,
+          "ce_score": -4.0757
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 5,
+          "after": 8,
+          "delta": -3,
+          "bi_score": 0.8217,
+          "ce_score": -6.956
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 6,
+          "after": 6,
+          "delta": 0,
+          "bi_score": 0.8207,
+          "ce_score": -6.4871
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 7,
+          "after": 18,
+          "delta": -11,
+          "bi_score": 0.8202,
+          "ce_score": -10.833
+        },
+        {
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "before": 8,
+          "after": 4,
+          "delta": 4,
+          "bi_score": 0.8195,
+          "ce_score": -4.0077
+        },
+        {
+          "source_file": 47,
+          "before": 9,
+          "after": 16,
+          "delta": -7,
+          "bi_score": 0.8171,
+          "ce_score": -9.9757
+        },
+        {
+          "source_file": 42,
+          "before": 10,
+          "after": 15,
+          "delta": -5,
+          "bi_score": 0.8169,
+          "ce_score": -9.2105
+        },
+        {
+          "source_file": 57,
+          "before": 11,
+          "after": 10,
+          "delta": 1,
+          "bi_score": 0.8161,
+          "ce_score": -7.9815
+        },
+        {
+          "source_file": 39,
+          "before": 12,
+          "after": 13,
+          "delta": -1,
+          "bi_score": 0.8145,
+          "ce_score": -8.4753
+        },
+        {
+          "source_file": 44,
+          "before": 13,
+          "after": 11,
+          "delta": 2,
+          "bi_score": 0.8135,
+          "ce_score": -8.2421
+        },
+        {
+          "source_file": 40,
+          "before": 14,
+          "after": 14,
+          "delta": 0,
+          "bi_score": 0.8133,
+          "ce_score": -9.1379
+        },
+        {
+          "source_file": 20,
+          "before": 15,
+          "after": 20,
+          "delta": -5,
+          "bi_score": 0.8117,
+          "ce_score": -11.2627
+        },
+        {
+          "source_file": 46,
+          "before": 16,
+          "after": 9,
+          "delta": 7,
+          "bi_score": 0.8105,
+          "ce_score": -7.8997
+        },
+        {
+          "source_file": 12,
+          "before": 17,
+          "after": 12,
+          "delta": 5,
+          "bi_score": 0.8103,
+          "ce_score": -8.4589
+        },
+        {
+          "source_file": 38,
+          "before": 18,
+          "after": 7,
+          "delta": 11,
+          "bi_score": 0.8101,
+          "ce_score": -6.696
+        },
+        {
+          "source_file": 15,
+          "before": 19,
+          "after": 17,
+          "delta": 2,
+          "bi_score": 0.8055,
+          "ce_score": -10.0401
+        },
+        {
+          "source_file": 59,
+          "before": 20,
+          "after": 19,
+          "delta": 1,
+          "bi_score": 0.8048,
+          "ce_score": -10.8583
+        }
+      ]
+    },
+    {
+      "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
+      "relevant_documents": [
+        "HR-POL-030_Remote_Work_US.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8525,
+          "ce_score": null,
+          "text_preview": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp…",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8394,
+          "ce_score": null,
+          "text_preview": "ued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **n…",
+          "is_relevant": false
+        },
+        {
+          "rank": 3,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8381,
+          "ce_score": null,
+          "text_preview": "rk arrangements:\n\n- Logistics Planning and Scheduling (remote-compatible)\n- Data Analytics and Business Intelligence (fully remote)\n- IT Systems Administration (hybrid minimum: 2 days/week on-site)\n- …",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8377,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Human Resources Policy\n\n**Document ID:** HR-POL-030  \n**Version:** 5.1 (Current)  \n**Effective Date:** 2025-09-01  \n**Classification:** Internal — All AVL Employees (US E…",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8361,
+          "ce_score": null,
+          "text_preview": "cable).\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW). Approvals are granted by the employee's direct supervisor …",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8309,
+          "ce_score": null,
+          "text_preview": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 in…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8294,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Human Resources Policy (EMEA Entity)\n\n**Document ID:** HR-POL-030-EMEA  \n**Version:** 4.3 (Current)  \n**Effective Date:** 2026-01-01  \n**Classification:** Internal — All …",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8291,
+          "ce_score": null,
+          "text_preview": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of …",
+          "is_relevant": false
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8245,
+          "ce_score": 3.6693,
+          "text_preview": "Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (USD) | Annual Maximum (USD) |\n|-----------------|---------------------…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8265,
+          "ce_score": 3.2336,
+          "text_preview": "trol personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work s…",
+          "is_relevant": false
+        },
+        {
+          "rank": 3,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8309,
+          "ce_score": 2.5579,
+          "text_preview": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 in…",
+          "is_relevant": false
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8381,
+          "ce_score": 2.1568,
+          "text_preview": "rk arrangements:\n\n- Logistics Planning and Scheduling (remote-compatible)\n- Data Analytics and Business Intelligence (fully remote)\n- IT Systems Administration (hybrid minimum: 2 days/week on-site)\n- …",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.829,
+          "ce_score": 1.7841,
+          "text_preview": "ying Roles\n\nThe following job families are eligible for remote or hybrid remote work arrangements within the EMEA entity:\n\n- Logistics Planning and Scheduling (hybrid minimum: 3 days/week on-site)\n- D…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8118,
+          "ce_score": 1.7227,
+          "text_preview": "orker Surcharge\n\nEmployees classified as \"High-Intensity\" (defined as those performing 24/7 on-call incident response or crisis management duties) receive an additional $150/month surcharge, bringing …",
+          "is_relevant": true
+        },
+        {
+          "rank": 7,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8361,
+          "ce_score": 1.4573,
+          "text_preview": "cable).\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW). Approvals are granted by the employee's direct supervisor …",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8394,
+          "ce_score": 0.6523,
+          "text_preview": "ued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **n…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 1,
+          "after": 9,
+          "delta": -8,
+          "bi_score": 0.8525,
+          "ce_score": -2.2887
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 2,
+          "after": 8,
+          "delta": -6,
+          "bi_score": 0.8394,
+          "ce_score": 0.6523
+        },
+        {
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "before": 3,
+          "after": 4,
+          "delta": -1,
+          "bi_score": 0.8381,
+          "ce_score": 2.1568
+        },
+        {
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "before": 4,
+          "after": 10,
+          "delta": -6,
+          "bi_score": 0.8377,
+          "ce_score": -2.6388
+        },
+        {
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "before": 5,
+          "after": 7,
+          "delta": -2,
+          "bi_score": 0.8361,
+          "ce_score": 1.4573
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 6,
+          "after": 3,
+          "delta": 3,
+          "bi_score": 0.8309,
+          "ce_score": 2.5579
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 7,
+          "after": 13,
+          "delta": -6,
+          "bi_score": 0.8294,
+          "ce_score": -5.3165
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 8,
+          "after": 12,
+          "delta": -4,
+          "bi_score": 0.8291,
+          "ce_score": -4.1854
+        },
+        {
+          "source_file": 23,
+          "before": 9,
+          "after": 5,
+          "delta": 4,
+          "bi_score": 0.829,
+          "ce_score": 1.7841
+        },
+        {
+          "source_file": 24,
+          "before": 10,
+          "after": 2,
+          "delta": 8,
+          "bi_score": 0.8265,
+          "ce_score": 3.2336
+        },
+        {
+          "source_file": 33,
+          "before": 11,
+          "after": 1,
+          "delta": 10,
+          "bi_score": 0.8245,
+          "ce_score": 3.6693
+        },
+        {
+          "source_file": 34,
+          "before": 12,
+          "after": 6,
+          "delta": 6,
+          "bi_score": 0.8118,
+          "ce_score": 1.7227
+        },
+        {
+          "source_file": 29,
+          "before": 13,
+          "after": 14,
+          "delta": -1,
+          "bi_score": 0.8117,
+          "ce_score": -10.1821
+        },
+        {
+          "source_file": 36,
+          "before": 14,
+          "after": 11,
+          "delta": 3,
+          "bi_score": 0.8073,
+          "ce_score": -3.9634
+        },
+        {
+          "source_file": 52,
+          "before": 15,
+          "after": 20,
+          "delta": -5,
+          "bi_score": 0.8055,
+          "ce_score": -11.3923
+        },
+        {
+          "source_file": 30,
+          "before": 16,
+          "after": 15,
+          "delta": 1,
+          "bi_score": 0.8042,
+          "ce_score": -10.23
+        },
+        {
+          "source_file": 16,
+          "before": 17,
+          "after": 17,
+          "delta": 0,
+          "bi_score": 0.8039,
+          "ce_score": -10.9543
+        },
+        {
+          "source_file": 56,
+          "before": 18,
+          "after": 19,
+          "delta": -1,
+          "bi_score": 0.8039,
+          "ce_score": -11.3172
+        },
+        {
+          "source_file": 15,
+          "before": 19,
+          "after": 16,
+          "delta": 3,
+          "bi_score": 0.8029,
+          "ce_score": -10.6493
+        },
+        {
+          "source_file": 62,
+          "before": 20,
+          "after": 18,
+          "delta": 2,
+          "bi_score": 0.7995,
+          "ce_score": -11.1915
+        }
+      ]
+    },
+    {
+      "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
+      "relevant_documents": [
+        "AVL-PUR-012_Supplier_Qualification.md",
+        "BOM-FLT-H2NEX.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8471,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — …",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8347,
+          "ce_score": null,
+          "text_preview": "| None (internal) |\n| SENT-001 | Sentinel Sensors Ltd. | Preferred | H2-NEX-004 (Safety sensors) | None | None |\n| SAF-001 | SafetyFirst Industries | Strategic (sole source) | H2-NEX-007 (Emergency st…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8314,
+          "ce_score": null,
+          "text_preview": "time (target: <4 hours for critical supply disruptions)\n\n## 4. Reference Documents\n\n- **BOM-FLT-H2NEX** — H2-Nexus Bill of Materials (see supply_chain/BOM-FLT-H2NEX.md)\n- **FIN-AUTH-101** — Finance Au…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.828,
+          "ce_score": null,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8277,
+          "ce_score": null,
+          "text_preview": "erating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n\n## 4. Supply Chain Risk Warnings\n\n### 4.1 Sole Source Components\n\nThe following components have …",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8252,
+          "ce_score": null,
+          "text_preview": "easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoin…",
+          "is_relevant": true
+        },
+        {
+          "rank": 7,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8212,
+          "ce_score": null,
+          "text_preview": "ance_Matrix.md)\n\n---\n\n*Document control: This is a controlled document. The Strategic Supplier List is updated quarterly. Reference the AVL DMS under document ID AVL-PUR-012 for the latest revision.*",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8206,
+          "ce_score": null,
+          "text_preview": "**OP-204** — Incident Management Procedure (see operations/OP-204_Incident_Management_v4.md)\n- **FIN-AUTH-101** — Finance Authorization Framework (see finance/FIN-AUTH-101_Authorization_Framework.md)\n…",
+          "is_relevant": true
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8252,
+          "ce_score": -4.2345,
+          "text_preview": "easily replaceable | Basic qualification (business license, insurance) | 36 months |\n| Provisional | New suppliers undergoing trial | Full qualification required within 90 days of first order | Ongoin…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "bi_score": 0.8471,
+          "ce_score": -5.6562,
+          "text_preview": "# AeroVelo Logistics Global — Supplier Qualification and Management Policy\n\n**Document ID:** AVL-PUR-012  \n**Version:** 2.1 (Current)  \n**Effective Date:** 2025-04-01  \n**Classification:** Internal — …",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8277,
+          "ce_score": -6.3494,
+          "text_preview": "erating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n\n## 4. Supply Chain Risk Warnings\n\n### 4.1 Sole Source Components\n\nThe following components have …",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8083,
+          "ce_score": -6.852,
+          "text_preview": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nP…",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8153,
+          "ce_score": -7.7967,
+          "text_preview": "ed within 72 hours of the verbal approval. Failure to file the DPA-PROV within 72 hours automatically voids the procurement authorization and triggers a Tier-2 compliance incident under SOP-COM-015.**…",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8204,
+          "ce_score": -8.0873,
+          "text_preview": "in USD for reporting purposes.\n\n**Example:** A customs delay causing $7,000 in fines plus $5,500 in express re-routing = $12,500 total impact, which classifies the incident as Tier-3 regardless of the…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "BOM-FLT-H2NEX.md",
+          "bi_score": 0.8084,
+          "ce_score": -8.2938,
+          "text_preview": "00V |\n| Safety factor | 1.5x operating pressure |\n| Inspection interval | 12 months or 2,000 operating hours, whichever comes first |\n| Replacement cycle | 8 years or 16,000 operating hours |\n\n> **CRI…",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "RGM-2026_Regional_Governance_Matrix.md",
+          "bi_score": 0.806,
+          "ce_score": -9.192,
+          "text_preview": "global.com | +49 (69) 555-0188 |\n| APAC | Kenji Sato | k.sato@aerovelo-global.com | +65 6555 0193 |\n\n## 4. Critical Exception Protocol\n\nWhen a logistics incident qualifies as a \"Critical Exception\" un…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 1,
+          "after": 2,
+          "delta": -1,
+          "bi_score": 0.8471,
+          "ce_score": -5.6562
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 2,
+          "after": 20,
+          "delta": -18,
+          "bi_score": 0.8347,
+          "ce_score": -10.9689
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 3,
+          "after": 19,
+          "delta": -16,
+          "bi_score": 0.8314,
+          "ce_score": -10.8829
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 4,
+          "after": 10,
+          "delta": -6,
+          "bi_score": 0.828,
+          "ce_score": -9.5212
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 5,
+          "after": 3,
+          "delta": 2,
+          "bi_score": 0.8277,
+          "ce_score": -6.3494
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 6,
+          "after": 1,
+          "delta": 5,
+          "bi_score": 0.8252,
+          "ce_score": -4.2345
+        },
+        {
+          "source_file": "AVL-PUR-012_Supplier_Qualification.md",
+          "before": 7,
+          "after": 15,
+          "delta": -8,
+          "bi_score": 0.8212,
+          "ce_score": -10.4301
+        },
+        {
+          "source_file": "BOM-FLT-H2NEX.md",
+          "before": 8,
+          "after": 12,
+          "delta": -4,
+          "bi_score": 0.8206,
+          "ce_score": -10.1175
+        },
+        {
+          "source_file": 46,
+          "before": 9,
+          "after": 6,
+          "delta": 3,
+          "bi_score": 0.8204,
+          "ce_score": -8.0873
+        },
+        {
+          "source_file": 44,
+          "before": 10,
+          "after": 14,
+          "delta": -4,
+          "bi_score": 0.8192,
+          "ce_score": -10.3904
+        },
+        {
+          "source_file": 42,
+          "before": 11,
+          "after": 9,
+          "delta": 2,
+          "bi_score": 0.817,
+          "ce_score": -9.4563
+        },
+        {
+          "source_file": 40,
+          "before": 12,
+          "after": 5,
+          "delta": 7,
+          "bi_score": 0.8153,
+          "ce_score": -7.7967
+        },
+        {
+          "source_file": 37,
+          "before": 13,
+          "after": 16,
+          "delta": -3,
+          "bi_score": 0.8128,
+          "ce_score": -10.7285
+        },
+        {
+          "source_file": 45,
+          "before": 14,
+          "after": 11,
+          "delta": 3,
+          "bi_score": 0.8093,
+          "ce_score": -9.6616
+        },
+        {
+          "source_file": 10,
+          "before": 15,
+          "after": 7,
+          "delta": 8,
+          "bi_score": 0.8084,
+          "ce_score": -8.2938
+        },
+        {
+          "source_file": 41,
+          "before": 16,
+          "after": 4,
+          "delta": 12,
+          "bi_score": 0.8083,
+          "ce_score": -6.852
+        },
+        {
+          "source_file": 16,
+          "before": 17,
+          "after": 13,
+          "delta": 4,
+          "bi_score": 0.8068,
+          "ce_score": -10.3633
+        },
+        {
+          "source_file": 55,
+          "before": 18,
+          "after": 8,
+          "delta": 10,
+          "bi_score": 0.806,
+          "ce_score": -9.192
+        },
+        {
+          "source_file": 15,
+          "before": 19,
+          "after": 18,
+          "delta": 1,
+          "bi_score": 0.8055,
+          "ce_score": -10.7897
+        },
+        {
+          "source_file": 6,
+          "before": 20,
+          "after": 17,
+          "delta": 3,
+          "bi_score": 0.8044,
+          "ce_score": -10.7639
+        }
+      ]
+    },
+    {
+      "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
+      "relevant_documents": [
+        "SOP-COM-015_Regulatory_Breach_Report.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8518,
+          "ce_score": null,
+          "text_preview": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nP…",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "bi_score": 0.8503,
+          "ce_score": null,
+          "text_preview": ">$1M in fines, or imminent safety risk | 2 hours from discovery | Regional VP, General Counsel, relevant regulator |\n| Major | Civil penalty exposure $100K–$1M, or service suspension risk | 24 hours |…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "bi_score": 0.8487,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Regulatory Breach Reporting\n\n**Document ID:** SOP-COM-015  \n**Version:** 2.0 (Current)  \n**Effective Date:** 2025-03-01  \n**Classification:** Internal — Compliance Office…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "bi_score": 0.8356,
+          "ce_score": null,
+          "text_preview": "n Appendix A)\n\n### 3.2 Regional Compliance Officers\n\n| Region | Regional Compliance Officer | Contact |\n|--------|---------------------------|---------|\n| Americas (Sarah Jenkins' region) | Patricia G…",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8317,
+          "ce_score": null,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "bi_score": 0.8277,
+          "ce_score": null,
+          "text_preview": "y compliance, or critical service continuity) is subject to the following:\n\n1. **Up to $5,000:** Hub Operations Manager may authorize with post-facto finance review within 5 business days.\n2. **$5,001…",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.826,
+          "ce_score": null,
+          "text_preview": "ed Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8252,
+          "ce_score": null,
+          "text_preview": "e supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within …",
+          "is_relevant": false
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8518,
+          "ce_score": 5.4695,
+          "text_preview": "technical schematics, ancillary maintenance records).\n2. No new personal data categories are introduced.\n3. The Regional Compliance Officer (Dr. Klaus Richter for EMEA) is notified within 24 hours.\n\nP…",
+          "is_relevant": false
+        },
+        {
+          "rank": 2,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8317,
+          "ce_score": 3.7594,
+          "text_preview": "nagers and strictly require the formal written sign-off of the respective Regional Operations Vice President.**\n\n### 4.3 Tier-3 and Tier-4 Incidents\n\nTier-3 incidents require notification of both the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 3,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "bi_score": 0.8503,
+          "ce_score": 2.3554,
+          "text_preview": ">$1M in fines, or imminent safety risk | 2 hours from discovery | Regional VP, General Counsel, relevant regulator |\n| Major | Civil penalty exposure $100K–$1M, or service suspension risk | 24 hours |…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "bi_score": 0.8487,
+          "ce_score": 1.2477,
+          "text_preview": "# AeroVelo Logistics Global — Regulatory Breach Reporting\n\n**Document ID:** SOP-COM-015  \n**Version:** 2.0 (Current)  \n**Effective Date:** 2025-03-01  \n**Classification:** Internal — Compliance Office…",
+          "is_relevant": true
+        },
+        {
+          "rank": 5,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8252,
+          "ce_score": 0.7667,
+          "text_preview": "e supersedes the financial-impact tier classification in Section 3.1.\n\n## 5. Reporting Requirements\n\nAll incidents, regardless of tier, must be logged in the AVL Global Incident Registry (GIR) within …",
+          "is_relevant": false
+        },
+        {
+          "rank": 6,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.826,
+          "ce_score": -0.1462,
+          "text_preview": "ed Critical (Level 1) under SOP-COM-015, the two-hour internal reporting window applies in parallel with the 72-hour regulatory window — they are not substitutes.\n\n## 7. Audit Rights\n\nAVL retains the …",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "bi_score": 0.8212,
+          "ce_score": -2.0449,
+          "text_preview": "er Definitions\n\n| Tier | Description | Financial Threshold (per incident) | Response SLA |\n|------|-------------|-----------------------------------|--------------|\n| Tier-1 | Minor procedural deviati…",
+          "is_relevant": false
+        },
+        {
+          "rank": 8,
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "bi_score": 0.8061,
+          "ce_score": -3.2889,
+          "text_preview": "ed within 72 hours of the verbal approval. Failure to file the DPA-PROV within 72 hours automatically voids the procurement authorization and triggers a Tier-2 compliance incident under SOP-COM-015.**…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "before": 1,
+          "after": 1,
+          "delta": 0,
+          "bi_score": 0.8518,
+          "ce_score": 5.4695
+        },
+        {
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "before": 2,
+          "after": 3,
+          "delta": -1,
+          "bi_score": 0.8503,
+          "ce_score": 2.3554
+        },
+        {
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "before": 3,
+          "after": 4,
+          "delta": -1,
+          "bi_score": 0.8487,
+          "ce_score": 1.2477
+        },
+        {
+          "source_file": "SOP-COM-015_Regulatory_Breach_Report.md",
+          "before": 4,
+          "after": 14,
+          "delta": -10,
+          "bi_score": 0.8356,
+          "ce_score": -7.6985
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 5,
+          "after": 2,
+          "delta": 3,
+          "bi_score": 0.8317,
+          "ce_score": 3.7594
+        },
+        {
+          "source_file": "FIN-AUTH-101_Authorization_Framework.md",
+          "before": 6,
+          "after": 10,
+          "delta": -4,
+          "bi_score": 0.8277,
+          "ce_score": -5.934
+        },
+        {
+          "source_file": "LEG-GDPR-007_Supplier_Data_Processing.md",
+          "before": 7,
+          "after": 6,
+          "delta": 1,
+          "bi_score": 0.826,
+          "ce_score": -0.1462
+        },
+        {
+          "source_file": "OP-204_Incident_Management_v4.md",
+          "before": 8,
+          "after": 5,
+          "delta": 3,
+          "bi_score": 0.8252,
+          "ce_score": 0.7667
+        },
+        {
+          "source_file": 49,
+          "before": 9,
+          "after": 12,
+          "delta": -3,
+          "bi_score": 0.8252,
+          "ce_score": -6.4506
+        },
+        {
+          "source_file": 15,
+          "before": 10,
+          "after": 9,
+          "delta": 1,
+          "bi_score": 0.8249,
+          "ce_score": -3.7677
+        },
+        {
+          "source_file": 55,
+          "before": 11,
+          "after": 13,
+          "delta": -2,
+          "bi_score": 0.8242,
+          "ce_score": -7.5424
+        },
+        {
+          "source_file": 45,
+          "before": 12,
+          "after": 7,
+          "delta": 5,
+          "bi_score": 0.8212,
+          "ce_score": -2.0449
+        },
+        {
+          "source_file": 62,
+          "before": 13,
+          "after": 15,
+          "delta": -2,
+          "bi_score": 0.8212,
+          "ce_score": -8.3822
+        },
+        {
+          "source_file": 56,
+          "before": 14,
+          "after": 11,
+          "delta": 3,
+          "bi_score": 0.8188,
+          "ce_score": -6.3123
+        },
+        {
+          "source_file": 46,
+          "before": 15,
+          "after": 16,
+          "delta": -1,
+          "bi_score": 0.815,
+          "ce_score": -9.1867
+        },
+        {
+          "source_file": 43,
+          "before": 16,
+          "after": 17,
+          "delta": -1,
+          "bi_score": 0.8147,
+          "ce_score": -9.7092
+        },
+        {
+          "source_file": 54,
+          "before": 17,
+          "after": 20,
+          "delta": -3,
+          "bi_score": 0.809,
+          "ce_score": -11.2948
+        },
+        {
+          "source_file": 53,
+          "before": 18,
+          "after": 18,
+          "delta": 0,
+          "bi_score": 0.8082,
+          "ce_score": -10.9505
+        },
+        {
+          "source_file": 17,
+          "before": 19,
+          "after": 19,
+          "delta": 0,
+          "bi_score": 0.8076,
+          "ce_score": -11.2632
+        },
+        {
+          "source_file": 40,
+          "before": 20,
+          "after": 8,
+          "delta": 12,
+          "bi_score": 0.8061,
+          "ce_score": -3.2889
+        }
+      ]
+    },
+    {
+      "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
+      "relevant_documents": [
+        "HR-POL-030-EMEA_Remote_Work.md"
+      ],
+      "bi_encoder_top8": [
+        {
+          "rank": 1,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8705,
+          "ce_score": null,
+          "text_preview": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8686,
+          "ce_score": null,
+          "text_preview": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of …",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8613,
+          "ce_score": null,
+          "text_preview": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 in…",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8571,
+          "ce_score": null,
+          "text_preview": "cable).\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW). Approvals are granted by the employee's direct supervisor …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8543,
+          "ce_score": null,
+          "text_preview": "# AeroVelo Logistics Global — Human Resources Policy (EMEA Entity)\n\n**Document ID:** HR-POL-030-EMEA  \n**Version:** 4.3 (Current)  \n**Effective Date:** 2026-01-01  \n**Classification:** Internal — All …",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8537,
+          "ce_score": null,
+          "text_preview": "trol personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work s…",
+          "is_relevant": true
+        },
+        {
+          "rank": 7,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8484,
+          "ce_score": null,
+          "text_preview": "ying Roles\n\nThe following job families are eligible for remote or hybrid remote work arrangements within the EMEA entity:\n\n- Logistics Planning and Scheduling (hybrid minimum: 3 days/week on-site)\n- D…",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8391,
+          "ce_score": null,
+          "text_preview": "ued at €800 (one-time):\n- 15.6\" laptop (company-owned, loaned for duration of remote work)\n- Monitor (24\", company-owned, loaned for duration)\n- Ergonomic accessories (keyboard, mouse, footrest) — **n…",
+          "is_relevant": true
+        }
+      ],
+      "reranked_top8": [
+        {
+          "rank": 1,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8613,
+          "ce_score": 0.2613,
+          "text_preview": "required; auto-enrolled)\n\n### 3.5 Total Maximum Annual Stipend (EMEA Entity)\n\nUnder normal circumstances, the maximum total annual remote work benefit per employee is **€3,000** (€2,160 base + €600 in…",
+          "is_relevant": true
+        },
+        {
+          "rank": 2,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8484,
+          "ce_score": -0.1499,
+          "text_preview": "ying Roles\n\nThe following job families are eligible for remote or hybrid remote work arrangements within the EMEA entity:\n\n- Logistics Planning and Scheduling (hybrid minimum: 3 days/week on-site)\n- D…",
+          "is_relevant": true
+        },
+        {
+          "rank": 3,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8686,
+          "ce_score": -0.5121,
+          "text_preview": "conducted by IT Security)\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW-EMEA). Approvals require the signature of …",
+          "is_relevant": true
+        },
+        {
+          "rank": 4,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8571,
+          "ce_score": -0.8877,
+          "text_preview": "cable).\n\n## 4. Approval and Renewal\n\n### 4.1 Initial Approval\n\nRemote work requests must be submitted via the AVL HR portal (Form HR-030-RW). Approvals are granted by the employee's direct supervisor …",
+          "is_relevant": false
+        },
+        {
+          "rank": 5,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8705,
+          "ce_score": -2.0795,
+          "text_preview": "ts. Remote workers are entitled to \"Home Office\" provisions under the German Remote Work Act (2023).\n\n### 5.2 Netherlands (Amsterdam hub)\nCompliance with Dutch law on remote work transparency. The emp…",
+          "is_relevant": true
+        },
+        {
+          "rank": 6,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8376,
+          "ce_score": -4.1408,
+          "text_preview": "licy applies exclusively to the US entity (AeroVelo Logistics US, LLC). The EMEA entity operates under HR-POL-030-EMEA, which contains materially different provisions regarding remote work stipends.*",
+          "is_relevant": false
+        },
+        {
+          "rank": 7,
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "bi_score": 0.8537,
+          "ce_score": -4.2347,
+          "text_preview": "trol personnel\n- Customs brokerage staff (on-site required for regulatory presence)\n\n## 3. Remote Work Stipend Program\n\n### 3.1 Stipend Amounts\n\nEligible remote workers receive a monthly remote work s…",
+          "is_relevant": true
+        },
+        {
+          "rank": 8,
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "bi_score": 0.8111,
+          "ce_score": -4.4917,
+          "text_preview": "Stipend Amounts\n\nEligible remote workers receive a monthly remote work stipend as follows:\n\n| Arrangement Type | Monthly Stipend (USD) | Annual Maximum (USD) |\n|-----------------|---------------------…",
+          "is_relevant": false
+        }
+      ],
+      "rank_changes": [
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 1,
+          "after": 5,
+          "delta": -4,
+          "bi_score": 0.8705,
+          "ce_score": -2.0795
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 2,
+          "after": 3,
+          "delta": -1,
+          "bi_score": 0.8686,
+          "ce_score": -0.5121
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 3,
+          "after": 1,
+          "delta": 2,
+          "bi_score": 0.8613,
+          "ce_score": 0.2613
+        },
+        {
+          "source_file": "HR-POL-030_Remote_Work_US.md",
+          "before": 4,
+          "after": 4,
+          "delta": 0,
+          "bi_score": 0.8571,
+          "ce_score": -0.8877
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 5,
+          "after": 10,
+          "delta": -5,
+          "bi_score": 0.8543,
+          "ce_score": -4.5132
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 6,
+          "after": 7,
+          "delta": -1,
+          "bi_score": 0.8537,
+          "ce_score": -4.2347
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 7,
+          "after": 2,
+          "delta": 5,
+          "bi_score": 0.8484,
+          "ce_score": -0.1499
+        },
+        {
+          "source_file": "HR-POL-030-EMEA_Remote_Work.md",
+          "before": 8,
+          "after": 12,
+          "delta": -4,
+          "bi_score": 0.8391,
+          "ce_score": -6.8715
+        },
+        {
+          "source_file": 36,
+          "before": 9,
+          "after": 6,
+          "delta": 3,
+          "bi_score": 0.8376,
+          "ce_score": -4.1408
+        },
+        {
+          "source_file": 39,
+          "before": 10,
+          "after": 19,
+          "delta": -9,
+          "bi_score": 0.8327,
+          "ce_score": -11.1841
+        },
+        {
+          "source_file": 40,
+          "before": 11,
+          "after": 18,
+          "delta": -7,
+          "bi_score": 0.832,
+          "ce_score": -11.1808
+        },
+        {
+          "source_file": 31,
+          "before": 12,
+          "after": 16,
+          "delta": -4,
+          "bi_score": 0.8209,
+          "ce_score": -8.8345
+        },
+        {
+          "source_file": 41,
+          "before": 13,
+          "after": 11,
+          "delta": 2,
+          "bi_score": 0.8199,
+          "ce_score": -6.181
+        },
+        {
+          "source_file": 52,
+          "before": 14,
+          "after": 20,
+          "delta": -6,
+          "bi_score": 0.8158,
+          "ce_score": -11.3735
+        },
+        {
+          "source_file": 56,
+          "before": 15,
+          "after": 14,
+          "delta": 1,
+          "bi_score": 0.8151,
+          "ce_score": -7.8563
+        },
+        {
+          "source_file": 32,
+          "before": 16,
+          "after": 9,
+          "delta": 7,
+          "bi_score": 0.8145,
+          "ce_score": -4.493
+        },
+        {
+          "source_file": 55,
+          "before": 17,
+          "after": 17,
+          "delta": 0,
+          "bi_score": 0.8113,
+          "ce_score": -10.3514
+        },
+        {
+          "source_file": 33,
+          "before": 18,
+          "after": 8,
+          "delta": 10,
+          "bi_score": 0.8111,
+          "ce_score": -4.4917
+        },
+        {
+          "source_file": 61,
+          "before": 19,
+          "after": 15,
+          "delta": 4,
+          "bi_score": 0.8106,
+          "ce_score": -8.6951
+        },
+        {
+          "source_file": 34,
+          "before": 20,
+          "after": 13,
+          "delta": 7,
+          "bi_score": 0.8089,
+          "ce_score": -7.5315
+        }
+      ]
+    }
+  ]
 }
