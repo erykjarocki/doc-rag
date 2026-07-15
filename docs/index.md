@@ -9,7 +9,7 @@ Ask questions, get answers based **only on your PDF content**, with citations (b
 ```
 PDF → text extraction → chunks → embeddings (local) → Qdrant (vector DB)
                                                           ↓
-OpenCode (MCP) ← search_book_tool ← retriever ← similarity search
+OpenCode (MCP) ← search_document_tool ← retriever ← similarity search
     ↓
 LLM answers based on found fragments
 ```

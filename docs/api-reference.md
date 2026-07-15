@@ -2,7 +2,7 @@
 
 Used by AI assistants (OpenCode, Claude Desktop, Cursor, Windsurf, Cline) when configured as an MCP server.
 
-### search_book_tool(question, book?)
+### search_document_tool(question, document?)
 
 Search the knowledge base and return formatted text fragments.
 
@@ -10,27 +10,27 @@ Search the knowledge base and return formatted text fragments.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `question` | string | Yes | Natural language query |
-| `book` | string | No | Filter to specific document name |
+| `document` | string | No | Filter to specific document name |
 
-**Returns:** Formatted string with numbered text blocks and Polish source citations (`Źródło: book, chapter, str. X-Y`).
+**Returns:** Formatted string with numbered text blocks and Polish source citations (`Źródło: document, chapter, str. X-Y`).
 
-### search_book_raw(question, book?)
+### search_document_raw(question, document?)
 
 Search and return structured JSON with relevance scores.
 
-**Parameters:** Same as `search_book_tool`.
+**Parameters:** Same as `search_document_tool`.
 
 **Returns:** JSON string with array of objects containing `text`, `book`, `chapter`, `start_page`, `end_page`, and `score`.
 
-### search_book_trace(question, book?)
+### search_document_trace(question, document?)
 
 Search documents with full pipeline trace showing retrieval and reranking details.
 
-**Parameters:** Same as `search_book_tool`.
+**Parameters:** Same as `search_document_tool`.
 
 **Returns:** Detailed trace showing which text chunks were retrieved by the bi-encoder (with cosine scores), and how the cross-encoder reranker reordered them.
 
-### list_books_tool()
+### list_documents_tool()
 
 List all indexed document collections.
 

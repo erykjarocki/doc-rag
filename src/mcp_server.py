@@ -14,7 +14,9 @@ mcp = FastMCP("doc-rag")
 
 
 @mcp.tool()
-def search_book_tool(question: str, book: str | None = None, rerank: bool | None = None) -> str:
+def search_document_tool(
+    question: str, document: str | None = None, rerank: bool | None = None
+) -> str:
     """Search indexed documents for relevant text fragments using semantic similarity.
 
     Use this tool whenever the user asks a question that might be answered by the
@@ -26,36 +28,38 @@ def search_book_tool(question: str, book: str | None = None, rerank: bool | None
         question: A detailed natural-language query. More specific queries yield
             better results. Example: "What are the safety protocols for chemical
             storage?" rather than just "safety".
-        book: Optional document/collection name to restrict search. Use
-            list_books_tool() first to discover exact names. If omitted, searches
+        document: Optional document/collection name to restrict search. Use
+            list_documents_tool() first to discover exact names. If omitted, searches
             all indexed documents.
         rerank: Whether to apply cross-encoder re-ranking for higher precision.
             If None, uses the default from config. Enable for complex queries
             where precision matters more than speed.
 
-    Returns: Formatted text fragments with source references (book, chapter, page).
+    Returns: Formatted text fragments with source references (document, chapter, page).
         Each fragment includes enough context to answer the query. If nothing
         relevant is found, returns "No relevant fragments found."
     """
-    fragments = search_book(question, book=book, rerank=rerank)
+    fragments = search_book(question, book=document, rerank=rerank)
     if not fragments:
         return "No relevant fragments found in the knowledge base."
     return format_fragments_for_prompt(fragments)
 
 
 @mcp.tool()
-def search_book_raw(question: str, book: str | None = None, rerank: bool | None = None) -> str:
+def search_document_raw(
+    question: str, document: str | None = None, rerank: bool | None = None
+) -> str:
     """Search indexed documents and return raw structured JSON with relevance scores.
 
-    Use this instead of search_book_tool when you need machine-readable output
+    Use this instead of search_document_tool when you need machine-readable output
     with relevance scores for programmatic comparison, filtering, or ranking.
-    For normal Q&A about document content, prefer search_book_tool which returns
+    For normal Q&A about document content, prefer search_document_tool which returns
     human-readable formatted output.
 
     Args:
-        question: A detailed natural-language query (same as search_book_tool).
-        book: Optional document/collection name to restrict search. Use
-            list_books_tool() to discover available names.
+        question: A detailed natural-language query (same as search_document_tool).
+        document: Optional document/collection name to restrict search. Use
+            list_documents_tool() to discover available names.
         rerank: Whether to apply cross-encoder re-ranking. If None, uses config default.
 
     Returns: JSON array of fragments, each with keys: text, book, chapter, page,
@@ -65,12 +69,14 @@ def search_book_raw(question: str, book: str | None = None, rerank: bool | None 
     """
     import json
 
-    fragments = search_book(question, book=book, rerank=rerank)
+    fragments = search_book(question, book=document, rerank=rerank)
     return json.dumps(fragments, ensure_ascii=False, indent=2)
 
 
 @mcp.tool()
-def search_book_trace(question: str, book: str | None = None, rerank: bool | None = None) -> str:
+def search_document_trace(
+    question: str, document: str | None = None, rerank: bool | None = None
+) -> str:
     """Search documents with full pipeline trace showing retrieval and reranking details.
 
     Returns a detailed trace showing: which text chunks were retrieved by the
@@ -81,26 +87,26 @@ def search_book_trace(question: str, book: str | None = None, rerank: bool | Non
 
     Args:
         question: A detailed natural-language query.
-        book: Optional document/collection name to restrict search.
+        document: Optional document/collection name to restrict search.
         rerank: Whether to apply cross-encoder re-ranking. If None, uses config default.
 
     Returns: Human-readable trace report with per-stage timing, retrieved
         candidates, and rerank rank changes.
     """
-    result = search_book(question, book=book, rerank=rerank, trace=True)
+    result = search_book(question, book=document, rerank=rerank, trace=True)
     if not result.trace:
         return "No trace available."
     return format_trace(result.trace)
 
 
 @mcp.tool()
-def list_books_tool() -> str:
+def list_documents_tool() -> str:
     """List all documents/collections currently indexed in the knowledge base.
 
     Call this first to discover what documents are available before searching.
-    Returns a list of collection names that can be used as the `book` filter
-    argument in search_book_tool and search_book_raw. Always invoke this when
-    the user asks about "all books", wants to know what's available, or when
+    Returns a list of collection names that can be used as the `document` filter
+    argument in search_document_tool and search_document_raw. Always invoke this when
+    the user asks about "all documents", wants to know what's available, or when
     you need the exact collection name string for a filtered search.
     """
     collections = list_collections()
@@ -120,7 +126,7 @@ def get_collection_info(collection_name: str) -> str:
     chapters/sections are indexed.
 
     Args:
-        collection_name: Name of the collection (use list_books_tool to discover names).
+        collection_name: Name of the collection (use list_documents_tool to discover names).
 
     Returns: Summary with chunk count, document names, and chapter list.
     """
@@ -164,7 +170,7 @@ def delete_document(collection_name: str) -> str:
     """Delete a document/collection from the knowledge base.
 
     Removes the collection and all its chunks permanently. Use
-    list_books_tool() first to see what's available.
+    list_documents_tool() first to see what's available.
 
     Args:
         collection_name: Name of the collection to delete.

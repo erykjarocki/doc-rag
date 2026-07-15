@@ -9,7 +9,7 @@ Ask questions, get answers based **only on your document content**, with citatio
 ```
 Document → text extraction → chunks → embeddings (local) → Qdrant (vector DB)
                                                                ↓
-OpenCode (MCP) ← search_book_tool ← retriever ← similarity search
+OpenCode (MCP) ← search_document_tool ← retriever ← similarity search
                                                     ↓
                                               cross-encoder re-ranking
                                                     ↓
@@ -93,9 +93,9 @@ make mcp
 
 ### MCP tools
 
-- `search_book_tool(question, book=None)` — search all documents or filter by name
-- `search_book_raw(question, book=None)` — returns JSON with scores
-- `list_books_tool()` — list available documents
+- `search_document_tool(question, document=None)` — search all documents or filter by name
+- `search_document_raw(question, document=None)` — returns JSON with scores
+- `list_documents_tool()` — list available documents
 - `ingest_document(file_path, reindex=False)` — ingest a single file
 - `ingest_folder(directory, reindex=False)` — ingest all supported files in a directory
 

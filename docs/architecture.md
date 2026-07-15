@@ -130,7 +130,7 @@ Re-ranking is enabled by default. See [Configuration](configuration.md) for how 
 | `chunking.py` | Token-aware text splitting | `chunk_text()` |
 | `ingest.py` | Document processing pipeline | `process_document()`, `index_document()`, `ingest_folder()` |
 | `retriever.py` | Search and formatting | `search_book()`, `format_fragments_for_prompt()` |
-| `mcp_server.py` | MCP server for OpenCode | `search_book_tool()`, `list_books_tool()`, `ingest_document()`, `ingest_folder()` |
+| `mcp_server.py` | MCP server for AI assistants | `search_document_tool()`, `list_documents_tool()`, `ingest_document()`, `ingest_folder()` |
 
 ## Adapter Pattern
 

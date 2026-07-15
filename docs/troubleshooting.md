@@ -24,12 +24,12 @@ docker run -d --name qdrant -p 6333:6333 \
 
 ### Empty search results
 
-**Symptom:** `search_book_tool` returns "No relevant fragments found"
+**Symptom:** `search_document_tool` returns "No relevant fragments found"
 
 **Possible causes:**
 1. Book not indexed — run `python src/ingest.py --list` to check
 2. Query doesn't match content — try broader terms
-3. Wrong book name — use `list_books_tool()` to see exact names
+3. Wrong document name — use `list_documents_tool()` to see exact names
 
 **Fix:**
 ```bash
