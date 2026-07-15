@@ -32,13 +32,12 @@ def pytest_sessionfinish(session, exitstatus):
         return
 
     def _compute_metrics(items):
-        recalls = [item["recall_at_k"] for item in items]
-        precisions = [item["precision_at_k"] for item in items]
-        rrs = [item["reciprocal_rank"] for item in items]
         return {
-            "recall_at_2": round(sum(recalls) / len(recalls), 4),
-            "precision_at_2": round(sum(precisions) / len(precisions), 4),
-            "mrr": round(sum(rrs) / len(rrs), 4),
+            "recall_at_2": round(sum(i["recall_at_2"] for i in items) / len(items), 4),
+            "precision_at_2": round(sum(i["precision_at_2"] for i in items) / len(items), 4),
+            "mrr": round(sum(i["reciprocal_rank"] for i in items) / len(items), 4),
+            "recall_at_4": round(sum(i["recall_at_4"] for i in items) / len(items), 4),
+            "precision_at_4": round(sum(i["precision_at_4"] for i in items) / len(items), 4),
         }
 
     # Terminal summary
@@ -67,7 +66,9 @@ def pytest_sessionfinish(session, exitstatus):
         m = _compute_metrics(results)
         terminal.write(
             f"Recall@2: {m['recall_at_2']:.2f} | "
+            f"Recall@4: {m['recall_at_4']:.2f} | "
             f"Precision@2: {m['precision_at_2']:.2f} | "
+            f"Precision@4: {m['precision_at_4']:.2f} | "
             f"MRR: {m['mrr']:.2f}\n"
         )
 
@@ -105,25 +106,28 @@ def pytest_sessionfinish(session, exitstatus):
         m_before = (
             _compute_metrics(results)
             if results
-            else {"recall_at_2": 0, "precision_at_2": 0, "mrr": 0}
+            else {"recall_at_2": 0, "precision_at_2": 0,
+                  "mrr": 0, "recall_at_4": 0, "precision_at_4": 0}
         )
         m_after = _compute_metrics(rerank_results)
         terminal.write("\n")
         terminal.write("=" * 70 + "\n")
         terminal.write("PIPELINE COMPARISON: Bi-Encoder \u2192 Cross-Encoder Reranking\n")
         terminal.write("=" * 70 + "\n")
-        terminal.write(f"  {'Metric':<15} {'Before':>10} {'After':>10} {'Delta':>10}\n")
-        terminal.write(f"  {'-' * 45}\n")
+        terminal.write(f"  {'Metric':<15} {'Bi-Encoder':>12} {'+Rerank':>12} {'Delta':>10}\n")
+        terminal.write(f"  {'-' * 49}\n")
         for key, label in [
             ("recall_at_2", "Recall@2"),
+            ("recall_at_4", "Recall@4"),
             ("precision_at_2", "Precision@2"),
+            ("precision_at_4", "Precision@4"),
             ("mrr", "MRR"),
         ]:
-            b = m_before[key]
-            a = m_after[key]
+            b = m_before.get(key, 0)
+            a = m_after.get(key, 0)
             d = a - b
             sign = "+" if d > 0 else ""
-            terminal.write(f"  {label:<15} {b:>10.2f} {a:>10.2f} {sign}{d:>9.2f}\n")
+            terminal.write(f"  {label:<15} {b:>12.2f} {a:>12.2f} {sign}{d:>9.2f}\n")
         terminal.write("-" * 70 + "\n")
 
     terminal.write("-" * 70 + "\n\n")
@@ -168,18 +172,15 @@ def collect_eval_result(session, query, results, relevant_documents, k=2):
 
     # Deduplicate: only store once per query
     if any(item["query"] == query for item in session.eval_results):
-        top_k = results[:k]
         return (
             _recall_at_k(results, relevant_documents, k),
             _precision_at_k(results, relevant_documents, k),
             _mrr(results, relevant_documents),
         )
 
-    top_k = results[:k]
     rr = _mrr(results, relevant_documents)
-    recall = _recall_at_k(results, relevant_documents, k)
-    precision = _precision_at_k(results, relevant_documents, k)
 
+    top_k = results[:k]
     fragments = []
     for i, r in enumerate(top_k, 1):
         fragments.append(
@@ -197,13 +198,21 @@ def collect_eval_result(session, query, results, relevant_documents, k=2):
             "query": query,
             "relevant_documents": relevant_documents,
             "retrieved_fragments": fragments,
-            "recall_at_k": recall,
-            "precision_at_k": precision,
+            "recall_at_k": _recall_at_k(results, relevant_documents, k),
+            "precision_at_k": _precision_at_k(results, relevant_documents, k),
             "reciprocal_rank": rr,
+            "recall_at_2": _recall_at_k(results, relevant_documents, 2),
+            "precision_at_2": _precision_at_k(results, relevant_documents, 2),
+            "recall_at_4": _recall_at_k(results, relevant_documents, 4),
+            "precision_at_4": _precision_at_k(results, relevant_documents, 4),
         }
     )
 
-    return recall, precision, rr
+    return (
+        _recall_at_k(results, relevant_documents, k),
+        _precision_at_k(results, relevant_documents, k),
+        rr,
+    )
 
 
 def collect_rerank_result(session, query, results, relevant_documents, k=2):
@@ -218,11 +227,9 @@ def collect_rerank_result(session, query, results, relevant_documents, k=2):
             _mrr(results, relevant_documents),
         )
 
-    top_k = results[:k]
     rr = _mrr(results, relevant_documents)
-    recall = _recall_at_k(results, relevant_documents, k)
-    precision = _precision_at_k(results, relevant_documents, k)
 
+    top_k = results[:k]
     fragments = []
     for i, r in enumerate(top_k, 1):
         fragments.append(
@@ -240,13 +247,21 @@ def collect_rerank_result(session, query, results, relevant_documents, k=2):
             "query": query,
             "relevant_documents": relevant_documents,
             "retrieved_fragments": fragments,
-            "recall_at_k": recall,
-            "precision_at_k": precision,
+            "recall_at_k": _recall_at_k(results, relevant_documents, k),
+            "precision_at_k": _precision_at_k(results, relevant_documents, k),
             "reciprocal_rank": rr,
+            "recall_at_2": _recall_at_k(results, relevant_documents, 2),
+            "precision_at_2": _precision_at_k(results, relevant_documents, 2),
+            "recall_at_4": _recall_at_k(results, relevant_documents, 4),
+            "precision_at_4": _precision_at_k(results, relevant_documents, 4),
         }
     )
 
-    return recall, precision, rr
+    return (
+        _recall_at_k(results, relevant_documents, k),
+        _precision_at_k(results, relevant_documents, k),
+        rr,
+    )
 
 
 def collect_rerank_detail(
@@ -273,14 +288,6 @@ def collect_rerank_detail(
     bi_top8 = [_build_frag(r, i + 1) for i, r in enumerate(bi_results[:8])]
     reranked_top8 = [_build_frag(r, i + 1, is_ce=True) for i, r in enumerate(reranked_results[:8])]
 
-    # Build a lookup of bi_score by source_file for rank_changes augmentation
-    bi_by_source = {}
-    for r in bi_results:
-        s = r.get("source_file", "?")
-        if s not in bi_by_source:
-            bi_by_source[s] = round(r["score"], 4)
-
-    # Build a lookup by before-rank to map chunk indices → source files
     bi_by_rank = {}
     for i, r in enumerate(bi_results):
         bi_by_rank[i + 1] = r.get("source_file", "?")
@@ -288,7 +295,6 @@ def collect_rerank_detail(
     clean_changes = []
     if rank_changes:
         for rc in rank_changes:
-            # rank_changes.page = start_page (chunk index); map to source_file
             before_rank = rc.get("before", 1)
             source = bi_by_rank.get(before_rank, rc.get("page", "?"))
             clean_changes.append(

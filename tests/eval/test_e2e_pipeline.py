@@ -128,6 +128,20 @@ class TestRetrievalMetrics:
         print(f"\n  recall@2 = {avg_recall:.2f} (threshold: 0.60)")
         assert avg_recall >= 0.6, f"Recall@2 = {avg_recall:.2f}, expected >= 0.6"
 
+    def test_recall_at_4(self, request, benchmark_indexed_qdrant):
+        from tests.eval.conftest import _recall_at_k
+
+        labels = _load_labels()
+        recalls = []
+
+        for item in labels:
+            results = search_book(item["query"], book=BOOK, rerank=False)
+            recalls.append(_recall_at_k(results, item["relevant_documents"], 4))
+
+        avg_recall = sum(recalls) / len(recalls)
+        print(f"\n  recall@4 = {avg_recall:.2f} (threshold: 0.70)")
+        assert avg_recall >= 0.7, f"Recall@4 = {avg_recall:.2f}, expected >= 0.7"
+
     def test_precision_at_2(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
@@ -150,6 +164,22 @@ class TestRetrievalMetrics:
         assert (
             avg_precision >= 0.4
         ), f"Precision@2 = {avg_precision:.2f}, expected >= 0.4"
+
+    def test_precision_at_4(self, request, benchmark_indexed_qdrant):
+        from tests.eval.conftest import _precision_at_k
+
+        labels = _load_labels()
+        precisions = []
+
+        for item in labels:
+            results = search_book(item["query"], book=BOOK, rerank=False)
+            precisions.append(_precision_at_k(results, item["relevant_documents"], 4))
+
+        avg_precision = sum(precisions) / len(precisions)
+        print(f"\n  precision@4 = {avg_precision:.2f} (threshold: 0.35)")
+        assert (
+            avg_precision >= 0.35
+        ), f"Precision@4 = {avg_precision:.2f}, expected >= 0.35"
 
     def test_mrr(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
@@ -248,6 +278,20 @@ class TestRerankMetrics:
         print(f"\n  recall@2 (reranked) = {avg_recall:.2f} (threshold: 0.60)")
         assert avg_recall >= 0.6, f"Recall@2 = {avg_recall:.2f}, expected >= 0.6"
 
+    def test_recall_at_4_reranked(self, request, benchmark_indexed_qdrant):
+        from tests.eval.conftest import _recall_at_k
+
+        labels = _load_labels()
+        recalls = []
+
+        for item in labels:
+            results = search_book(item["query"], book=BOOK, rerank=True)
+            recalls.append(_recall_at_k(results, item["relevant_documents"], 4))
+
+        avg_recall = sum(recalls) / len(recalls)
+        print(f"\n  recall@4 (reranked) = {avg_recall:.2f} (threshold: 0.75)")
+        assert avg_recall >= 0.75, f"Recall@4 = {avg_recall:.2f}, expected >= 0.75"
+
     def test_precision_at_2_reranked(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result
 
@@ -270,6 +314,22 @@ class TestRerankMetrics:
         assert (
             avg_precision >= 0.4
         ), f"Precision@2 = {avg_precision:.2f}, expected >= 0.4"
+
+    def test_precision_at_4_reranked(self, request, benchmark_indexed_qdrant):
+        from tests.eval.conftest import _precision_at_k
+
+        labels = _load_labels()
+        precisions = []
+
+        for item in labels:
+            results = search_book(item["query"], book=BOOK, rerank=True)
+            precisions.append(_precision_at_k(results, item["relevant_documents"], 4))
+
+        avg_precision = sum(precisions) / len(precisions)
+        print(f"\n  precision@4 (reranked) = {avg_precision:.2f} (threshold: 0.35)")
+        assert (
+            avg_precision >= 0.35
+        ), f"Precision@4 = {avg_precision:.2f}, expected >= 0.35"
 
     def test_mrr_reranked(self, request, benchmark_indexed_qdrant):
         from tests.eval.conftest import collect_eval_result

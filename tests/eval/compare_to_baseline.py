@@ -23,11 +23,11 @@ def load_json(path):
 
 def delta_icon(delta, threshold):
     if abs(delta) < 0.001:
-        return "—"
+        return "\u2014"
     if delta < -threshold:
         return f"{delta:+.4f} **FAIL**"
     if delta < 0:
-        return f"{delta:+.4f} ⚠"
+        return f"{delta:+.4f} \u26a0"
     return f"+{delta:.4f}"
 
 
@@ -41,8 +41,8 @@ def main():
     else:
         baseline = baseline_raw
 
-    metrics = ["recall_at_2", "precision_at_2", "mrr"]
-    labels = ["Recall@2", "Precision@2", "MRR"]
+    metrics = ["recall_at_2", "recall_at_4", "precision_at_2", "precision_at_4", "mrr"]
+    labels = ["Recall@2", "Recall@4", "Precision@2", "Precision@4", "MRR"]
 
     has_regression = False
     lines = []
@@ -58,7 +58,7 @@ def main():
             has_regression = True
         rows.append((label, f"{b:.4f}", f"{c:.4f}", icon))
 
-    lines.append("## Eval Report — Baseline Comparison\n")
+    lines.append("## Eval Report \u2014 Baseline Comparison\n")
     lines.append("| Metric | Baseline | Current | Delta |")
     lines.append("|--------|----------|---------|-------|")
     for label, b, c, icon in rows:
@@ -70,15 +70,15 @@ def main():
         before = pipeline["before"]
         after = pipeline["after"]
         lines.append("")
-        lines.append("## Pipeline Comparison: Bi-Encoder → Cross-Encoder\n")
-        lines.append("| Metric | Before (Bi-Encoder) | After (+Rerank) | Delta |")
+        lines.append("## Pipeline Comparison: Bi-Encoder \u2192 Cross-Encoder\n")
+        lines.append("| Metric | Bi-Encoder (before) | +Rerank (after) | Delta |")
         lines.append("|--------|--------------------:|----------------:|------:|")
         for metric, label in zip(metrics, labels):
             b = before.get(metric, 0)
             a = after.get(metric, 0)
             d = a - b
             if abs(d) < 0.001:
-                icon = "—"
+                icon = "\u2014"
             elif d > 0:
                 icon = f"+{d:.4f}"
             else:

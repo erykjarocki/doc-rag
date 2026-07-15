@@ -23,7 +23,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 0.5,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.25
     },
     {
       "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
@@ -48,7 +52,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
@@ -73,7 +81,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
@@ -98,7 +110,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
@@ -123,7 +139,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.25
     },
     {
       "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
@@ -149,7 +169,11 @@
       ],
       "recall_at_k": 0.5,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 0.5,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
@@ -174,7 +198,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
@@ -199,7 +227,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 1.0
     },
     {
       "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off?_reranked",
@@ -224,7 +256,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 0.5,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?_reranked",
@@ -249,7 +285,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?_reranked",
@@ -274,7 +314,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?_reranked",
@@ -299,7 +343,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?_reranked",
@@ -324,7 +372,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?_reranked",
@@ -350,7 +402,11 @@
       ],
       "recall_at_k": 0.5,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 0.5,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?_reranked",
@@ -375,7 +431,11 @@
       ],
       "recall_at_k": 0.0,
       "precision_at_k": 0.0,
-      "reciprocal_rank": 0.3333333333333333
+      "reciprocal_rank": 0.3333333333333333,
+      "recall_at_2": 0.0,
+      "precision_at_2": 0.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?_reranked",
@@ -400,7 +460,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "What is the financial threshold that upgrades a Tier-2 logistics incident to a Critical Exception requiring Regional VP sign-off? (pipeline)",
@@ -425,7 +489,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 0.5,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system? (pipeline)",
@@ -450,7 +518,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority? (pipeline)",
@@ -475,7 +547,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000? (pipeline)",
@@ -500,7 +576,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "What is the maximum number of remote work days allowed per month under the US remote work policy? (pipeline)",
@@ -525,7 +605,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status? (pipeline)",
@@ -551,7 +635,11 @@
       ],
       "recall_at_k": 0.5,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 0.5,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer? (pipeline)",
@@ -576,7 +664,11 @@
       ],
       "recall_at_k": 0.0,
       "precision_at_k": 0.0,
-      "reciprocal_rank": 0.3333333333333333
+      "reciprocal_rank": 0.3333333333333333,
+      "recall_at_2": 0.0,
+      "precision_at_2": 0.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed? (pipeline)",
@@ -601,13 +693,19 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     }
   ],
   "metrics": {
     "recall_at_2": 0.8542,
     "precision_at_2": 0.7292,
-    "mrr": 0.8819
+    "mrr": 0.8819,
+    "recall_at_4": 1.0,
+    "precision_at_4": 0.6042
   },
   "rerank_queries": [
     {
@@ -633,7 +731,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 0.5,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.25
     },
     {
       "query": "What is the maximum allowable psi for Valve-B on the H2-Nexus cargo handling system?",
@@ -658,7 +760,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "Who is the current Vice President of Operations for the EMEA Division, and which hubs fall under their authority?",
@@ -683,7 +789,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What are the three mandatory approval tiers in the dual-authorization framework for capital expenditures above $50,000?",
@@ -708,7 +818,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.75
     },
     {
       "query": "What is the maximum number of remote work days allowed per month under the US remote work policy?",
@@ -733,7 +847,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.25
     },
     {
       "query": "What minimum tonnage must a supplier have handled in the past 24 months to qualify for Tier-1 status?",
@@ -759,7 +877,11 @@
       ],
       "recall_at_k": 0.5,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 0.5,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "Within how many hours must a Level-3 regulatory breach be reported to the Chief Compliance Officer?",
@@ -784,7 +906,11 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 0.5,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 0.5,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5
     },
     {
       "query": "What is the maximum probation period for remote workers in the EMEA region before their arrangement is reviewed?",
@@ -809,24 +935,34 @@
       ],
       "recall_at_k": 1.0,
       "precision_at_k": 1.0,
-      "reciprocal_rank": 1.0
+      "reciprocal_rank": 1.0,
+      "recall_at_2": 1.0,
+      "precision_at_2": 1.0,
+      "recall_at_4": 1.0,
+      "precision_at_4": 1.0
     }
   ],
   "rerank_metrics": {
     "recall_at_2": 0.9375,
     "precision_at_2": 0.6875,
-    "mrr": 0.9375
+    "mrr": 0.9375,
+    "recall_at_4": 1.0,
+    "precision_at_4": 0.5625
   },
   "pipeline_comparison": {
     "before": {
       "recall_at_2": 0.8542,
       "precision_at_2": 0.7292,
-      "mrr": 0.8819
+      "mrr": 0.8819,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.6042
     },
     "after": {
       "recall_at_2": 0.9375,
       "precision_at_2": 0.6875,
-      "mrr": 0.9375
+      "mrr": 0.9375,
+      "recall_at_4": 1.0,
+      "precision_at_4": 0.5625
     }
   },
   "rerank_detail": [
