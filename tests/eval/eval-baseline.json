@@ -4468,7 +4468,7 @@
         {
           "rank": 2,
           "text": "my brother’s face glitched, like a flash of static snow on a television set. As his face settled back to normal to a deadpan gaze, he disappeared in the innocuous room. I followed, running on nothing but fumes.\n\nClutching the doorway, my mouth fell agape. Perry was gone. I darted to the middle of the room.\n\nAs I frantically searched for my brother, I shielded my eyes with the back of my hand from the projector’s light. And that’s when, from behind me, I heard five words that made my blood run cold, “Jackie! Stop the fucking car!”\n\nI was convulsing yet paralyzed. Moving as slowly as cold molasses, I rotated on the spot towards my worst nightmare, shown on 35 mm. On the projector screen was Perry and me in my car, exactly seven hundred and thirty days ago, the day I almost kill—\n\nOh my God.\n\nMy head pounded as fragmented memories surged. The reality of what happened began to crystallize, unrelenting.\n\nMy joints ached and my stomach churned. Clampi",
-          "score": 0.7828,
+          "score": 0.7829,
           "source_file": "doc_14.txt",
           "is_relevant": true
         }
@@ -5421,7 +5421,7 @@
           "before": 18,
           "after": 17,
           "delta": 1,
-          "bi_score": 0.7643,
+          "bi_score": 0.7644,
           "ce_score": -11.2639
         },
         {
@@ -5826,7 +5826,7 @@
           "rank": 2,
           "source_file": "doc_01.txt",
           "bi_score": 0.7804,
-          "ce_score": -3.679,
+          "ce_score": -3.6791,
           "text_preview": "sure if the same underground river, or another water source, is nearby, you can see quite a bit of ground water does funnel down into this area. Seeking the next burrowed entrance left by the Kryn...\n…",
           "is_relevant": true
         },
@@ -5966,7 +5966,7 @@
           "after": 2,
           "delta": 9,
           "bi_score": 0.7804,
-          "ce_score": -3.679
+          "ce_score": -3.6791
         },
         {
           "source_file": "doc_16.txt",
@@ -6434,7 +6434,7 @@
           "rank": 3,
           "source_file": "doc_02.txt",
           "bi_score": 0.7618,
-          "ce_score": -4.7577,
+          "ce_score": -4.7578,
           "text_preview": "d done the research and written all of the code, while I was writing this blog, I read about llmware, a very promising Python framework for building RAG pipelines with small models (sound familiar?). …",
           "is_relevant": true
         },
@@ -6614,7 +6614,7 @@
           "after": 3,
           "delta": 14,
           "bi_score": 0.7618,
-          "ce_score": -4.7577
+          "ce_score": -4.7578
         },
         {
           "source_file": "doc_03.txt",
@@ -8542,7 +8542,7 @@
           "rank": 4,
           "source_file": "doc_06.txt",
           "bi_score": 0.7969,
-          "ce_score": -6.4276,
+          "ce_score": -6.4277,
           "text_preview": "sk management systems to ensure their compliance with the new requirements and minimise risks for users and affected persons, even after a product is placed on the market.\n\nHigh-risk AI systems that a…",
           "is_relevant": true
         },
@@ -8610,7 +8610,7 @@
           "after": 4,
           "delta": 0,
           "bi_score": 0.7969,
-          "ce_score": -6.4276
+          "ce_score": -6.4277
         },
         {
           "source_file": "doc_06.txt",
@@ -8834,7 +8834,7 @@
           "rank": 3,
           "source_file": "doc_06.txt",
           "bi_score": 0.8677,
-          "ce_score": 2.2383,
+          "ce_score": 2.2384,
           "text_preview": "I models that were trained using a total computing power of more than 10^25 FLOPs are considered to carry systemic risks, given that models trained with larger compute tend to be more powerful. The AI…",
           "is_relevant": true
         },
@@ -8886,7 +8886,7 @@
           "after": 3,
           "delta": -2,
           "bi_score": 0.8677,
-          "ce_score": 2.2383
+          "ce_score": 2.2384
         },
         {
           "source_file": "doc_06.txt",
@@ -9266,7 +9266,7 @@
           "after": 9,
           "delta": 2,
           "bi_score": 0.8326,
-          "ce_score": 0.2541
+          "ce_score": 0.254
         },
         {
           "source_file": "doc_07.txt",
@@ -10066,7 +10066,7 @@
           "rank": 7,
           "source_file": "doc_08.txt",
           "bi_score": 0.7907,
-          "ce_score": -8.3277,
+          "ce_score": -8.3278,
           "text_preview": "or dinner! Don’t let your croutons burn!\n\n\nI loved reading about all of your happy places in the comments of last week’s post! My number one takeaway is that I need to spend more time in Maine — so ma…",
           "is_relevant": true
         },
@@ -10110,7 +10110,7 @@
           "after": 20,
           "delta": -16,
           "bi_score": 0.8027,
-          "ce_score": -11.1691
+          "ce_score": -11.1692
         },
         {
           "source_file": "doc_08.txt",
@@ -10166,7 +10166,7 @@
           "after": 7,
           "delta": 4,
           "bi_score": 0.7907,
-          "ce_score": -8.3277
+          "ce_score": -8.3278
         },
         {
           "source_file": "doc_14.txt",
@@ -12774,7 +12774,7 @@
           "rank": 8,
           "source_file": "doc_13.txt",
           "bi_score": 0.8211,
-          "ce_score": -7.5743,
+          "ce_score": -7.5744,
           "text_preview": "# attn_weights.shape = (B, T, T)\n        attn_weights = attn_weights + self._causal_mask\n        attn_weights = mx.softmax(attn_weights, axis=-1)\n        o = (attn_weights @ V) # (B, T, head_size)\nNow…",
           "is_relevant": true
         }
@@ -12914,7 +12914,7 @@
           "after": 8,
           "delta": 9,
           "bi_score": 0.8211,
-          "ce_score": -7.5743
+          "ce_score": -7.5744
         },
         {
           "source_file": "doc_13.txt",
@@ -13350,7 +13350,7 @@
           "rank": 5,
           "source_file": "doc_14.txt",
           "bi_score": 0.7967,
-          "ce_score": -4.2906,
+          "ce_score": -4.2907,
           "text_preview": "upstairs.\n\nI found Perry standing at the end of the ominous hallway. Large, empty picture frames lined the oxblood walls leading up to him. Through the doorway where Perry stood, particles in the air …",
           "is_relevant": true
         },
@@ -13418,7 +13418,7 @@
           "after": 5,
           "delta": 0,
           "bi_score": 0.7967,
-          "ce_score": -4.2906
+          "ce_score": -4.2907
         },
         {
           "source_file": "doc_14.txt",
@@ -14082,7 +14082,7 @@
           "after": 13,
           "delta": 0,
           "bi_score": 0.806,
-          "ce_score": -8.881
+          "ce_score": -8.8809
         },
         {
           "source_file": "doc_15.txt",
@@ -16374,7 +16374,7 @@
           "rank": 8,
           "source_file": "doc_19.txt",
           "bi_score": 0.8347,
-          "ce_score": -0.4803,
+          "ce_score": -0.4804,
           "text_preview": "LMs for various purposes. The information retrieved through\nRAG is derived from real-world data, authored\nby humans, which not only simplifies the generation process but also increases the reliability…",
           "is_relevant": true
         }
@@ -16466,7 +16466,7 @@
           "after": 8,
           "delta": 3,
           "bi_score": 0.8347,
-          "ce_score": -0.4803
+          "ce_score": -0.4804
         },
         {
           "source_file": "doc_19.txt",
@@ -16658,7 +16658,7 @@
           "rank": 6,
           "source_file": "doc_02.txt",
           "bi_score": 0.8055,
-          "ce_score": -3.7014,
+          "ce_score": -3.7015,
           "text_preview": "dy know.\n\nBecause the documents in my evaluation corpus need to be thousands of words in length while staying relevant to a topic and they need to include information that will not be in the LLM’s tra…",
           "is_relevant": false
         },
@@ -16750,7 +16750,7 @@
           "after": 15,
           "delta": -6,
           "bi_score": 0.8206,
-          "ce_score": -6.3161
+          "ce_score": -6.3162
         },
         {
           "source_file": "doc_19.txt",
@@ -16838,7 +16838,7 @@
           "after": 6,
           "delta": 14,
           "bi_score": 0.8055,
-          "ce_score": -3.7014
+          "ce_score": -3.7015
         }
       ]
     },
@@ -17199,7 +17199,7 @@
         {
           "rank": 7,
           "source_file": "doc_16.txt",
-          "bi_score": 0.7998,
+          "bi_score": 0.7999,
           "ce_score": null,
           "text_preview": "ed and resumed, so it can be completed in multiple sessions.\nYou now also replay the original difficulty even if you've already completed it. (Previously it would increase difficulty automatically, wh…",
           "is_relevant": false
@@ -17333,7 +17333,7 @@
           "before": 7,
           "after": 17,
           "delta": -10,
-          "bi_score": 0.7998,
+          "bi_score": 0.7999,
           "ce_score": -11.367
         },
         {
@@ -19326,7 +19326,7 @@
           "rank": 2,
           "source_file": "doc_04.txt",
           "bi_score": 0.8467,
-          "ce_score": 3.4287,
+          "ce_score": 3.4286,
           "text_preview": "uping UI elements together\nCreate an array of UI elements\nUse cases. In order to synchronize UI elements between the frontend and backend (Python), marimo requires you to assign UI elements to global …",
           "is_relevant": true
         },
@@ -19374,7 +19374,7 @@
           "rank": 8,
           "source_file": "doc_04.txt",
           "bi_score": 0.8034,
-          "ce_score": -4.3421,
+          "ce_score": -4.3422,
           "text_preview": "ython list won't work.\nbuttons = mo.ui.array(\n    [\n        mo.ui.button(\n            label=\"button \" + str(i), on_change=lambda v, i=i: set_state(i)\n        )\n        for i in range(random.randint(2,…",
           "is_relevant": true
         }
@@ -19386,7 +19386,7 @@
           "after": 2,
           "delta": -1,
           "bi_score": 0.8467,
-          "ce_score": 3.4287
+          "ce_score": 3.4286
         },
         {
           "source_file": "doc_04.txt",
@@ -19442,7 +19442,7 @@
           "after": 8,
           "delta": 0,
           "bi_score": 0.8034,
-          "ce_score": -4.3421
+          "ce_score": -4.3422
         },
         {
           "source_file": "doc_04.txt",
@@ -19766,7 +19766,7 @@
           "after": 13,
           "delta": -2,
           "bi_score": 0.8137,
-          "ce_score": -1.637
+          "ce_score": -1.6369
         },
         {
           "source_file": "doc_19.txt",
@@ -20730,7 +20730,7 @@
           "after": 16,
           "delta": 3,
           "bi_score": 0.8318,
-          "ce_score": -0.5412
+          "ce_score": -0.5411
         },
         {
           "source_file": "doc_06.txt",
@@ -23218,7 +23218,7 @@
           "rank": 1,
           "source_file": "doc_10.txt",
           "bi_score": 0.8001,
-          "ce_score": -2.4472,
+          "ce_score": -2.4473,
           "text_preview": "manicfesto proposals\n26m tonnes of waste plastic bottles are discarded every year in the UK of which only 45% are recycled. The Loony Party has the answer.. Stop making them..\n\nBefore you ask…We have …",
           "is_relevant": true
         },
@@ -23294,7 +23294,7 @@
           "after": 1,
           "delta": 1,
           "bi_score": 0.8001,
-          "ce_score": -2.4472
+          "ce_score": -2.4473
         },
         {
           "source_file": "doc_10.txt",
@@ -23818,7 +23818,7 @@
           "rank": 1,
           "source_file": "doc_19.txt",
           "bi_score": 0.7724,
-          "ce_score": 1.835,
+          "ce_score": 1.8349,
           "text_preview": "assage Search via Contextualized Late Interaction over BERT. In Proceedings of\nthe 43rd International ACM SIGIR Conference on\nResearch and Development in Information Retrieval,\npages 39–48. ACM.\nTom K…",
           "is_relevant": false
         },
@@ -23942,7 +23942,7 @@
           "after": 1,
           "delta": 7,
           "bi_score": 0.7724,
-          "ce_score": 1.835
+          "ce_score": 1.8349
         },
         {
           "source_file": "doc_19.txt",
@@ -25259,7 +25259,7 @@
         {
           "rank": 2,
           "source_file": "doc_14.txt",
-          "bi_score": 0.7828,
+          "bi_score": 0.7829,
           "ce_score": null,
           "text_preview": "my brother’s face glitched, like a flash of static snow on a television set. As his face settled back to normal to a deadpan gaze, he disappeared in the innocuous room. I followed, running on nothing …",
           "is_relevant": true
@@ -25333,7 +25333,7 @@
         {
           "rank": 3,
           "source_file": "doc_14.txt",
-          "bi_score": 0.7828,
+          "bi_score": 0.7829,
           "ce_score": -6.2958,
           "text_preview": "my brother’s face glitched, like a flash of static snow on a television set. As his face settled back to normal to a deadpan gaze, he disappeared in the innocuous room. I followed, running on nothing …",
           "is_relevant": true
@@ -25393,7 +25393,7 @@
           "before": 2,
           "after": 3,
           "delta": -1,
-          "bi_score": 0.7828,
+          "bi_score": 0.7829,
           "ce_score": -6.2958
         },
         {
@@ -25634,7 +25634,7 @@
           "rank": 3,
           "source_file": "doc_14.txt",
           "bi_score": 0.8105,
-          "ce_score": -8.7401,
+          "ce_score": -8.7402,
           "text_preview": "ey died.”\n\nI felt a shiver run down my spine, “What are you talking about?”\n\nAs Perry continued to speak, his words grew even more detached. \"Do you remember that first drink Dad ever gave you?\"\n\nMy e…",
           "is_relevant": true
         },
@@ -25686,7 +25686,7 @@
           "after": 3,
           "delta": -2,
           "bi_score": 0.8105,
-          "ce_score": -8.7401
+          "ce_score": -8.7402
         },
         {
           "source_file": "doc_14.txt",
@@ -27474,7 +27474,7 @@
           "rank": 8,
           "source_file": "doc_17.txt",
           "bi_score": 0.8159,
-          "ce_score": -4.8672,
+          "ce_score": -4.8673,
           "text_preview": "finds a very-shaken Alan Wake washed up on the shore of the lake and takes him into custody while also discovering evidence that an organization called the Federal Bureau of Control has a presence in …",
           "is_relevant": true
         }
@@ -27486,7 +27486,7 @@
           "after": 8,
           "delta": -7,
           "bi_score": 0.8159,
-          "ce_score": -4.8672
+          "ce_score": -4.8673
         },
         {
           "source_file": "doc_17.txt",
